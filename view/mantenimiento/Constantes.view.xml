@@ -1,0 +1,62 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.mantenimiento.Constantes"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="Constantes"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <headerContent>
+            <Button text="+ Agregar Nuevo" type="Emphasized" press="onAddConstante"/>
+            <Button icon="sap-icon://refresh" type="Transparent" press="onRefresh" tooltip="Actualizar"/>
+        </headerContent>
+
+        <content>
+            <Panel id="panelConstantes" expandable="true" expanded="true" class="mtnListPanel">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Elementos ({= (${mantenimiento>/constantes} || []).length})" level="H5"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <Table
+                    id="tableConstantes"
+                    items="{mantenimiento>/constantes}"
+                    noDataText="No se encontraron registros"
+                    growing="true"
+                    growingThreshold="10">
+                    <columns>
+                        <Column width="12rem"><Text text="Código"/></Column>
+                        <Column><Text text="Descripción"/></Column>
+                        <Column width="12rem"><Text text="Valor Principal"/></Column>
+                        <Column width="9rem"><Text text="Categoría"/></Column>
+                        <Column width="7rem"><Text text="Estado"/></Column>
+                        <Column width="9rem" hAlign="Center"><Text text="Acciones"/></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation" press="onConstanteRowPress">
+                            <cells>
+                                <Link text="{mantenimiento>codigo}" press="onConstanteRowPress" class="mtnCodeLink"/>
+                                <Text text="{mantenimiento>descripcion}"/>
+                                <Text text="{mantenimiento>valorPrincipal}"/>
+                                <Text text="{mantenimiento>categoria}"/>
+                                <ObjectStatus
+                                    text="{= ${mantenimiento>estado} ? 'Activo' : 'Inactivo'}"
+                                    state="{= ${mantenimiento>estado} ? 'Success' : 'Error'}"/>
+                                <HBox>
+                                    <Button icon="sap-icon://edit"   type="Transparent" tooltip="Editar"   press="onEditConstante"/>
+                                    <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteConstante"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

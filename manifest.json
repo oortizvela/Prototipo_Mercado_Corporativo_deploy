@@ -1,0 +1,326 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "com.claro.compras.portal",
+        "type": "application",
+        "i18n": {
+            "bundleName": "com.claro.compras.portal.i18n.i18n",
+            "supportedLocales": [""],
+            "fallbackLocale": ""
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "dataSources": {
+            "requerimientos": {
+                "uri": "model/mockdata/requerimientos.json",
+                "type": "JSON"
+            },
+            "aprobaciones": {
+                "uri": "model/mockdata/aprobaciones.json",
+                "type": "JSON"
+            },
+            "proveedores": {
+                "uri": "model/mockdata/proveedores.json",
+                "type": "JSON"
+            },
+            "materiales": {
+                "uri": "model/mockdata/materiales.json",
+                "type": "JSON"
+            },
+            "centrosCosto": {
+                "uri": "model/mockdata/centrosCosto.json",
+                "type": "JSON"
+            },
+            "lineasNegocio": {
+                "uri": "model/mockdata/lineasNegocio.json",
+                "type": "JSON"
+            },
+            "tiposMC": {
+                "uri": "model/mockdata/tiposMC.json",
+                "type": "JSON"
+            },
+            "clientesMC": {
+                "uri": "model/mockdata/clientesMC.json",
+                "type": "JSON"
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://purchase-order"
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "com.claro.compras.portal.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {},
+                "sap.f": {},
+                "sap.uxap": {},
+                "sap.ui.unified": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.claro.compras.portal.i18n.i18n",
+                    "supportedLocales": [""],
+                    "fallbackLocale": ""
+                }
+            },
+            "lineasNegocio": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "lineasNegocio"
+            },
+            "tiposMC": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "tiposMC"
+            },
+            "clientesMC": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "clientesMC"
+            }
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.claro.compras.portal.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": "notFound"
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "portal",
+                    "target": "portal"
+                },
+                {
+                    "pattern": "requerimiento",
+                    "name": "requerimientoList",
+                    "target": "requerimientoList"
+                },
+                {
+                    "pattern": "requerimiento/crear",
+                    "name": "requerimientoCreate",
+                    "target": "requerimientoCreate"
+                },
+                {
+                    "pattern": "requerimiento/{reqId}",
+                    "name": "requerimientoDetail",
+                    "target": "requerimientoDetail"
+                },
+                {
+                    "pattern": "aprobaciones",
+                    "name": "aprobacionesList",
+                    "target": "aprobacionesList"
+                },
+                {
+                    "pattern": "aprobaciones/{aprId}",
+                    "name": "aprobacionesDetail",
+                    "target": "aprobacionesDetail"
+                },
+                {
+                    "pattern": "mantenimiento",
+                    "name": "mantenimientoMain",
+                    "target": "mantenimientoMain"
+                },
+                {
+                    "pattern": "mantenimiento/constantes",
+                    "name": "mantenimientoConstantes",
+                    "target": "mantenimientoConstantes"
+                },
+                {
+                    "pattern": "mantenimiento/niveles",
+                    "name": "mantenimientoNiveles",
+                    "target": "mantenimientoNiveles"
+                },
+                {
+                    "pattern": "mantenimiento/marcaProveedor",
+                    "name": "mantenimientoMarcaProveedor",
+                    "target": "mantenimientoMarcaProveedor"
+                },
+                {
+                    "pattern": "mc/requerimiento",
+                    "name": "mcRequerimientoList",
+                    "target": "mcRequerimientoList"
+                },
+                {
+                    "pattern": "mc/requerimiento/crear",
+                    "name": "mcRequerimientoCreate",
+                    "target": "mcRequerimientoCreate"
+                },
+                {
+                    "pattern": "mc/requerimiento/{reqId}",
+                    "name": "mcRequerimientoDetail",
+                    "target": "mcRequerimientoDetail"
+                },
+                {
+                    "pattern": "mc/aprobaciones",
+                    "name": "mcAprobacionesList",
+                    "target": "mcAprobacionesList"
+                },
+                {
+                    "pattern": "mc/aprobaciones/{aprId}",
+                    "name": "mcAprobacionesDetail",
+                    "target": "mcAprobacionesDetail"
+                },
+                {
+                    "pattern": "mc/mantenimiento",
+                    "name": "mcMantenimientoMain",
+                    "target": "mcMantenimientoMain"
+                },
+                {
+                    "pattern": "mc/mantenimiento/lineasNegocio",
+                    "name": "mcLineasNegocio",
+                    "target": "mcLineasNegocio"
+                },
+                {
+                    "pattern": "mc/mantenimiento/tiposMC",
+                    "name": "mcTiposMC",
+                    "target": "mcTiposMC"
+                },
+                {
+                    "pattern": "mc/mantenimiento/clientesMC",
+                    "name": "mcClientesMC",
+                    "target": "mcClientesMC"
+                }
+            ],
+            "targets": {
+                "portal": {
+                    "viewId": "portal",
+                    "viewName": "Portal",
+                    "viewLevel": 1
+                },
+                "requerimientoList": {
+                    "viewId": "requerimientoList",
+                    "viewName": "requerimiento.List",
+                    "viewLevel": 2
+                },
+                "requerimientoCreate": {
+                    "viewId": "requerimientoCreate",
+                    "viewName": "requerimiento.Create",
+                    "viewLevel": 3
+                },
+                "requerimientoDetail": {
+                    "viewId": "requerimientoDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "aprobacionesList": {
+                    "viewId": "aprobacionesList",
+                    "viewName": "aprobaciones.List",
+                    "viewLevel": 2
+                },
+                "aprobacionesDetail": {
+                    "viewId": "aprobacionesDetail",
+                    "viewName": "aprobaciones.Detail",
+                    "viewLevel": 3
+                },
+                "mantenimientoMain": {
+                    "viewId": "mantenimientoMain",
+                    "viewName": "mantenimiento.Main",
+                    "viewLevel": 2
+                },
+                "mantenimientoConstantes": {
+                    "viewId": "mantenimientoConstantes",
+                    "viewName": "mantenimiento.Constantes",
+                    "viewLevel": 3
+                },
+                "mantenimientoNiveles": {
+                    "viewId": "mantenimientoNiveles",
+                    "viewName": "mantenimiento.NivelesAprobacion",
+                    "viewLevel": 3
+                },
+                "mantenimientoMarcaProveedor": {
+                    "viewId": "mantenimientoMarcaProveedor",
+                    "viewName": "mantenimiento.MarcaProveedor",
+                    "viewLevel": 3
+                },
+                "mcRequerimientoList": {
+                    "viewId": "mcRequerimientoList",
+                    "viewName": "requerimiento.List",
+                    "viewLevel": 2
+                },
+                "mcRequerimientoCreate": {
+                    "viewId": "mcRequerimientoCreate",
+                    "viewName": "requerimiento.Create",
+                    "viewLevel": 3
+                },
+                "mcRequerimientoDetail": {
+                    "viewId": "mcRequerimientoDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "mcAprobacionesList": {
+                    "viewId": "mcAprobacionesList",
+                    "viewName": "aprobaciones.List",
+                    "viewLevel": 2
+                },
+                "mcAprobacionesDetail": {
+                    "viewId": "mcAprobacionesDetail",
+                    "viewName": "aprobaciones.Detail",
+                    "viewLevel": 3
+                },
+                "mcMantenimientoMain": {
+                    "viewId": "mcMantenimientoMain",
+                    "viewName": "mantenimiento.Main",
+                    "viewLevel": 2
+                },
+                "mcLineasNegocio": {
+                    "viewId": "mcLineasNegocio",
+                    "viewName": "mantenimiento.LineasNegocio",
+                    "viewLevel": 3
+                },
+                "mcTiposMC": {
+                    "viewId": "mcTiposMC",
+                    "viewName": "mantenimiento.TiposMC",
+                    "viewLevel": 3
+                },
+                "mcClientesMC": {
+                    "viewId": "mcClientesMC",
+                    "viewName": "mantenimiento.ClientesMC",
+                    "viewLevel": 3
+                },
+                "notFound": {
+                    "viewId": "notFound",
+                    "viewName": "NotFound",
+                    "viewLevel": 1
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,1203 @@
+﻿{
+    "requerimientos":  [
+                           {
+                               "reqId":  "REQ-2026-910908",
+                               "titulo":  "ggggg",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Derivado",
+                               "estado":  "Rechazado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "anibalmauricio.marloaguilar@emeal.nttdata.com",
+                               "fechaCreacion":  "17.04.2026 18:55",
+                               "ultimaModificacion":  "17.04.2026 18:58",
+                               "validoHasta":  "16.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY S24",
+                                                 "codigo":  "SM-S931BZSLLTP",
+                                                 "codigoMaterial":  "70063499",
+                                                 "color":  "SILVER SHADOW",
+                                                 "cantidad":  300,
+                                                 "precioFacturacion":  705.00,
+                                                 "virUnitario":  0.00,
+                                                 "totalFacturacion":  211500.00,
+                                                 "totalVir":  1250.00,
+                                                 "totalNeto":  211500.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  2961.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  2538.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "17.04.2026 18:58",
+                                                           "comentario":  "f"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "17.04.2026 18:58",
+                                                           "comentario":  "f"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-042778",
+                               "titulo":  "Test Derivado",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Derivado",
+                               "estado":  "Finalizado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "10.04.2026 09:00",
+                               "ultimaModificacion":  "14.04.2026 15:30",
+                               "validoHasta":  "30.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY S24+",
+                                                 "codigo":  "SM-S926BZKGLTP",
+                                                 "codigoMaterial":  "70063501",
+                                                 "color":  "ONYX BLACK",
+                                                 "cantidad":  150,
+                                                 "precioFacturacion":  850.00,
+                                                 "virUnitario":  15.00,
+                                                 "totalFacturacion":  127500.00,
+                                                 "totalVir":  2250.00,
+                                                 "totalNeto":  125250.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  1200.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  1050.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "11.04.2026 10:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "12.04.2026 11:00",
+                                                           "comentario":  "OK"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24+",
+                                                           "periodo":  "Enero 2026",
+                                                           "cantidad":  120
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24+",
+                                                           "periodo":  "Febrero 2026",
+                                                           "cantidad":  135
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24+",
+                                                           "periodo":  "Marzo 2026",
+                                                           "cantidad":  148
+                                                       }
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-934700",
+                               "titulo":  "Test 99999",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Finalizado",
+                               "numeroOC":  "4500123456",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "08.04.2026 10:15",
+                               "ultimaModificacion":  "12.04.2026 09:45",
+                               "validoHasta":  "30.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY A55",
+                                                 "codigo":  "SM-A556BZKGLTP",
+                                                 "codigoMaterial":  "70063410",
+                                                 "color":  "AWESOME NAVY",
+                                                 "cantidad":  500,
+                                                 "precioFacturacion":  420.00,
+                                                 "virUnitario":  10.00,
+                                                 "totalFacturacion":  210000.00,
+                                                 "totalVir":  5000.00,
+                                                 "totalNeto":  205000.00
+                                             },
+                                             {
+                                                 "no":  2,
+                                                 "modelo":  "SAMSUNG GALAXY A35",
+                                                 "codigo":  "SM-A356BZKGLTP",
+                                                 "codigoMaterial":  "70063411",
+                                                 "color":  "AWESOME ICEBLUE",
+                                                 "cantidad":  300,
+                                                 "precioFacturacion":  320.00,
+                                                 "virUnitario":  8.00,
+                                                 "totalFacturacion":  96000.00,
+                                                 "totalVir":  2400.00,
+                                                 "totalNeto":  93600.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  3500.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  3900.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "09.04.2026 08:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "10.04.2026 09:00",
+                                                           "comentario":  "Conforme"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A55",
+                                                           "periodo":  "Enero 2026",
+                                                           "cantidad":  480
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A55",
+                                                           "periodo":  "Febrero 2026",
+                                                           "cantidad":  510
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A55",
+                                                           "periodo":  "Marzo 2026",
+                                                           "cantidad":  495
+                                                       }
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-740449",
+                               "titulo":  "Test 9999",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Derivado",
+                               "estado":  "Rechazado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "05.04.2026 11:30",
+                               "ultimaModificacion":  "07.04.2026 16:00",
+                               "validoHasta":  "20.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY Z FOLD 6",
+                                                 "codigo":  "SM-F956BZKGLTP",
+                                                 "codigoMaterial":  "70063599",
+                                                 "color":  "NAVY",
+                                                 "cantidad":  50,
+                                                 "precioFacturacion":  1800.00,
+                                                 "virUnitario":  0.00,
+                                                 "totalFacturacion":  90000.00,
+                                                 "totalVir":  0.00,
+                                                 "totalNeto":  90000.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "06.04.2026 14:00",
+                                                           "comentario":  "Precio fuera de rango"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "07.04.2026 09:00",
+                                                           "comentario":  "No aprobado"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-733567",
+                               "titulo":  "Test 999",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Derivado",
+                               "estado":  "Finalizado",
+                               "numeroOC":  "4500123789",
+                               "numeroOCDerivada":  "4500123790",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "01.04.2026 09:00",
+                               "ultimaModificacion":  "04.04.2026 17:00",
+                               "validoHasta":  "15.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY S24 FE",
+                                                 "codigo":  "SM-S721BZKGLTP",
+                                                 "codigoMaterial":  "70063450",
+                                                 "color":  "GRAPHITE",
+                                                 "cantidad":  200,
+                                                 "precioFacturacion":  650.00,
+                                                 "virUnitario":  12.00,
+                                                 "totalFacturacion":  130000.00,
+                                                 "totalVir":  2400.00,
+                                                 "totalNeto":  127600.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  1400.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  1000.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "02.04.2026 10:00",
+                                                           "comentario":  "OK"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "03.04.2026 11:00",
+                                                           "comentario":  "Aprobado"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24 FE",
+                                                           "periodo":  "Enero 2026",
+                                                           "cantidad":  190
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24 FE",
+                                                           "periodo":  "Febrero 2026",
+                                                           "cantidad":  205
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S24 FE",
+                                                           "periodo":  "Marzo 2026",
+                                                           "cantidad":  215
+                                                       }
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-354348",
+                               "titulo":  "Test 99",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Rechazado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "28.03.2026 14:00",
+                               "ultimaModificacion":  "30.03.2026 10:30",
+                               "validoHasta":  "10.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY A15",
+                                                 "codigo":  "SM-A155FZKGLTP",
+                                                 "codigoMaterial":  "70063310",
+                                                 "color":  "BLACK",
+                                                 "cantidad":  1000,
+                                                 "precioFacturacion":  185.00,
+                                                 "virUnitario":  5.00,
+                                                 "totalFacturacion":  185000.00,
+                                                 "totalVir":  5000.00,
+                                                 "totalNeto":  180000.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  2500.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  2500.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "29.03.2026 09:00",
+                                                           "comentario":  "Volumen excesivo"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "30.03.2026 10:00",
+                                                           "comentario":  "Rechazado"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-604243",
+                               "titulo":  "Test tst",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Finalizado",
+                               "numeroOC":  "4500124100",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "25.03.2026 08:00",
+                               "ultimaModificacion":  "28.03.2026 17:00",
+                               "validoHasta":  "08.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY A05S",
+                                                 "codigo":  "SM-A057FZKGLTP",
+                                                 "codigoMaterial":  "70063220",
+                                                 "color":  "BLACK",
+                                                 "cantidad":  800,
+                                                 "precioFacturacion":  150.00,
+                                                 "virUnitario":  4.00,
+                                                 "totalFacturacion":  120000.00,
+                                                 "totalVir":  3200.00,
+                                                 "totalNeto":  116800.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  1600.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  1600.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "26.03.2026 10:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "27.03.2026 11:00",
+                                                           "comentario":  "OK"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A05S",
+                                                           "periodo":  "Enero 2026",
+                                                           "cantidad":  750
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A05S",
+                                                           "periodo":  "Febrero 2026",
+                                                           "cantidad":  820
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY A05S",
+                                                           "periodo":  "Marzo 2026",
+                                                           "cantidad":  790
+                                                       }
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-248732",
+                               "titulo":  "Test Solicitud",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Aprobado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "20.03.2026 09:00",
+                               "ultimaModificacion":  "22.03.2026 14:00",
+                               "validoHasta":  "05.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY S25",
+                                                 "codigo":  "SM-S931BZKGLTP",
+                                                 "codigoMaterial":  "70063600",
+                                                 "color":  "PHANTOM BLACK",
+                                                 "cantidad":  250,
+                                                 "precioFacturacion":  780.00,
+                                                 "virUnitario":  20.00,
+                                                 "totalFacturacion":  195000.00,
+                                                 "totalVir":  5000.00,
+                                                 "totalNeto":  190000.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  2500.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  2500.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "21.03.2026 10:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "En Proceso",
+                                                           "fecha":  "",
+                                                           "comentario":  ""
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S25",
+                                                           "periodo":  "Enero 2026",
+                                                           "cantidad":  200
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S25",
+                                                           "periodo":  "Febrero 2026",
+                                                           "cantidad":  230
+                                                       },
+                                                       {
+                                                           "marca":  "Samsung",
+                                                           "modelo":  "GALAXY S25",
+                                                           "periodo":  "Marzo 2026",
+                                                           "cantidad":  260
+                                                       }
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-204722",
+                               "titulo":  "Test 223",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Aprobado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "18.03.2026 11:00",
+                               "ultimaModificacion":  "20.03.2026 09:30",
+                               "validoHasta":  "01.04.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY A25",
+                                                 "codigo":  "SM-A256BZKGLTP",
+                                                 "codigoMaterial":  "70063380",
+                                                 "color":  "BLUE",
+                                                 "cantidad":  600,
+                                                 "precioFacturacion":  260.00,
+                                                 "virUnitario":  7.00,
+                                                 "totalFacturacion":  156000.00,
+                                                 "totalVir":  4200.00,
+                                                 "totalNeto":  151800.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  2100.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  2100.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "19.03.2026 09:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "En Proceso",
+                                                           "fecha":  "",
+                                                           "comentario":  ""
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-129595",
+                               "titulo":  "Test 222",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Enviado a Firma de Acta",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "15.03.2026 10:00",
+                               "ultimaModificacion":  "17.03.2026 16:00",
+                               "validoHasta":  "30.03.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY M15",
+                                                 "codigo":  "SM-M156BZKGLTP",
+                                                 "codigoMaterial":  "70063290",
+                                                 "color":  "GRAY",
+                                                 "cantidad":  400,
+                                                 "precioFacturacion":  210.00,
+                                                 "virUnitario":  6.00,
+                                                 "totalFacturacion":  84000.00,
+                                                 "totalVir":  2400.00,
+                                                 "totalNeto":  81600.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  1200.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  1200.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "16.03.2026 10:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "17.03.2026 12:00",
+                                                           "comentario":  "Enviado a firma"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-914186",
+                               "titulo":  "Prueba Q1",
+                               "marca":  "Samsung",
+                               "periodo":  "Enero a Marzo 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Enviado a Firma de Acta",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "10.03.2026 09:00",
+                               "ultimaModificacion":  "12.03.2026 15:00",
+                               "validoHasta":  "25.03.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "SAMSUNG GALAXY F15",
+                                                 "codigo":  "SM-E156BZKGLTP",
+                                                 "codigoMaterial":  "70063260",
+                                                 "color":  "JAZZ BLACK",
+                                                 "cantidad":  350,
+                                                 "precioFacturacion":  190.00,
+                                                 "virUnitario":  5.00,
+                                                 "totalFacturacion":  66500.00,
+                                                 "totalVir":  1750.00,
+                                                 "totalNeto":  64750.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  900.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  850.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe de PlanificaciÃ³n Comercial",
+                                                           "iniciales":  "JD",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "11.03.2026 10:00",
+                                                           "comentario":  "OK"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Compras",
+                                                           "iniciales":  "C",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "12.03.2026 14:00",
+                                                           "comentario":  "En firma"
+                                                       }
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-001001",
+                               "titulo":  "Solicitud Motorola Q2",
+                               "marca":  "Motorola",
+                               "periodo":  "Abril a Junio 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Borrador",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "23.04.2026 10:00",
+                               "ultimaModificacion":  "23.04.2026 10:00",
+                               "validoHasta":  "30.06.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "MOTOROLA EDGE 50",
+                                                 "codigo":  "XT2429-1",
+                                                 "codigoMaterial":  "80041100",
+                                                 "color":  "MIDNIGHT BLUE",
+                                                 "cantidad":  200,
+                                                 "precioFacturacion":  490.00,
+                                                 "virUnitario":  10.00,
+                                                 "totalFacturacion":  98000.00,
+                                                 "totalVir":  2000.00,
+                                                 "totalNeto":  96000.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+                                                  {
+                                                      "nombre":  "Fondo Sell Out",
+                                                      "monto":  1000.00
+                                                  },
+                                                  {
+                                                      "nombre":  "Pre Order",
+                                                      "monto":  1000.00
+                                                  }
+                                              ],
+                               "flujoAprobacion":  [
+
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-002002",
+                               "titulo":  "Solicitud Apple Q2",
+                               "marca":  "Apple",
+                               "periodo":  "Abril a Junio 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Borrador",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "23.04.2026 11:00",
+                               "ultimaModificacion":  "23.04.2026 11:00",
+                               "validoHasta":  "30.06.2026",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "modelo":  "APPLE IPHONE 16",
+                                                 "codigo":  "MLYU3LZ/A",
+                                                 "codigoMaterial":  "90011600",
+                                                 "color":  "BLACK",
+                                                 "cantidad":  100,
+                                                 "precioFacturacion":  1100.00,
+                                                 "virUnitario":  0.00,
+                                                 "totalFacturacion":  110000.00,
+                                                 "totalVir":  0.00,
+                                                 "totalNeto":  110000.00
+                                             }
+                                         ],
+                               "aportesVIR":  [
+
+                                              ],
+                               "flujoAprobacion":  [
+
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-2026-003003",
+                               "titulo":  "Solicitud Xiaomi Q2",
+                               "marca":  "Xiaomi",
+                               "periodo":  "Abril a Junio 2026",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Borrador",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
+                               "fechaCreacion":  "23.04.2026 12:00",
+                               "ultimaModificacion":  "23.04.2026 12:00",
+                               "validoHasta":  "30.06.2026",
+                               "items":  [
+
+                                         ],
+                               "aportesVIR":  [
+
+                                              ],
+                               "flujoAprobacion":  [
+
+                                                   ],
+                               "historialVentas":  [
+
+                                                   ],
+                               "mercado":  "local"
+                           },
+                           {
+                               "reqId":  "REQ-MC-2026-001",
+                               "mercado":  "corporativo",
+                               "titulo":  "Implementación Data Center Lima Norte – BCP",
+                               "tipoSolicitud":  "Proyectos / RFP",
+                               "cliente":  "Banco de Crédito del Perú",
+                               "lineaNegocio":  "Servicios Digitales / Cloud",
+                               "macroAreaFuncional":  "Proyectos / RFP",
+                               "areaFuncional":  "Servicios Cloud IaaS/Data Center y TI",
+                               "segmento":  "Servicios Cloud IaaS/Data Center y TI",
+                               "responsable":  "G. Zamorano",
+                               "oportunidadId":  "SF-2026-00423",
+                               "importeEstimadoUSD":  250000.00,
+                               "moneda":  "USD",
+                               "estado":  "Pendiente Aprobación",
+                               "creadoPor":  "miguel.caballero@claro.com.pe",
+                               "fechaCreacion":  "10.04.2026 09:00",
+                               "ultimaModificacion":  "15.04.2026 14:30",
+                               "descripcionTecnica":  "Implementación de infraestructura cloud privada (servidores, almacenamiento, redes) para el nuevo Data Center de la región Lima Norte. El alcance incluye la instalación de servidores HPE ProLiant, switches Cisco Catalyst y solución de almacenamiento NetApp.",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "descripcion":  "Servidor HPE ProLiant DL380 Gen10",
+                                                 "cantidad":  5,
+                                                 "unidad":  "UND",
+                                                 "precioUnitarioUSD":  15000.00,
+                                                 "totalUSD":  75000.00,
+                                                 "proveedor":  "HP Inc. Perú SAC"
+                                             },
+                                             {
+                                                 "no":  2,
+                                                 "descripcion":  "Switch Cisco Catalyst 9300 48P",
+                                                 "cantidad":  10,
+                                                 "unidad":  "UND",
+                                                 "precioUnitarioUSD":  8500.00,
+                                                 "totalUSD":  85000.00,
+                                                 "proveedor":  "Cisco Systems Perú SAC"
+                                             },
+                                             {
+                                                 "no":  3,
+                                                 "descripcion":  "Almacenamiento NetApp AFF A250",
+                                                 "cantidad":  2,
+                                                 "unidad":  "UND",
+                                                 "precioUnitarioUSD":  45000.00,
+                                                 "totalUSD":  90000.00,
+                                                 "proveedor":  "Oracle Perú SAC"
+                                             }
+                                         ],
+                               "evaluacionFinanciera":  {
+                                                            "costos":  225000.00,
+                                                            "ingresos":  320000.00,
+                                                            "margen":  29.69,
+                                                            "roi":  42.22
+                                                        },
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe Área Usuaria",
+                                                           "iniciales":  "MC",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "12.04.2026 10:00",
+                                                           "comentario":  "Conforme con la propuesta técnica"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 2",
+                                                           "rol":  "Gerencia Área Usuaria",
+                                                           "iniciales":  "GU",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "13.04.2026 11:30",
+                                                           "comentario":  "Aprobado. Proceder con Compras."
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Sub Dirección Área Usuaria",
+                                                           "iniciales":  "SD",
+                                                           "estado":  "Pendiente",
+                                                           "fecha":  "",
+                                                           "comentario":  ""
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 4",
+                                                           "rol":  "Dirección Área Usuaria",
+                                                           "iniciales":  "DA",
+                                                           "estado":  "Pendiente",
+                                                           "fecha":  "",
+                                                           "comentario":  ""
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 5",
+                                                           "rol":  "Analista Compras",
+                                                           "iniciales":  "AC",
+                                                           "estado":  "Pendiente",
+                                                           "fecha":  "",
+                                                           "comentario":  ""
+                                                       }
+                                                   ]
+                           },
+                           {
+                               "reqId":  "REQ-MC-2026-002",
+                               "mercado":  "corporativo",
+                               "titulo":  "Servicios de Ciberseguridad – Municipalidad Miraflores",
+                               "tipoSolicitud":  "Continuidad Tecnológica y de Servicios",
+                               "cliente":  "Municipalidad de Miraflores",
+                               "lineaNegocio":  "Operaciones y Soporte",
+                               "macroAreaFuncional":  "Continuidad Tecnológica y de Servicios",
+                               "areaFuncional":  "Ciberseguridad Empresas",
+                               "segmento":  "Ciberseguridad",
+                               "responsable":  "Carlos Fernandez",
+                               "oportunidadId":  "SF-2026-00389",
+                               "importeEstimadoUSD":  65000.00,
+                               "moneda":  "USD",
+                               "estado":  "Aprobado",
+                               "creadoPor":  "miguel.caballero@claro.com.pe",
+                               "fechaCreacion":  "05.04.2026 08:00",
+                               "ultimaModificacion":  "08.04.2026 16:00",
+                               "descripcionTecnica":  "Renovación del contrato de servicios de ciberseguridad gestionada: SOC 24x7, análisis de vulnerabilidades, gestión de incidentes y capacitaciones trimestrales. Continuidad del servicio existente con actualización de SLA.",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "descripcion":  "Servicio SOC 24x7 (12 meses)",
+                                                 "cantidad":  1,
+                                                 "unidad":  "SERV",
+                                                 "precioUnitarioUSD":  36000.00,
+                                                 "totalUSD":  36000.00,
+                                                 "proveedor":  "Cisco Systems Perú SAC"
+                                             },
+                                             {
+                                                 "no":  2,
+                                                 "descripcion":  "Análisis de Vulnerabilidades Trimestral",
+                                                 "cantidad":  4,
+                                                 "unidad":  "SERV",
+                                                 "precioUnitarioUSD":  5000.00,
+                                                 "totalUSD":  20000.00,
+                                                 "proveedor":  "Cisco Systems Perú SAC"
+                                             },
+                                             {
+                                                 "no":  3,
+                                                 "descripcion":  "Capacitaciones Ciberseguridad (4 sesiones)",
+                                                 "cantidad":  4,
+                                                 "unidad":  "SESS",
+                                                 "precioUnitarioUSD":  2250.00,
+                                                 "totalUSD":  9000.00,
+                                                 "proveedor":  "Cisco Systems Perú SAC"
+                                             }
+                                         ],
+                               "evaluacionFinanciera":  {
+                                                            "costos":  58000.00,
+                                                            "ingresos":  78000.00,
+                                                            "margen":  25.64,
+                                                            "roi":  34.48
+                                                        },
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe Área Usuaria",
+                                                           "iniciales":  "CF",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "06.04.2026 09:00",
+                                                           "comentario":  "OK para renovación"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 2",
+                                                           "rol":  "Analista Compras",
+                                                           "iniciales":  "AC",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "08.04.2026 14:00",
+                                                           "comentario":  "Proveedor evaluado y seleccionado"
+                                                       }
+                                                   ]
+                           },
+                           {
+                               "reqId":  "REQ-MC-2026-003",
+                               "mercado":  "corporativo",
+                               "titulo":  "Consultoría ADP Empresas – Minera Antapaccay",
+                               "tipoSolicitud":  "Proyectos / RFP",
+                               "cliente":  "Glencore – Antapaccay",
+                               "lineaNegocio":  "Consultoría y Diseño",
+                               "macroAreaFuncional":  "Proyectos / RFP",
+                               "areaFuncional":  "Administración Proyecto Soluc. Producto",
+                               "segmento":  "Consultoría y Diseño Empresas / ADP Empresas",
+                               "responsable":  "Oscar Tipula",
+                               "oportunidadId":  "SF-2026-00501",
+                               "importeEstimadoUSD":  140000.00,
+                               "moneda":  "USD",
+                               "estado":  "Rechazado",
+                               "creadoPor":  "miguel.caballero@claro.com.pe",
+                               "fechaCreacion":  "01.04.2026 10:00",
+                               "ultimaModificacion":  "07.04.2026 17:00",
+                               "descripcionTecnica":  "Proyecto de consultoría para diseño e implementación de solución ADP (Automatización de Decisiones y Procesos) en el área de operaciones de la minera. Incluye análisis de procesos, diseño de solución, desarrollo y puesta en marcha.",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "descripcion":  "Análisis de Procesos y Diagnóstico",
+                                                 "cantidad":  1,
+                                                 "unidad":  "PROY",
+                                                 "precioUnitarioUSD":  25000.00,
+                                                 "totalUSD":  25000.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             },
+                                             {
+                                                 "no":  2,
+                                                 "descripcion":  "Diseño de Solución ADP",
+                                                 "cantidad":  1,
+                                                 "unidad":  "PROY",
+                                                 "precioUnitarioUSD":  45000.00,
+                                                 "totalUSD":  45000.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             },
+                                             {
+                                                 "no":  3,
+                                                 "descripcion":  "Desarrollo e Implementación",
+                                                 "cantidad":  1,
+                                                 "unidad":  "PROY",
+                                                 "precioUnitarioUSD":  55000.00,
+                                                 "totalUSD":  55000.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             },
+                                             {
+                                                 "no":  4,
+                                                 "descripcion":  "Puesta en Marcha y Capacitación",
+                                                 "cantidad":  1,
+                                                 "unidad":  "PROY",
+                                                 "precioUnitarioUSD":  15000.00,
+                                                 "totalUSD":  15000.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             }
+                                         ],
+                               "evaluacionFinanciera":  {
+                                                            "costos":  120000.00,
+                                                            "ingresos":  155000.00,
+                                                            "margen":  22.58,
+                                                            "roi":  29.17
+                                                        },
+                               "flujoAprobacion":  [
+                                                       {
+                                                           "nivel":  "NIVEL 1",
+                                                           "rol":  "Jefe Área Usuaria",
+                                                           "iniciales":  "OT",
+                                                           "estado":  "Aprobado",
+                                                           "fecha":  "03.04.2026 09:00",
+                                                           "comentario":  "Aprobado"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 2",
+                                                           "rol":  "Gerencia Área Usuaria",
+                                                           "iniciales":  "GU",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "07.04.2026 11:00",
+                                                           "comentario":  "El margen no cumple el mínimo requerido de 25%. Reformular propuesta."
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 3",
+                                                           "rol":  "Sub Dirección Área Usuaria",
+                                                           "iniciales":  "SD",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "07.04.2026 17:00",
+                                                           "comentario":  "En línea con Gerencia"
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 4",
+                                                           "rol":  "Dirección Área Usuaria",
+                                                           "iniciales":  "DA",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "07.04.2026 17:00",
+                                                           "comentario":  ""
+                                                       },
+                                                       {
+                                                           "nivel":  "NIVEL 5",
+                                                           "rol":  "Analista Compras",
+                                                           "iniciales":  "AC",
+                                                           "estado":  "Rechazado",
+                                                           "fecha":  "07.04.2026 17:00",
+                                                           "comentario":  ""
+                                                       }
+                                                   ]
+                           },
+                           {
+                               "reqId":  "REQ-MC-2026-004",
+                               "mercado":  "corporativo",
+                               "titulo":  "Cloud SaaS Microsoft 365 – Grupo Intercorp",
+                               "tipoSolicitud":  "Continuidad Tecnológica y de Servicios",
+                               "cliente":  "Grupo Intercorp",
+                               "lineaNegocio":  "Servicios Digitales / Cloud",
+                               "macroAreaFuncional":  "Continuidad Tecnológica y de Servicios",
+                               "areaFuncional":  "Servicios Cloud SaaS",
+                               "segmento":  "Servicios Cloud SaaS",
+                               "responsable":  "Jorge Galarza",
+                               "oportunidadId":  "SF-2026-00312",
+                               "importeEstimadoUSD":  82000.00,
+                               "moneda":  "USD",
+                               "estado":  "Borrador",
+                               "creadoPor":  "miguel.caballero@claro.com.pe",
+                               "fechaCreacion":  "20.04.2026 14:00",
+                               "ultimaModificacion":  "20.04.2026 14:00",
+                               "descripcionTecnica":  "Renovación y ampliación del contrato de licencias Microsoft 365 Business Premium para 800 usuarios del Grupo Intercorp. Incluye migración de 200 usuarios adicionales y soporte de implementación.",
+                               "items":  [
+                                             {
+                                                 "no":  1,
+                                                 "descripcion":  "Licencias Microsoft 365 Business Premium (800 usuarios, 12 meses)",
+                                                 "cantidad":  800,
+                                                 "unidad":  "LIC",
+                                                 "precioUnitarioUSD":  88.00,
+                                                 "totalUSD":  70400.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             },
+                                             {
+                                                 "no":  2,
+                                                 "descripcion":  "Servicio de Migración y Onboarding (200 usuarios)",
+                                                 "cantidad":  1,
+                                                 "unidad":  "SERV",
+                                                 "precioUnitarioUSD":  11600.00,
+                                                 "totalUSD":  11600.00,
+                                                 "proveedor":  "Microsoft Perú SRL"
+                                             }
+                                         ],
+                               "evaluacionFinanciera":  {
+                                                            "costos":  72000.00,
+                                                            "ingresos":  98400.00,
+                                                            "margen":  26.83,
+                                                            "roi":  36.67
+                                                        },
+                               "flujoAprobacion":  [
+
+                                                   ]
+                           }
+                       ]
+}

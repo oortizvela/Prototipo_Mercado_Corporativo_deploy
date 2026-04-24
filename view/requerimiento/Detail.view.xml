@@ -1,0 +1,764 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.requerimiento.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page showHeader="false" enableScrolling="true" class="reqDetailPage">
+        <content>
+
+            <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                 BARRA DE ACCIONES SUPERIOR
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+            <OverflowToolbar class="reqDetailToolbar" id="detailToolbar">
+                <Title id="detailReqId" text="{reqId}" class="reqDetailId" />
+                <ObjectStatus
+                    id="detailEstado"
+                    text="{estado}"
+                    icon="{= ${estado} === 'Rechazado' || ${estado} === 'Rechazado por Cliente' ? 'sap-icon://status-negative' : ${estado} === 'Finalizado' || ${estado} === 'Confirmado' || ${estado} === 'Stock Reservado' ? 'sap-icon://status-positive' : ${estado} === 'Aprobado' ? 'sap-icon://sys-enter-2' : ${estado} === 'Pendiente Aprobaci\u00f3n' ? 'sap-icon://pending' : ${estado} === 'Presentado al Cliente' ? 'sap-icon://paper-plane' : ${estado} === 'Feedback Recibido' ? 'sap-icon://customer' : 'sap-icon://status-in-process'}"
+                    state="{= ${estado} === 'Rechazado' || ${estado} === 'Rechazado por Cliente' ? 'Error' : ${estado} === 'Finalizado' || ${estado} === 'Confirmado' || ${estado} === 'Stock Reservado' ? 'Success' : ${estado} === 'Aprobado' || ${estado} === 'Presentado al Cliente' ? 'Information' : ${estado} === 'Pendiente Aprobaci\u00f3n' || ${estado} === 'Feedback Recibido' ? 'Warning' : 'None'}"
+                    class="reqDetailEstado" />
+                <ToolbarSeparator />
+                <Button
+                    text="Editar"
+                    icon="sap-icon://edit"
+                    type="Transparent"
+                    enabled="{= ${estado} === 'Borrador'}"
+                    press="onEditar" />
+                <ToolbarSeparator />
+                <Button
+                    text="Enviar a Aprobación"
+                    icon="sap-icon://paper-plane"
+                    type="Transparent"
+                    enabled="{= ${estado} === 'Borrador'}"
+                    press="onEnviarAprobacion" />
+                <ToolbarSeparator />
+                <Button
+                    text="Descargar Carta de aceptación"
+                    icon="sap-icon://pdf-attachment"
+                    type="Transparent"
+                    visible="{= !${ui>/mercadoCorporativo}}"
+                    press="onDescargarCarta" />
+                <MenuButton
+                    text="Descarga/Carga Excel"
+                    icon="sap-icon://excel-attachment"
+                    buttonMode="Split"
+                    defaultAction="onDescargarExcel"
+                    type="Transparent"
+                    visible="{= !${ui>/mercadoCorporativo}}">
+                    <menu>
+                        <Menu>
+                            <MenuItem text="Descargar Excel" icon="sap-icon://download" press="onDescargarExcel" />
+                            <MenuItem text="Cargar Excel" icon="sap-icon://upload" press="onCargarExcel" />
+                        </Menu>
+                    </menu>
+                </MenuButton>
+                <ToolbarSeparator />
+                <Button
+                    text="Descargar Necesidad de compra"
+                    icon="sap-icon://pdf-attachment"
+                    type="Transparent"
+                    press="onDescargarNecesidad" />
+                <ToolbarSeparator visible="{ui>/mercadoCorporativo}" />
+                <Button
+                    text="Generar Presentación"
+                    icon="sap-icon://attachment"
+                    type="Transparent"
+                    visible="{ui>/mercadoCorporativo}"
+                    press="onGenerarPresentacion" />
+                <Button
+                    text="Enviar al Cliente"
+                    icon="sap-icon://paper-plane"
+                    type="Transparent"
+                    visible="{= ${ui>/mercadoCorporativo} ? ${estado} === 'Aprobado' : false}"
+                    press="onEnviarPresentacionCliente" />
+                <Button
+                    text="Registrar Feedback"
+                    icon="sap-icon://feedback"
+                    type="Transparent"
+                    visible="{= ${ui>/mercadoCorporativo} ? ${estado} === 'Presentado al Cliente' : false}"
+                    press="onRegistrarFeedback" />
+                <Button
+                    text="Separar Stock (MM)"
+                    icon="sap-icon://product"
+                    type="Transparent"
+                    visible="{= ${ui>/mercadoCorporativo} ? ${estado} === 'Confirmado' : false}"
+                    press="onSepararStock" />
+                <ToolbarSpacer />
+                <Button
+                    icon="sap-icon://slim-arrow-left"
+                    type="Transparent"
+                    tooltip="Contraer cabecera"
+                    press="onToggleHeader"
+                    id="btnToggleHeader" />
+            </OverflowToolbar>
+
+            <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                 INFORMACIÃ“N CABECERA (colapsable)
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+            <VBox id="detailInfoPanel" class="reqDetailInfoPanel">
+                <HBox wrap="Wrap" class="reqDetailInfoGrid">
+                    <!-- Columna 1 -->
+                    <VBox class="reqDetailInfoCol">
+                        <HBox class="reqDetailInfoRow">
+                            <Label text="Título: " class="reqInfoLabel" />
+                            <Text text="{titulo}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{= !${ui>/mercadoCorporativo}}">
+                            <Label text="Marca: " class="reqInfoLabel" />
+                            <Text text="{marca}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{= !${ui>/mercadoCorporativo}}">
+                            <Label text="Período: " class="reqInfoLabel" />
+                            <Text text="{periodo}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Cliente: " class="reqInfoLabel" />
+                            <Text text="{cliente}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Línea de Negocio: " class="reqInfoLabel" />
+                            <Text text="{lineaNegocio}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Área Funcional: " class="reqInfoLabel" />
+                            <Text text="{areaFuncional}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Segmento: " class="reqInfoLabel" />
+                            <Text text="{segmento}" class="reqInfoValue" />
+                        </HBox>
+                    </VBox>
+                    <!-- Columna 2 -->
+                    <VBox class="reqDetailInfoCol">
+                        <HBox class="reqDetailInfoRow">
+                            <Label text="Tipo de Solicitud: " class="reqInfoLabel" />
+                            <Text text="{tipoSolicitud}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{= !${ui>/mercadoCorporativo}}">
+                            <Label text="Válido Hasta: " class="reqInfoLabel" />
+                            <Text text="{validoHasta}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="ID Oportunidad (SF): " class="reqInfoLabel" />
+                            <Text text="{oportunidadId}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Importe Estimado: " class="reqInfoLabel" />
+                            <ObjectNumber number="{importeEstimadoUSD}" unit="USD" class="reqInfoValue" />
+                        </HBox>
+                    </VBox>
+                    <!-- Columna 3 -->
+                    <VBox class="reqDetailInfoCol">
+                        <HBox class="reqDetailInfoRow">
+                            <Label text="Creado Por: " class="reqInfoLabel" />
+                            <Text text="{creadoPor}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow">
+                            <Label text="Fecha de Creación: " class="reqInfoLabel" />
+                            <Text text="{fechaCreacion}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow">
+                            <Label text="Última Modificación: " class="reqInfoLabel" />
+                            <Text text="{ultimaModificacion}" class="reqInfoValue" />
+                        </HBox>
+                        <HBox class="reqDetailInfoRow" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Responsable: " class="reqInfoLabel" />
+                            <Text text="{responsable}" class="reqInfoValue" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Fila colapso -->
+            <HBox justifyContent="Center" class="reqCollapseRow">
+                <Button icon="sap-icon://collapse-group" type="Transparent" class="reqCollapseBtn" press="onToggleHeader" />
+                <Button icon="sap-icon://pushpin-off" type="Transparent" class="reqCollapseBtn" />
+            </HBox>
+
+            <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                 PESTAÃ‘AS
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+            <IconTabBar
+                id="detailTabs"
+                class="reqDetailTabs"
+                backgroundDesign="Transparent"
+                headerMode="Inline"
+                stretchContentHeight="false">
+                <items>
+
+                    <!-- ──────── TAB 1a: PLANIFICACIÓN (Compras Locales) ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://supplier"
+                        text="Planificació..."
+                        key="planificacion"
+                        visible="{= !${ui>/mercadoCorporativo}}">
+                        <content>
+
+                            <!-- Tabla Ãtems de PlanificaciÃ³n -->
+                            <VBox class="reqTabSection">
+                                <Title text="Ãtems de PlanificaciÃ³n" level="H4" class="reqSectionTitle" />
+                                <Table
+                                    id="planItems"
+                                    items="{items}"
+                                    noDataText="Sin Ã­tems de planificaciÃ³n"
+                                    class="reqItemsTable">
+                                    <columns>
+                                        <Column width="3rem" hAlign="Center"><Text text="No." /></Column>
+                                        <Column width="12rem"><Text text="Modelo" /></Column>
+                                        <Column width="11rem"><Text text="CÃ³digo" /></Column>
+                                        <Column width="9rem"><Text text="CÃ³digo de Mater..." /></Column>
+                                        <Column width="9rem"><Text text="Color" /></Column>
+                                        <Column width="6rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Precio FacturaciÃ³n" /></Column>
+                                        <Column width="8rem" hAlign="End"><Text text="VIR Unitario" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Total FacturaciÃ³n" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Total VIR" /></Column>
+                                        <Column width="8rem" hAlign="End"><Text text="Total Neto" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{no}" textAlign="Center" />
+                                                <Text text="{modelo}" wrapping="false" />
+                                                <Text text="{codigo}" />
+                                                <Text text="{codigoMaterial}" />
+                                                <Text text="{color}" />
+                                                <Text text="{cantidad}" textAlign="End" />
+                                                <Text text="{= (${precioFacturacion}).toFixed(2)}" textAlign="End" />
+                                                <Text text="{= (${virUnitario}).toFixed(2)}" textAlign="End" />
+                                                <Text text="{= (${totalFacturacion}).toFixed(2)}" textAlign="End" class="reqAmountBold" />
+                                                <Text text="{= (${totalVir}).toFixed(2)}" textAlign="End" class="reqVirAmount" />
+                                                <Text text="{= (${totalNeto}).toFixed(2)}" textAlign="End" class="reqAmountBold" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+
+                                <!-- Fila de totales -->
+                                <HBox justifyContent="End" class="reqTotalsRow">
+                                    <VBox class="reqTotalItem" alignItems="End">
+                                        <Label text="Total FacturaciÃ³n" class="reqTotalLabel" />
+                                        <Text id="totalFacturacion" text="" class="reqTotalValue" />
+                                    </VBox>
+                                    <VBox class="reqTotalItem" alignItems="End">
+                                        <Label text="Total VIR" class="reqTotalLabel" />
+                                        <Text id="totalVir" text="" class="reqTotalVir" />
+                                    </VBox>
+                                    <VBox class="reqTotalItem" alignItems="End">
+                                        <Label text="Total Neto" class="reqTotalLabel" />
+                                        <Text id="totalNeto" text="" class="reqTotalValue" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+
+                            <!-- SecciÃ³n Aportes VIR -->
+                            <VBox id="virSection" class="reqTabSection reqVirSection">
+                                <Title id="virSectionTitle" text="Aportes VIR" level="H4" class="reqSectionTitle" />
+                                <List
+                                    items="{aportesVIR}"
+                                    noDataText="Sin aportes VIR"
+                                    showSeparators="None"
+                                    class="reqVirList">
+                                    <CustomListItem>
+                                        <HBox justifyContent="SpaceBetween" class="reqVirRow">
+                                            <Text text="{nombre}" class="reqVirLabel" />
+                                            <Text text="{= '$' + (${monto}).toFixed(2)}" class="reqVirMonto" />
+                                        </HBox>
+                                    </CustomListItem>
+                                </List>
+                                <HBox justifyContent="End" class="reqVirTotalRow">
+                                    <Label text="Total Contribuciones" class="reqVirTotalLabel" />
+                                    <Text id="totalContribuciones" text="" class="reqVirTotalMonto" />
+                                </HBox>
+                            </VBox>
+
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── TAB 2: FLUJO DE APROBACIÓN (Compras Locales) ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://checklist-2"
+                        text="Flujo de Apr..."
+                        key="flujo"
+                        visible="{= !${ui>/mercadoCorporativo}}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Title text="Pasos de AprobaciÃ³n â€“ Necesidad" level="H4" class="reqSectionTitle" />
+
+                                <!-- Diagrama de flujo -->
+                                <HBox id="approvalFlowDiagram" class="reqApprovalFlow" alignItems="Start">
+                                </HBox>
+
+                                <!-- Tarjetas de aprobadores -->
+                                <HBox id="approvalCards" class="reqApprovalCards" wrap="Wrap">
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── PESTAÑA 3: ADJUNTOS ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://attachment-2"
+                        text="Adjuntos"
+                        key="adjuntos">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Table
+                                    id="adjuntosTable"
+                                    items="{adjuntos}"
+                                    noDataText="Sin archivos adjuntos. Use 'Adjuntar Archivo' para cargar cotizaciones, diseños y documentos."
+                                    class="reqItemsTable">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <Title text="Documentos y Cotizaciones" level="H5" />
+                                            <ToolbarSpacer />
+                                            <Button text="Adjuntar Archivo" type="Transparent" icon="sap-icon://upload" press="onUpload" />
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column><Text text="Nombre del Archivo" /></Column>
+                                        <Column width="7rem"><Text text="Tipo" /></Column>
+                                        <Column width="12rem"><Text text="Fecha de Carga" /></Column>
+                                        <Column><Text text="Cargado Por" /></Column>
+                                        <Column width="8rem" hAlign="Center"><Text text="Acciones" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <HBox alignItems="Center">
+                                                    <core:Icon
+                                                        src="{= ${tipo} === 'PDF' ? 'sap-icon://pdf-attachment' : ${tipo} === 'Excel' ? 'sap-icon://excel-attachment' : ${tipo} === 'Word' ? 'sap-icon://doc-attachment' : 'sap-icon://document'}"
+                                                        size="1rem"
+                                                        class="sapUiSmallMarginEnd" />
+                                                    <Text text="{nombre}" />
+                                                </HBox>
+                                                <Text text="{tipo}" />
+                                                <Text text="{fecha}" />
+                                                <Text text="{cargadoPor}" wrapping="false" />
+                                                <HBox justifyContent="Center">
+                                                    <Button icon="sap-icon://download" type="Transparent" tooltip="Descargar" press="onDescargarAdjunto" />
+                                                    <Button icon="sap-icon://delete"   type="Transparent" tooltip="Eliminar"  press="onDeleteAdjunto" />
+                                                </HBox>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- TAB 4: VENTAS PROYECTADAS (solo Compras Locales) -->
+                    <IconTabFilter
+                        icon="sap-icon://bar-chart"
+                        text="Ventas Pro..."
+                        key="ventas"
+                        visible="{= !${ui>/mercadoCorporativo}}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Title text="Historial de Ventas (Ãšltimos 3 meses)" level="H4" class="reqSectionTitle" />
+                                <Table
+                                    id="ventasTable"
+                                    items="{historialVentas}"
+                                    noDataText="No data"
+                                    class="reqVentasTable">
+                                    <columns>
+                                        <Column><Text text="Marca" /></Column>
+                                        <Column><Text text="Modelo" /></Column>
+                                        <Column><Text text="PerÃ­odo" /></Column>
+                                        <Column hAlign="End"><Text text="Cantidad" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{marca}" />
+                                                <Text text="{modelo}" />
+                                                <Text text="{periodo}" />
+                                                <Text text="{cantidad}" textAlign="End" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+
+                                <!-- Promedio mensual -->
+                                <VBox alignItems="Center" class="reqVentasFooter">
+                                    <Label text="Cantidad Promedio Mensual" class="reqVentasPromedioLabel" />
+                                    <Text id="cantidadPromedio" text="0 unidades" class="reqVentasPromedio" />
+                                </VBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── TAB MC-1: EQUIPOS Y SERVICIOS (Mercado Corporativo) ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://supplier"
+                        text="Equipos y Serv."
+                        key="mcItems"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Title text="Descripción Técnica" level="H4" class="reqSectionTitle" />
+                                <Text text="{descripcionTecnica}" class="reqDescText" wrapping="true" />
+
+                                <Title text="Equipos y Servicios" level="H4" class="reqSectionTitle sapUiSmallMarginTop" />
+                                <Table
+                                    id="mcItemsTable"
+                                    items="{items}"
+                                    noDataText="Sin ítems. Use '+ Agregar Ítem' para añadir equipos o servicios."
+                                    class="reqItemsTable">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <Title text="Ítems ({= (${items} || []).length})" level="H5" />
+                                            <ToolbarSpacer />
+                                            <Button text="+ Agregar Ítem" type="Transparent" icon="sap-icon://add" press="onAddMCItem" />
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column width="3rem" hAlign="Center"><Text text="No." /></Column>
+                                        <Column><Text text="Descripción" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                        <Column width="6rem"><Text text="Unidad" /></Column>
+                                        <Column width="10rem" hAlign="End"><Text text="Precio Unit. USD" /></Column>
+                                        <Column width="10rem" hAlign="End"><Text text="Total USD" /></Column>
+                                        <Column width="14rem"><Text text="Proveedor" /></Column>
+                                        <Column width="8rem" hAlign="Center"><Text text="Acciones" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{no}" textAlign="Center" />
+                                                <Text text="{descripcion}" wrapping="true" />
+                                                <Text text="{cantidad}" textAlign="End" />
+                                                <Text text="{unidad}" />
+                                                <Text text="{= (${precioUnitarioUSD}).toFixed(2)}" textAlign="End" />
+                                                <Text text="{= (${totalUSD}).toFixed(2)}" textAlign="End" class="reqAmountBold" />
+                                                <Text text="{proveedor}" wrapping="false" />
+                                                <HBox justifyContent="Center">
+                                                    <Button icon="sap-icon://edit"   type="Transparent" tooltip="Editar"   press="onEditMCItem" />
+                                                    <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteMCItem" />
+                                                </HBox>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+
+                                <HBox justifyContent="End" class="reqTotalsRow">
+                                    <VBox class="reqTotalItem" alignItems="End">
+                                        <Label text="Total USD" class="reqTotalLabel" />
+                                        <Text id="totalUSDMC" text="" class="reqTotalValue" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── TAB MC-1b: STOCK Y MATERIALES ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://product"
+                        text="Stock / Materiales"
+                        key="mcStock"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <!-- Stock Section -->
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="reqSectionHeader">
+                                    <Title text="Visualización de Stock" level="H4" class="reqSectionTitle" />
+                                    <Button text="Consultar Stock" icon="sap-icon://refresh" type="Transparent" press="onConsultarStock" />
+                                </HBox>
+                                <MessageStrip
+                                    text="Verifica la disponibilidad de stock en MM (SAP) para cada ítem del requerimiento."
+                                    type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+                                <Table
+                                    id="stockTable"
+                                    items="{stock}"
+                                    noDataText="Presione 'Consultar Stock' para verificar disponibilidad de los ítems."
+                                    class="reqItemsTable">
+                                    <columns>
+                                        <Column><Text text="Ítem / Descripción" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Cant. Requerida" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Stock Disponible" /></Column>
+                                        <Column width="11rem"><Text text="Estado" /></Column>
+                                        <Column width="14rem"><Text text="Proveedor Sugerido" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{descripcion}" />
+                                                <Text text="{cantRequerida}" textAlign="End" />
+                                                <Text text="{stockDisponible}" textAlign="End" />
+                                                <ObjectStatus
+                                                    text="{estadoStock}"
+                                                    state="{= ${stockDisponible} >= ${cantRequerida} ? 'Success' : ${stockDisponible} > 0 ? 'Warning' : 'Error'}"
+                                                    showStateIcon="true" />
+                                                <Text text="{proveedorSugerido}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+
+                                <!-- Materiales Section -->
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="reqSectionHeader sapUiMediumMarginTop">
+                                    <Title text="Solicitud de Creación de Materiales" level="H4" class="reqSectionTitle" />
+                                    <Button text="+ Solicitar Material" icon="sap-icon://add" type="Transparent" press="onSolicitarMaterial" />
+                                </HBox>
+                                <MessageStrip
+                                    text="Si algún ítem no existe como material en SAP MM, solícite su creación aquí. Se generará una solicitud al área de Maestro de Datos."
+                                    type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+                                <Table
+                                    id="materialesTable"
+                                    items="{materialesSolicitados}"
+                                    noDataText="Sin solicitudes de creación de material."
+                                    class="reqItemsTable">
+                                    <columns>
+                                        <Column><Text text="Descripción" /></Column>
+                                        <Column width="7rem"><Text text="Unidad" /></Column>
+                                        <Column><Text text="Especificaciones Técnicas" /></Column>
+                                        <Column width="10rem"><Text text="Estado" /></Column>
+                                        <Column width="6rem" hAlign="Center"><Text text="" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{descripcion}" />
+                                                <Text text="{unidad}" />
+                                                <Text text="{especificaciones}" wrapping="true" />
+                                                <ObjectStatus
+                                                    text="{estado}"
+                                                    state="{= ${estado} === 'Aprobado' ? 'Success' : ${estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                                                <HBox justifyContent="Center">
+                                                    <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteMaterial" />
+                                                </HBox>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://money-bills"
+                        text="Eval. Financiera"
+                        key="mcEvalFin"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="reqSectionHeader">
+                                    <Title text="Evaluación Financiera (Margen / ROI)" level="H4" class="reqSectionTitle" />
+                                    <Button text="Editar" icon="sap-icon://edit" type="Transparent" press="onEditarEvalFin" />
+                                </HBox>
+                                <MessageStrip
+                                    text="{= ${importeEstimadoUSD} >= 100000 ? 'Importe &gt;= 100,000 USD – requiere aprobación en 5 niveles. Margen mínimo requerido: 25%.' : 'Importe &lt; 100,000 USD – requiere aprobación en 2 niveles. Margen mínimo requerido: 25%.'}"
+                                    type="{= ${importeEstimadoUSD} >= 100000 ? 'Warning' : 'Information'}"
+                                    showIcon="true"
+                                    class="sapUiSmallMarginBottom" />
+                                <HBox wrap="Wrap" class="reqEvalFinRow">
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Costos Estimados" class="reqEvalLabel" />
+                                        <Text id="efCostos" text="" class="reqEvalValueNeg" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Ingresos Proyectados" class="reqEvalLabel" />
+                                        <Text id="efIngresos" text="" class="reqEvalValuePos" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Margen (%)" class="reqEvalLabel" />
+                                        <Text id="efMargen" text="" class="reqEvalValueMargen" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="ROI (%)" class="reqEvalLabel" />
+                                        <Text id="efROI" text="" class="reqEvalValueROI" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── TAB MC-3: FLUJO DE APROBACIÓN (compartido) ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://checklist-2"
+                        text="Flujo de Apr."
+                        key="mcFlujo"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Title text="Flujo de Aprobación – Mercado Corporativo" level="H4" class="reqSectionTitle" />
+                                <MessageStrip
+                                    text="{= ${importeEstimadoUSD} >= 100000 ? 'Importe ≥ 100,000 USD: requiere aprobación en 5 niveles (Jefatura → Gerencia → Sub Dirección → Dirección → Analista Compras)' : 'Importe &lt; 100,000 USD: requiere aprobación en 2 niveles (Jefatura Usuaria + Analista Compras)'}"
+                                    type="{= ${importeEstimadoUSD} >= 100000 ? 'Warning' : 'Information'}"
+                                    showIcon="true"
+                                    class="sapUiSmallMarginBottom" />
+                                <HBox id="mcApprovalFlowDiagram" class="reqApprovalFlow" alignItems="Start">
+                                </HBox>
+                                <HBox id="mcApprovalCards" class="reqApprovalCards" wrap="Wrap">
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+
+                    <!-- ──────── TAB MC-4: PROPUESTA CONSOLIDADA ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://document-text"
+                        text="Propuesta"
+                        key="mcPropuesta"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" class="reqSectionHeader">
+                                    <Title text="Propuesta Consolidada – Resumen Ejecutivo" level="H4" class="reqSectionTitle" />
+                                    <ObjectStatus
+                                        text="{estado}"
+                                        state="{= ${estado} === 'Aprobado' || ${estado} === 'Confirmado' || ${estado} === 'Stock Reservado' ? 'Success' : ${estado} === 'Rechazado' || ${estado} === 'Rechazado por Cliente' ? 'Error' : ${estado} === 'Pendiente Aprobación' || ${estado} === 'Feedback Recibido' ? 'Warning' : 'Information'}"
+                                        showStateIcon="true" />
+                                </HBox>
+                                <!-- KPI Cards -->
+                                <HBox wrap="Wrap" class="reqEvalFinRow sapUiSmallMarginBottom">
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Cliente" class="reqEvalLabel" />
+                                        <Text text="{cliente}" class="reqInfoValue" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Línea de Negocio" class="reqEvalLabel" />
+                                        <Text text="{lineaNegocio}" class="reqInfoValue" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Importe Estimado" class="reqEvalLabel" />
+                                        <ObjectNumber number="{importeEstimadoUSD}" unit="USD" emphasized="true" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Responsable" class="reqEvalLabel" />
+                                        <Text text="{responsable}" class="reqInfoValue" />
+                                    </VBox>
+                                </HBox>
+                                <!-- Descripción Técnica -->
+                                <Title text="Descripción Técnica" level="H5" class="reqSectionTitle sapUiSmallMarginTop" />
+                                <Text text="{descripcionTecnica}" class="reqDescText" wrapping="true" />
+                                <!-- Items read-only -->
+                                <Title text="Equipos y Servicios" level="H5" class="reqSectionTitle sapUiSmallMarginTop" />
+                                <Table
+                                    items="{items}"
+                                    noDataText="Sin ítems registrados"
+                                    class="reqItemsTable">
+                                    <columns>
+                                        <Column width="3rem" hAlign="Center"><Text text="No." /></Column>
+                                        <Column><Text text="Descripción" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Cant." /></Column>
+                                        <Column width="6rem"><Text text="Unidad" /></Column>
+                                        <Column width="10rem" hAlign="End"><Text text="Precio Unit. USD" /></Column>
+                                        <Column width="10rem" hAlign="End"><Text text="Total USD" /></Column>
+                                        <Column width="14rem"><Text text="Proveedor" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{no}" textAlign="Center" />
+                                                <Text text="{descripcion}" wrapping="true" />
+                                                <Text text="{cantidad}" textAlign="End" />
+                                                <Text text="{unidad}" />
+                                                <Text text="{= (${precioUnitarioUSD}).toFixed(2)}" textAlign="End" />
+                                                <Text text="{= (${totalUSD}).toFixed(2)}" textAlign="End" class="reqAmountBold" />
+                                                <Text text="{proveedor}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                                <HBox justifyContent="End" class="reqTotalsRow">
+                                    <VBox class="reqTotalItem" alignItems="End">
+                                        <Label text="Total USD" class="reqTotalLabel" />
+                                        <Text id="propTotalUSD" text="" class="reqTotalValue" />
+                                    </VBox>
+                                </HBox>
+                                <!-- Evaluación Financiera summary -->
+                                <Title text="Evaluación Financiera" level="H5" class="reqSectionTitle sapUiSmallMarginTop" />
+                                <HBox wrap="Wrap" class="reqEvalFinRow">
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Costos Estimados" class="reqEvalLabel" />
+                                        <Text id="propEfCostos" text="" class="reqEvalValueNeg" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Ingresos Proyectados" class="reqEvalLabel" />
+                                        <Text id="propEfIngresos" text="" class="reqEvalValuePos" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="Margen (%)" class="reqEvalLabel" />
+                                        <Text id="propEfMargen" text="" class="reqEvalValueMargen" />
+                                    </VBox>
+                                    <VBox class="reqEvalFinCard">
+                                        <Label text="ROI (%)" class="reqEvalLabel" />
+                                        <Text id="propEfROI" text="" class="reqEvalValueROI" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+
+                    <!-- ──────── TAB MC-5: FEEDBACK DEL CLIENTE ──────── -->
+                    <IconTabFilter
+                        icon="sap-icon://customer"
+                        text="Cliente / Feedback"
+                        key="mcFeedback"
+                        visible="{ui>/mercadoCorporativo}">
+                        <content>
+                            <VBox class="reqTabSection">
+                                <Table
+                                    id="feedbackTable"
+                                    items="{historialFeedback}"
+                                    noDataText="Sin interacciones registradas. Envíe la propuesta al cliente cuando el estado sea 'Aprobado'."
+                                    class="reqItemsTable">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <Title text="Historial de Interacciones con el Cliente" level="H5" />
+                                            <ToolbarSpacer />
+                                            <Button
+                                                text="Enviar al Cliente"
+                                                icon="sap-icon://paper-plane"
+                                                type="Emphasized"
+                                                visible="{= ${estado} === 'Aprobado'}"
+                                                press="onEnviarPresentacionCliente" />
+                                            <Button
+                                                text="Registrar Feedback"
+                                                icon="sap-icon://feedback"
+                                                type="Transparent"
+                                                visible="{= ${estado} === 'Presentado al Cliente'}"
+                                                press="onRegistrarFeedback" />
+                                            <Button
+                                                text="Separar Stock (MM)"
+                                                icon="sap-icon://product"
+                                                type="Transparent"
+                                                visible="{= ${estado} === 'Confirmado'}"
+                                                press="onSepararStock" />
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column width="10rem"><Text text="Fecha" /></Column>
+                                        <Column><Text text="Contacto del Cliente" /></Column>
+                                        <Column width="11rem"><Text text="Tipo" /></Column>
+                                        <Column width="9rem"><Text text="Respuesta" /></Column>
+                                        <Column><Text text="Comentario / Notas" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{fecha}" />
+                                                <Text text="{contacto}" wrapping="false" />
+                                                <Text text="{tipo}" />
+                                                <ObjectStatus
+                                                    text="{respuesta}"
+                                                    state="{= ${respuesta} === 'Positivo' || ${respuesta} === 'Confirmado' ? 'Success' : ${respuesta} === 'Negativo' || ${respuesta} === 'Rechazado' ? 'Error' : 'Warning'}"
+                                                    showStateIcon="true" />
+                                                <Text text="{comentario}" wrapping="true" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+
+        </content>
+    </Page>
+</mvc:View>

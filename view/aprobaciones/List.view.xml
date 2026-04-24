@@ -1,0 +1,152 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.aprobaciones.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+
+    <Page
+        title="{= ${ui>/mercadoCorporativo} ? 'Bandeja Aprobación – Mercado Corporativo' : 'Aprobaciones Handset'}"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <content>
+            <HBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop sapUiSmallMarginBottom">
+                <Title text="{= ${ui>/mercadoCorporativo} ? 'Bandeja de Aprobación – Mercado Corporativo' : 'Bandeja Aprobacion'}" level="H2" />
+                <ObjectStatus text="{= ${ui>/mercadoCorporativo} ? 'Mercado Corporativo' : 'Compras Locales'}" state="{= ${ui>/mercadoCorporativo} ? 'Information' : 'None'}" class="sapUiSmallMarginBegin" />
+            </HBox>
+
+            <!-- Filter Panel -->
+            <Panel
+                id="filterPanel"
+                expandable="true"
+                expanded="true"
+                headerText="Filtros"
+                class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom">
+                <content>
+                    <l:Grid defaultSpan="L3 M6 S12" class="sapUiSmallMargin">
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="N Solicitud" />
+                            <Input id="filterNSolicitud" placeholder="Ej: SOL-000001" width="100%" />
+                        </VBox>
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Titulo" />
+                            <Input id="filterTitulo" placeholder="Buscar por titulo..." width="100%" />
+                        </VBox>
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Fecha Desde" />
+                            <DatePicker id="filterFechaDesde" placeholder="e.g. 31.12.2026" displayFormat="dd.MM.yyyy" width="100%" />
+                        </VBox>
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Fecha Hasta" />
+                            <DatePicker id="filterFechaHasta" placeholder="e.g. 31.12.2026" displayFormat="dd.MM.yyyy" width="100%" />
+                        </VBox>
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Periodo" />
+                            <Input id="filterPeriodo" placeholder="Ej: 2026-01" width="100%" />
+                        </VBox>
+
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Tipo Solicitud" />
+                            <Select id="filterTipoSolicitud" width="100%">
+                                <core:Item key="" text="" />
+                                <core:Item key="Handset" text="Handset" visible="{= !${ui>/mercadoCorporativo}}" />
+                                <core:Item key="Equipo Cómputo" text="Equipo Cómputo" visible="{= !${ui>/mercadoCorporativo}}" />
+                                <core:Item key="Proyectos / RFP" text="Proyectos / RFP" visible="{ui>/mercadoCorporativo}" />
+                                <core:Item key="Continuidad Tecnológica y de Servicios" text="Continuidad Tecnológica y de Servicios" visible="{ui>/mercadoCorporativo}" />
+                            </Select>
+                        </VBox>
+
+                    </l:Grid>
+
+                    <HBox justifyContent="End" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <Button
+                            text="Buscar"
+                            type="Emphasized"
+                            icon="sap-icon://search"
+                            press="onBuscar"
+                            class="sapUiSmallMarginEnd" />
+                        <Button
+                            text="Limpiar Filtros"
+                            type="Transparent"
+                            icon="sap-icon://clear-filter"
+                            press="onLimpiarFiltros" />
+                    </HBox>
+                </content>
+            </Panel>
+
+            <!-- Solicitudes Table -->
+            <Table
+                id="aprTable"
+                items="{
+                    path: 'aprobaciones>/aprobaciones',
+                    sorter: { path: 'fechaSolicitud', descending: true }
+                }"
+                noDataText="No data"
+                class="sapUiSmallMarginBeginEnd">
+
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Solicitudes Pendientes" level="H3" />
+                        <ToolbarSpacer />
+                        <SearchField id="tableSearch" width="15rem" search="onTableSearch" />
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="10rem"><Text text="N Solicitud" /></Column>
+                    <Column><Text text="Titulo" /></Column>
+                    <Column width="10rem"><Text text="Fecha y Hora" /></Column>
+                    <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                    <Column width="10rem"><Text text="Tipo Solicitud" /></Column>
+                    <Column width="8rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Periodo" /></Column>
+                    <Column visible="{ui>/mercadoCorporativo}"><Text text="Cliente" /></Column>
+                    <Column width="12rem" visible="{ui>/mercadoCorporativo}"><Text text="Línea de Negocio" /></Column>
+                    <Column width="8rem" hAlign="End" visible="{ui>/mercadoCorporativo}"><Text text="Importe USD" /></Column>
+                    <Column width="9rem" hAlign="Center"><Text text="Acciones" /></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                        type="Navigation"
+                        press="onItemPress">
+                        <cells>
+                            <Text text="{aprobaciones>aprId}" />
+                            <Text text="{aprobaciones>titulo}" />
+                            <Text text="{aprobaciones>fechaSolicitud}" />
+                            <ObjectStatus
+                                text="{aprobaciones>estado}"
+                                state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                            <Text text="{aprobaciones>tipoSolicitud}" />
+                            <Text text="{aprobaciones>periodo}" visible="{= !${ui>/mercadoCorporativo}}" />
+                            <Text text="{aprobaciones>cliente}" visible="{ui>/mercadoCorporativo}" />
+                            <Text text="{aprobaciones>lineaNegocio}" visible="{ui>/mercadoCorporativo}" />
+                            <ObjectNumber number="{aprobaciones>importeUSD}" unit="USD" visible="{ui>/mercadoCorporativo}" textAlign="End" />
+                            <HBox>
+                                <Button
+                                    icon="sap-icon://accept"
+                                    type="Accept"
+                                    tooltip="Aprobar"
+                                    press="onApprove"
+                                    visible="{= ${aprobaciones>estado} === 'Pendiente'}" />
+                                <Button
+                                    icon="sap-icon://decline"
+                                    type="Reject"
+                                    tooltip="Rechazar"
+                                    press="onReject"
+                                    visible="{= ${aprobaciones>estado} === 'Pendiente'}" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

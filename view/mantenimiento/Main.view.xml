@@ -1,0 +1,104 @@
+﻿<mvc:View
+    controllerName="com.claro.compras.portal.controller.mantenimiento.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="{= ${mantenimientoKpi>/mercadoCorporativo} ? 'Configuraciones – Mercado Corporativo' : 'Mantenimiento de Datos'}"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <content>
+            <VBox class="mtnPortalContainer">
+                <HBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop sapUiSmallMarginBottom">
+                    <Title text="{= ${mantenimientoKpi>/mercadoCorporativo} ? 'Configuraciones – Mercado Corporativo' : 'Configuraciones – Compras Locales'}" level="H2" />
+                    <ObjectStatus text="{= ${mantenimientoKpi>/mercadoCorporativo} ? 'Mercado Corporativo' : 'Compras Locales'}" state="{= ${mantenimientoKpi>/mercadoCorporativo} ? 'Information' : 'None'}" class="sapUiSmallMarginBegin" />
+                </HBox>
+                <HBox wrap="Wrap" class="mtnCardsRow">
+
+                    <!-- Card: Constantes (ambos mercados) -->
+                    <VBox class="mtnCard">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://settings" class="mtnCardIcon mtnCardIconBlue"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Constantes" class="mtnCardTitle"/>
+                                <Link text="Configuracion del sistema" press="onTileConstantes" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Gestione las constantes y parametros de configuracion del sistema" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="{= ${mantenimientoKpi>/cntConstantes} + ' registros'}" press="onTileConstantes" class="mtnCardCount"/>
+                    </VBox>
+
+                    <!-- Card: Niveles de Aprobacion (ambos mercados) -->
+                    <VBox class="mtnCard">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://workflow-tasks" class="mtnCardIcon mtnCardIconBlue"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Niveles de Aprobacion" class="mtnCardTitle"/>
+                                <Link text="Configuracion del flujo" press="onTileNiveles" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Configure los niveles y orden del flujo de aprobacion" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="{= ${mantenimientoKpi>/cntNiveles} + ' registros'}" press="onTileNiveles" class="mtnCardCount"/>
+                    </VBox>
+
+                    <!-- Card: Marca Proveedor (solo Compras Locales) -->
+                    <VBox class="mtnCard" visible="{= !${mantenimientoKpi>/mercadoCorporativo}}">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://person-placeholder" class="mtnCardIcon mtnCardIconOrange"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Marca Proveedor" class="mtnCardTitle"/>
+                                <Link text="Asociacion de marcas" press="onTileMarcaProveedor" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Gestione la relacion entre marcas y proveedores" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="{= ${mantenimientoKpi>/cntMarcas} + ' registros'}" press="onTileMarcaProveedor" class="mtnCardCount"/>
+                    </VBox>
+
+                    <!-- Card: Líneas de Negocio (solo Mercado Corporativo) -->
+                    <VBox class="mtnCard" visible="{mantenimientoKpi>/mercadoCorporativo}">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://org-chart" class="mtnCardIcon mtnCardIconGreen"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Líneas de Negocio" class="mtnCardTitle"/>
+                                <Link text="Estructura MC" press="onTileLineasNegocio" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Gestione las líneas de negocio, áreas funcionales y responsables de Mercado Corporativo" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="7 líneas configuradas" press="onTileLineasNegocio" class="mtnCardCount"/>
+                    </VBox>
+
+                    <!-- Card: Tipos de Requerimiento MC (solo Mercado Corporativo) -->
+                    <VBox class="mtnCard" visible="{mantenimientoKpi>/mercadoCorporativo}">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://document-text" class="mtnCardIcon mtnCardIconBlue"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Tipos de Requerimiento" class="mtnCardTitle"/>
+                                <Link text="Continuidad y Proyectos RFP" press="onTileTiposMC" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Configure los tipos de requerimiento y umbrales de aprobacion (&lt; / &gt;= 100K USD)" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="2 tipos configurados" press="onTileTiposMC" class="mtnCardCount"/>
+                    </VBox>
+
+                    <!-- Card: Clientes MC (solo Mercado Corporativo) -->
+                    <VBox class="mtnCard" visible="{mantenimientoKpi>/mercadoCorporativo}">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://customer" class="mtnCardIcon mtnCardIconGreen"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Clientes" class="mtnCardTitle"/>
+                                <Link text="Cartera de clientes MC" press="onTileClientesMC" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Gestione la cartera de clientes del Mercado Corporativo disponibles al registrar necesidades" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="{= (${clientesMC>/clientes} || []).length + ' clientes configurados'}" press="onTileClientesMC" class="mtnCardCount"/>
+                    </VBox>
+
+                </HBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

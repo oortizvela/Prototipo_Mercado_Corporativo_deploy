@@ -1,0 +1,14 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <MessagePage
+        title="Portal Compras"
+        text="Página no encontrada"
+        description="La página solicitada no existe. Regrese al inicio."
+        showHeader="true"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        icon="sap-icon://documents" />
+</mvc:View>

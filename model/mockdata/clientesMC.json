@@ -1,0 +1,16 @@
+{
+    "clientes": [
+        { "key": "BCP",         "text": "Banco de Crédito del Perú",        "ruc": "20100047218", "sector": "Banca y Finanzas",   "estado": "Activo" },
+        { "key": "MUNICIPALIDAD_MIRAFLORES", "text": "Municipalidad de Miraflores", "ruc": "20131369477", "sector": "Gobierno",          "estado": "Activo" },
+        { "key": "GLENCORE",    "text": "Glencore – Antapaccay",             "ruc": "20524638537", "sector": "Minería",            "estado": "Activo" },
+        { "key": "INTERCORP",   "text": "Grupo Intercorp",                   "ruc": "20600030381", "sector": "Retail / Finanzas",  "estado": "Activo" },
+        { "key": "BBVA",        "text": "BBVA Perú",                         "ruc": "20100130204", "sector": "Banca y Finanzas",   "estado": "Activo" },
+        { "key": "ENTEL",       "text": "Entel Perú SAC",                    "ruc": "20204100439", "sector": "Telecomunicaciones", "estado": "Activo" },
+        { "key": "TOTTUS",      "text": "Hipermercados Tottus SA",           "ruc": "20508565934", "sector": "Retail",             "estado": "Activo" },
+        { "key": "MINSA",       "text": "Ministerio de Salud",               "ruc": "20131369479", "sector": "Gobierno",           "estado": "Activo" },
+        { "key": "ALICORP",     "text": "Alicorp SAA",                       "ruc": "20100055237", "sector": "Consumo Masivo",     "estado": "Activo" },
+        { "key": "FERREYROS",   "text": "Ferreyros SA",                      "ruc": "20100030542", "sector": "Maquinaria / Industria", "estado": "Activo" },
+        { "key": "MAPFRE",      "text": "MAPFRE Perú",                       "ruc": "20100210909", "sector": "Seguros",            "estado": "Activo" },
+        { "key": "ADP",         "text": "ADP Empresas",                      "ruc": "20601234567", "sector": "Consultoría / RRHH", "estado": "Activo" }
+    ]
+}

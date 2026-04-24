@@ -1,0 +1,135 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.requerimiento.Create"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="Nuevo Requerimiento de Compra"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <headerContent>
+            <Button text="Guardar Borrador" icon="sap-icon://save" press="onSaveDraft" />
+            <Button text="Enviar a Aprobación" type="Emphasized" icon="sap-icon://paper-plane" press="onSubmit" />
+        </headerContent>
+
+        <content>
+            <VBox class="createFormContainer">
+
+                <!-- Encabezado del Requerimiento -->
+                <Panel headerText="Datos del Requerimiento" expandable="false" class="formPanel">
+                    <f:SimpleForm
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+                        columnsXL="2" columnsL="2" columnsM="1">
+                        <f:content>
+                            <Label text="Título / Descripción" required="true" />
+                            <Input id="inputDescripcion" placeholder="Ej. Compra de laptops para TI Q2 2025" maxLength="100" valueLiveUpdate="true" />
+
+                            <Label text="Solicitante" required="true" />
+                            <Input id="inputSolicitante" value="Omar Ortiz" editable="false" />
+
+                            <Label text="Centro de Costo" required="true" />
+                            <Select id="selectCentroCosto">
+                                <core:Item key="CC-1001" text="CC-1001 – Gerencia General" />
+                                <core:Item key="CC-1002" text="CC-1002 – Tecnología de Información" />
+                                <core:Item key="CC-1003" text="CC-1003 – Recursos Humanos" />
+                                <core:Item key="CC-1004" text="CC-1004 – Finanzas y Contabilidad" />
+                                <core:Item key="CC-1005" text="CC-1005 – Comercial y Ventas" />
+                                <core:Item key="CC-1006" text="CC-1006 – Operaciones" />
+                                <core:Item key="CC-1007" text="CC-1007 – Marketing" />
+                            </Select>
+
+                            <Label text="Cuenta Mayor (GL)" />
+                            <Select id="selectCuentaGL">
+                                <core:Item key="GL-6010" text="GL-6010 – Gastos TI" />
+                                <core:Item key="GL-6020" text="GL-6020 – Materiales y Suministros" />
+                                <core:Item key="GL-6030" text="GL-6030 – Servicios Externos" />
+                                <core:Item key="GL-6040" text="GL-6040 – Activos Fijos" />
+                                <core:Item key="GL-6050" text="GL-6050 – Mobiliario y Equipos" />
+                            </Select>
+
+                            <Label text="Fecha Requerida" required="true" />
+                            <DatePicker id="datePicker" placeholder="DD/MM/AAAA" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" />
+
+                            <Label text="Urgencia" />
+                            <Select id="selectUrgencia">
+                                <core:Item key="Normal" text="Normal" />
+                                <core:Item key="Urgente" text="Urgente" />
+                                <core:Item key="Muy Urgente" text="Muy Urgente" />
+                            </Select>
+
+                            <Label text="Observaciones" />
+                            <TextArea id="textAreaObs" rows="3" growing="true" maxLength="500" placeholder="Justificación o comentarios adicionales..." />
+                        </f:content>
+                    </f:SimpleForm>
+                </Panel>
+
+                <!-- Posiciones / Ítems -->
+                <Panel headerText="Posiciones del Requerimiento" expandable="false" class="formPanel">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Posiciones del Requerimiento" level="H3" />
+                            <ToolbarSpacer />
+                            <Button text="Agregar Ítem" icon="sap-icon://add" press="onAddItem" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <Table id="itemsTable"
+                        items="{path: '/items'}"
+                        noDataText="Agregue al menos una posición">
+                        <columns>
+                            <Column width="3rem"><Text text="Pos." /></Column>
+                            <Column><Text text="Material / Descripción" /></Column>
+                            <Column width="12rem"><Text text="Proveedor Sugerido" /></Column>
+                            <Column width="6rem" hAlign="Center"><Text text="Cantidad" /></Column>
+                            <Column width="5rem" hAlign="Center"><Text text="Unidad" /></Column>
+                            <Column width="8rem" hAlign="End"><Text text="Precio Unit." /></Column>
+                            <Column width="8rem" hAlign="End"><Text text="Total" /></Column>
+                            <Column width="4rem" hAlign="Center"><Text text="" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{pos}" />
+                                    <VBox>
+                                        <Input value="{material}" placeholder="Nombre del material/servicio" />
+                                        <Input value="{descripcion}" placeholder="Descripción adicional" />
+                                    </VBox>
+                                    <Input value="{proveedor}" placeholder="Proveedor sugerido" />
+                                    <Input value="{cantidad}" type="Number" textAlign="End" liveChange="onAmountChange" />
+                                    <Select selectedKey="{unidad}">
+                                        <core:Item key="UN" text="UN" />
+                                        <core:Item key="KG" text="KG" />
+                                        <core:Item key="LT" text="LT" />
+                                        <core:Item key="MT" text="MT" />
+                                        <core:Item key="HR" text="HR" />
+                                        <core:Item key="MES" text="MES" />
+                                    </Select>
+                                    <Input value="{precioUnitario}" type="Number" textAlign="End" liveChange="onAmountChange" />
+                                    <ObjectNumber
+                                        number="{total}"
+                                        unit="PEN"
+                                        state="{= parseFloat(${total}) > 0 ? 'None' : 'None'}" />
+                                    <Button icon="sap-icon://delete" type="Transparent" press="onDeleteItem" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <!-- Total footer -->
+                    <HBox justifyContent="End" class="totalBox">
+                        <Label text="Importe Total Estimado: " class="totalLabel" />
+                        <ObjectNumber id="totalImporte" number="0.00" unit="PEN" emphasized="true" class="totalValue" />
+                    </HBox>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

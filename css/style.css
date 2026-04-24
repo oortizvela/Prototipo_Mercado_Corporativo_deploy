@@ -1,0 +1,957 @@
+/* ============================================================
+   Portal Compras – Claro
+   Custom styles replicating SAP Build Work Zone look & feel
+   ============================================================ */
+
+/* ── CSS Custom Properties ───────────────────────────────── */
+:root {
+    --portal-header-bg:      #1c2e3e;
+    --portal-header-hover:   #243848;
+    --portal-sap-logo-bg:    #0070f2;
+    --portal-content-bg:     #f0f0f0;
+    --portal-tile-bg:        #ffffff;
+    --portal-tile-shadow:    0 1px 4px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+    --portal-tile-hover-shadow: 0 4px 16px rgba(0,0,0,0.20);
+    --portal-section-title:  #32363a;
+    --portal-tile-title:     #0064d9;
+    --portal-tile-subtitle:  #6a6d70;
+    --brand-color:           #0070f2;
+    --text-primary:          #32363a;
+    --text-secondary:        #6a6d70;
+}
+
+/* ── Body & Global ───────────────────────────────────────── */
+body.sapUiBody {
+    background: var(--portal-content-bg);
+}
+
+/* ── Shell Header (HBox en content — full control) ──────── */
+
+/* El HBox que actúa como shell */
+.portalShellHeader.sapMHBox {
+    background-color: var(--portal-header-bg) !important;
+    min-height: 2.75rem !important;
+    height: 2.75rem !important;
+    width: 100% !important;
+    padding: 0 1rem !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    /* sticky: se queda visible al hacer scroll */
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+/* Brand box (izquierda) */
+.shellBrandBox.sapMHBox {
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0;
+}
+
+/* Nav box (centro) */
+.shellNavBox.sapMHBox {
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 1.5rem;
+}
+
+/* Icons box (derecha) */
+.shellIconsBox.sapMHBox {
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0;
+}
+
+/* SAP Logo square */
+.sapLogoSquare {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--portal-sap-logo-bg);
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.sapLogoSquare span {
+    color: #ffffff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Brand title */
+.shellBrandTitle.sapMText {
+    color: #ffffff !important;
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    white-space: nowrap;
+}
+
+/* Home nav button — texto blanco, subrayado activo */
+.shellNavHomeBtn.sapMBtn .sapMBtnInner {
+    color: #ffffff !important;
+    font-size: 0.875rem !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid #ffffff !important;
+    border-radius: 0 !important;
+    height: 2.75rem !important;
+    padding: 0 0.75rem !important;
+    gap: 0.3rem !important;
+}
+
+.shellNavHomeBtn.sapMBtn .sapMBtnInner:hover {
+    background: var(--portal-header-hover) !important;
+}
+
+.shellNavHomeBtn.sapMBtn .sapMBtnIcon {
+    color: #ffffff !important;
+    font-size: 0.75rem !important;
+}
+
+/* Header icon buttons */
+.shellHeaderIcon.sapMBtn .sapMBtnInner {
+    color: #c0c4c8 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    height: 2.75rem !important;
+    width: 2.75rem !important;
+}
+
+.shellHeaderIcon.sapMBtn .sapMBtnInner:hover {
+    background: var(--portal-header-hover) !important;
+    color: #ffffff !important;
+}
+
+.shellHeaderIcon.sapMBtn .sapMBtnIcon {
+    font-size: 1rem !important;
+}
+
+/* Avatar */
+.shellAvatar.sapFAvatar {
+    background: #4a5568 !important;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+/* ── Portal Page ─────────────────────────────────────────── */
+.portalPage.sapMPage {
+    background: var(--portal-content-bg) !important;
+}
+
+/* Content area */
+.portalContentArea {
+    padding: 2rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Section Title ───────────────────────────────────────── */
+.portalSectionTitle.sapMTitle {
+    color: var(--portal-section-title) !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.25rem !important;
+    margin-top: 0 !important;
+}
+
+.portalSection {
+    margin-bottom: 2rem;
+}
+
+/* ── Portal Tiles Row ────────────────────────────────────── */
+.portalTilesRow {
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ── Generic Tile (portal cards) ────────────────────────── */
+.portalTile.sapMGT {
+    width: 11rem !important;
+    height: 11rem !important;
+    border-radius: 0.5rem !important;
+    background: var(--portal-tile-bg) !important;
+    box-shadow: var(--portal-tile-shadow) !important;
+    border: none !important;
+    transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+    flex-shrink: 0;
+}
+
+.portalTile.sapMGT:hover {
+    box-shadow: var(--portal-tile-hover-shadow) !important;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+/* Tile title */
+.portalTile.sapMGT .sapMGTHdrTxt {
+    color: var(--portal-tile-title) !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+}
+
+/* Tile subtitle */
+.portalTile.sapMGT .sapMGTSubHdrTxt {
+    color: var(--portal-tile-subtitle) !important;
+    font-size: 0.75rem !important;
+}
+
+/* ImageContent icon — tamaño reducido para replicar el tile de Build Work Zone */
+.portalTile.sapMGT .sapMGTContent .sapMImgCont {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: flex-start !important;
+    padding: 0.25rem 0.5rem !important;
+}
+
+.portalTile.sapMGT .sapMGTContent .sapMImgCont .sapFAvatarIcon,
+.portalTile.sapMGT .sapMGTContent .sapUiIcon {
+    font-size: 2.25rem !important;
+    color: #6b8fa3 !important;
+}
+
+/* Quitar el NumericContent obsoleto (por si queda algún rastro) */
+.portalTile.sapMGT .sapMNCIcn {
+    font-size: 2rem !important;
+    color: #5a8a9f !important;
+}
+
+/* ── App Pages ───────────────────────────────────────────── */
+.appPage.sapMPage > .sapMPageHeader > .sapMBar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+.appPage.sapMPage > .sapMPageHeader .sapMTitle {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+}
+
+.appPage.sapMPage {
+    background: var(--portal-content-bg) !important;
+}
+
+/* ── KPI Strip ───────────────────────────────────────────── */
+.kpiStrip {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: var(--portal-tile-shadow);
+    margin: 1rem 1rem 0 1rem;
+    padding: 1rem 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.kpiBox {
+    align-items: center;
+    text-align: center;
+    min-width: 8rem;
+}
+
+.kpiNumber.sapMObjectNumber .sapMObjectNumberText {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+.appTable.sapMList {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--portal-tile-shadow);
+    margin: 1rem;
+}
+
+.appTable .sapMListTblHeader {
+    background: #f7f7f7 !important;
+}
+
+.reqIdCell .sapMObjIdTitle,
+.aprIdCell .sapMObjIdTitle {
+    color: var(--brand-color) !important;
+    font-weight: 600 !important;
+}
+
+.tableCount.sapMText {
+    color: var(--text-secondary) !important;
+    font-size: 0.8125rem !important;
+}
+
+/* ── Detail Header KPIs ──────────────────────────────────── */
+.detailHeaderKPIs {
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+}
+
+.detailKpiItem {
+    min-width: 8rem;
+}
+
+/* ── Create Form ─────────────────────────────────────────── */
+.createFormContainer {
+    gap: 1.25rem;
+    padding: 1rem;
+}
+
+.formPanel.sapMPanel {
+    border-radius: 0.5rem !important;
+    box-shadow: var(--portal-tile-shadow) !important;
+}
+
+.totalBox {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e5e5;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.totalLabel.sapMLabel {
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+.totalValue.sapMObjectNumber .sapMObjectNumberText {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: var(--brand-color) !important;
+}
+
+/* ── Mantenimiento Tabs ──────────────────────────────────── */
+.mantenimientoTabBar.sapMITB {
+    background: var(--portal-content-bg) !important;
+}
+
+.mantenimientoTabBar .sapMITBContentArrow {
+    background: #ffffff !important;
+    box-shadow: var(--portal-tile-shadow) !important;
+}
+
+/* ── Mantenimiento Portal Cards ─────────────────────────── */
+.mtnPortalContainer {
+    padding: 2rem 2.5rem;
+    background: var(--portal-content-bg);
+    min-height: calc(100vh - 3rem);
+}
+
+.mtnCardsRow.sapMHBox {
+    gap: 1.25rem;
+    flex-wrap: wrap !important;
+}
+
+.mtnCard.sapMVBox {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: var(--portal-tile-shadow);
+    padding: 1.25rem;
+    width: 22rem;
+    min-height: 11rem;
+    justify-content: space-between;
+    transition: box-shadow 0.15s ease;
+    cursor: default;
+}
+
+.mtnCard.sapMVBox:hover {
+    box-shadow: var(--portal-tile-hover-shadow);
+}
+
+.mtnCardHeader.sapMHBox {
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.mtnCardIcon.sapUiIcon {
+    font-size: 1.75rem !important;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.mtnCardIconBlue.sapUiIcon {
+    color: #0070f2 !important;
+}
+
+.mtnCardIconOrange.sapUiIcon {
+    color: #e76500 !important;
+}
+
+.mtnCardTitleBlock.sapMVBox {
+    gap: 0.2rem;
+}
+
+.mtnCardTitle.sapMText {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    color: var(--text-primary) !important;
+}
+
+.mtnCardSubLink.sapMLnk {
+    font-size: 0.8125rem !important;
+    color: var(--brand-color) !important;
+}
+
+.mtnCardDesc.sapMText {
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.75rem;
+}
+
+.mtnCardCount.sapMLnk {
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    color: var(--brand-color) !important;
+}
+
+/* ── Mantenimiento List Panel ────────────────────────────── */
+.mtnListPanel.sapMPanel {
+    margin: 1rem;
+    border: 1px solid #e5e5e5 !important;
+    box-shadow: none !important;
+}
+
+.mtnListPanel .sapMPanelHdr {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* ── Code link in tables ─────────────────────────────────── */
+.mtnCodeLink.sapMLnk {
+    color: var(--brand-color) !important;
+    font-weight: 500 !important;
+}
+
+/* ── Utility classes ─────────────────────────────────────── */
+.boldText.sapMText {
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+}
+
+.secondaryText.sapMText {
+    color: var(--text-secondary) !important;
+    font-size: 0.8125rem !important;
+}
+
+.kpiText.sapMText {
+    font-weight: 600 !important;
+    font-size: 0.9375rem !important;
+    color: var(--text-primary) !important;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .portalContentArea {
+        padding: 1rem;
+    }
+    .portalTile.sapMGT {
+        width: 8rem !important;
+        height: 8rem !important;
+    }
+    .kpiStrip {
+        padding: 0.75rem 1rem;
+        gap: 1rem;
+        margin: 0.75rem 0.5rem 0;
+    }
+    .detailHeaderKPIs {
+        gap: 1.25rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REQUERIMIENTO DE COMPRAS — Lista
+═══════════════════════════════════════════════════════════ */
+
+/* Página contenedora */
+.reqListPage.sapMPage > .sapMPageHeader { display: none; }
+.reqListPage.sapMPage { background: #f5f6f7 !important; }
+
+/* Título principal */
+.reqListTitleBar {
+    padding: 1.25rem 1.5rem 0.5rem 1.5rem;
+    background: #ffffff;
+}
+.reqListTitle.sapMTitle .sapMTitleText {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: #1c2229 !important;
+}
+
+/* Barra de filtros */
+.reqFilterBar {
+    background: #ffffff;
+    padding: 0.75rem 1.5rem 1rem 1.5rem;
+    border-bottom: 1px solid #e4e7eb;
+}
+.reqFilterRow.sapMHBox {
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+.reqFilterField.sapMVBox {
+    gap: 0.2rem;
+    min-width: 8rem;
+}
+.reqFilterField.sapMVBox > .sapMLabel {
+    font-size: 0.75rem !important;
+    color: #6a7480 !important;
+}
+.reqClearFilters.sapMLnk {
+    color: #0064d9 !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+}
+
+/* Fila colapso */
+.reqCollapseRow.sapMHBox {
+    background: #f5f6f7;
+    padding: 0.2rem 0;
+    gap: 0.25rem;
+    justify-content: center;
+}
+.reqCollapseBtn.sapMBtn { opacity: 0.6; }
+
+/* Tabla */
+.reqTable.sapMList { background: #ffffff; }
+.reqTableToolbar.sapMOTB {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e4e7eb !important;
+}
+.reqTableTitle.sapMTitle .sapMTitleText {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+.reqBtnCrear.sapMBtn .sapMBtnContent {
+    font-weight: 600;
+}
+.reqIdCell.sapMText {
+    color: #0064d9 !important;
+    font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REQUERIMIENTO DE COMPRAS — Detalle
+═══════════════════════════════════════════════════════════ */
+
+/* Página */
+.reqDetailPage.sapMPage > .sapMPageHeader { display: none; }
+.reqDetailPage.sapMPage { background: #f5f6f7 !important; }
+
+/* Toolbar superior */
+.reqDetailToolbar.sapMOTB {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e4e7eb !important;
+    padding: 0 1rem !important;
+    min-height: 2.75rem !important;
+}
+.reqDetailId.sapMTitle .sapMTitleText {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: #1c2229 !important;
+}
+.reqDetailEstado.sapMObjStatus {
+    font-size: 0.85rem !important;
+}
+
+/* Panel de información */
+.reqDetailInfoPanel.sapMVBox {
+    background: #ffffff;
+    padding: 0.75rem 1.5rem 1rem 1.5rem;
+    border-bottom: 1px solid #e4e7eb;
+}
+.reqDetailInfoGrid.sapMHBox {
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.reqDetailInfoCol.sapMVBox {
+    gap: 0.2rem;
+    min-width: 18rem;
+    flex: 1;
+}
+.reqDetailInfoRow.sapMHBox {
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+.reqInfoLabel.sapMLabel {
+    font-size: 0.8rem !important;
+    color: #6a7480 !important;
+    font-weight: 400 !important;
+}
+.reqInfoValue.sapMText {
+    font-size: 0.8rem !important;
+    color: #1c2229 !important;
+}
+
+/* Pestañas */
+.reqDetailTabs.sapMITB {
+    background: #ffffff !important;
+}
+.reqDetailTabs.sapMITB > .sapMITBHead {
+    border-bottom: 1px solid #e4e7eb;
+    background: #ffffff;
+    padding: 0 1rem;
+}
+
+/* Secciones dentro de pestañas */
+.reqTabSection.sapMVBox {
+    margin: 1rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 0.375rem;
+    padding: 1rem 1.25rem;
+}
+.reqSectionTitle.sapMTitle .sapMTitleText {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: #1c2229 !important;
+    margin-bottom: 0.75rem;
+}
+.reqSectionHeader.sapMHBox {
+    margin-bottom: 0.75rem;
+    align-items: center;
+}
+
+/* Tabla ítems planificación */
+.reqItemsTable.sapMList { border: none; }
+.reqAmountBold.sapMText {
+    font-weight: 600;
+    color: #1c2229;
+}
+.reqVirAmount.sapMText {
+    font-weight: 600;
+    color: #e07614;
+}
+
+/* Fila totales */
+.reqTotalsRow.sapMHBox {
+    gap: 2rem;
+    border-top: 1px solid #e4e7eb;
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    justify-content: flex-end;
+}
+.reqTotalItem.sapMVBox { align-items: flex-end; gap: 0.1rem; }
+.reqTotalLabel.sapMLabel {
+    font-size: 0.75rem !important;
+    color: #6a7480 !important;
+    font-weight: 600 !important;
+}
+.reqTotalValue.sapMText {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #1c2229 !important;
+}
+.reqTotalVir.sapMText {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #e07614 !important;
+}
+
+/* Sección VIR */
+.reqVirSection.sapMVBox {
+    background: #f9fafc !important;
+}
+.reqVirList.sapMList { border: none; }
+.reqVirRow.sapMHBox {
+    padding: 0.25rem 0;
+    justify-content: space-between;
+}
+.reqVirLabel.sapMText {
+    color: #6a7480 !important;
+    font-size: 0.875rem !important;
+}
+.reqVirMonto.sapMText {
+    font-size: 0.875rem !important;
+    color: #1c2229 !important;
+}
+.reqVirTotalRow.sapMHBox {
+    border-top: 1px solid #e4e7eb;
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+    justify-content: flex-end;
+    gap: 1rem;
+    align-items: center;
+}
+.reqVirTotalLabel.sapMLabel {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #0064d9 !important;
+}
+.reqVirTotalMonto.sapMText {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    color: #0064d9 !important;
+}
+
+/* ── Flujo de Aprobación ──────────────────────── */
+.reqApprovalFlow.sapMHBox {
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 1rem 0;
+    overflow-x: auto;
+}
+.reqFlowStep.sapMVBox {
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 7rem;
+}
+.reqFlowRolLabel.sapMText {
+    font-size: 0.75rem !important;
+    color: #6a7480 !important;
+    text-align: center;
+    max-width: 8rem;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Círculos de estado */
+.reqFlowCircle.sapFAvatar {
+    border: 2px solid #c8d3e0 !important;
+    background: #ffffff !important;
+}
+.reqFlowCircle.reqFlowCircleRejected.sapFAvatar {
+    border-color: #d93025 !important;
+    color: #d93025 !important;
+}
+.reqFlowCircle.reqFlowCircleRejected.sapFAvatar .sapFAvatarIcon {
+    color: #d93025 !important;
+}
+.reqFlowCircle.reqFlowCircleApproved.sapFAvatar {
+    border-color: #107e3e !important;
+}
+.reqFlowCircle.reqFlowCircleApproved.sapFAvatar .sapFAvatarIcon {
+    color: #107e3e !important;
+}
+.reqFlowCircle.reqFlowCirclePending.sapFAvatar {
+    border-color: #c8d3e0 !important;
+}
+.reqFlowNivelLabel.sapMText {
+    font-size: 0.65rem !important;
+    color: #8396a8 !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em;
+}
+.reqFlowArrow.sapMVBox {
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+    flex-shrink: 0;
+}
+
+/* Tarjetas de aprobadores */
+.reqApprovalCards.sapMHBox {
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.reqApprovalCard.sapMHBox {
+    border: 1px solid #e4e7eb;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #ffffff;
+    gap: 0.75rem;
+    min-width: 13rem;
+    flex: 0 0 auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.reqCardDetail.sapMVBox {
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 4rem;
+}
+.reqCardAvatar.sapFAvatar {
+    background: #e8eef4 !important;
+    color: #5a7fa0 !important;
+}
+.reqCardAvatarRejected.sapFAvatar {
+    background: #fde8e8 !important;
+    color: #d93025 !important;
+}
+.reqCardAvatarApproved.sapFAvatar {
+    background: #e5f5ec !important;
+    color: #107e3e !important;
+}
+.reqCardTitle.sapMText {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-align: center;
+    color: #1c2229 !important;
+}
+.reqCardStatusError.sapMText { color: #d93025 !important; font-size: 0.75rem !important; }
+.reqCardStatusSuccess.sapMText { color: #107e3e !important; font-size: 0.75rem !important; }
+.reqCardBody.sapMVBox { gap: 0.2rem; justify-content: center; }
+.reqCardFullRole.sapMText { font-size: 0.8rem !important; font-weight: 600 !important; color: #1c2229 !important; }
+.reqCardDate.sapMText { font-size: 0.75rem !important; color: #6a7480 !important; }
+.reqCardComment.sapMText { font-size: 0.75rem !important; color: #6a7480 !important; }
+
+/* ── Adjuntos vacío ──────────────────────────── */
+.reqAdjuntosEmpty.sapMVBox {
+    padding: 3rem;
+    align-items: center;
+    gap: 1rem;
+}
+.reqEmptyIcon.sapUiIcon { opacity: 0.4; }
+.reqEmptyText.sapMText {
+    color: #8396a8 !important;
+    font-size: 0.875rem !important;
+}
+
+/* ── Ventas Proyectadas ──────────────────────── */
+.reqVentasTable.sapMList { border: none; }
+.reqVentasFooter.sapMVBox {
+    border-top: 1px solid #e4e7eb;
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    align-items: center;
+    gap: 0.25rem;
+}
+.reqVentasPromedioLabel.sapMLabel {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #0064d9 !important;
+}
+.reqVentasPromedio.sapMText {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #0064d9 !important;
+}
+
+/* ── Diálogo crear solicitud ─────────────────── */
+.reqDialogForm.sapMVBox {
+    padding: 1rem 1.25rem;
+    gap: 0.1rem;
+}
+.reqDlgLabel.sapMLabel {
+    font-size: 0.8125rem !important;
+    margin-top: 0.6rem;
+    margin-bottom: 0.1rem;
+}
+.reqDlgInput.sapMInput,
+.reqDlgInput.sapMSelect {
+    margin-bottom: 0.2rem;
+}
+
+/* ── Diálogos mantenimiento (JS) ─────────────── */
+.mtnDlgContent.sapMVBox {
+    padding: 1.25rem 1.5rem;
+    gap: 0;
+    box-sizing: border-box;
+}
+.mtnDlgContent.sapMVBox > .sapMLabel {
+    font-size: 0.8125rem !important;
+    margin-top: 0.75rem;
+    margin-bottom: 0.2rem;
+    color: #6a6d70;
+}
+.mtnDlgContent.sapMVBox > .sapMInput,
+.mtnDlgContent.sapMVBox > .sapMSelect,
+.mtnDlgContent.sapMVBox > .sapMTextArea {
+    margin-bottom: 0;
+}
+.mtnDlgContent.sapMVBox > .sapMHBox {
+    margin-top: 0.75rem;
+    gap: 0.75rem;
+}
+.mtnDlgContent.sapMVBox > .sapMHBox > .sapMVBox > .sapMLabel {
+    font-size: 0.8125rem !important;
+    margin-bottom: 0.2rem;
+    color: #6a6d70;
+}
+
+/* ── Dialog aprobaciones (Aprobar / Rechazar) ── */
+.aprDlgContent.sapMVBox {
+    padding: 1rem 1.5rem;
+    gap: 0.5rem;
+}
+
+/* ── Upload button ───────────────────────────── */
+.reqUploadBtn.sapMBtn .sapMBtnContent {
+    color: #0064d9 !important;
+}
+
+
+/* ============================================================
+   Mercado Corporativo – Styles
+   ============================================================ */
+
+/* Portal MC section badge */
+.portalSectionTitleRow {
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+/* MC tiles – accent border */
+.portalTileMC.sapMGT {
+    border-top: 3px solid #1b6b4a !important;
+}
+.portalTileMC.sapMGT .sapMGTHdrTxt {
+    color: #1b6b4a !important;
+}
+.portalTileMC.sapMGT:hover {
+    border-top-color: #0f4f35 !important;
+}
+
+/* MC card icon green */
+.mtnCardIconGreen {
+    color: #1b6b4a !important;
+    font-size: 1.5rem !important;
+    margin-right: 0.75rem;
+}
+
+/* Evaluacion Financiera cards */
+.reqEvalFinRow {
+    gap: 1rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+.reqEvalFinCard {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    min-width: 140px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.reqEvalLabel {
+    font-size: 0.75rem;
+    color: #6a6d70;
+    margin-bottom: 0.25rem;
+}
+.reqEvalValueNeg {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #bb0000;
+}
+.reqEvalValuePos {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #107e3e;
+}
+.reqEvalValueMargen {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #0064d9;
+}
+.reqEvalValueROI {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e76500;
+}
+
+/* Desc text tab MC */
+.reqDescText {
+    color: #32363a;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/*******/

@@ -1,0 +1,208 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.mantenimiento.TiposMC"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="Tipos de Requerimiento – Mercado Corporativo"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <content>
+            <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+
+                <MessageStrip
+                    text="El umbral de 100,000 USD determina el flujo de aprobación. Importes menores requieren 2 niveles; importes iguales o mayores requieren los 5 niveles jerárquicos."
+                    type="Information"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom"/>
+
+                <!-- Tipo 1 -->
+                <Panel id="panelContinuidad" expandable="true" expanded="true" class="mtnListPanel sapUiSmallMarginBottom">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Continuidad Tecnológica y de Servicios" level="H5"/>
+                            <ToolbarSpacer/>
+                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripción" press="onEditTipo" customData:data-idx="0"
+                                    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox class="mtnDlgContent">
+                            <Text text="{tiposMC>/tiposMC/0/descripcion}" wrapping="true" class="sapUiSmallMarginBottom reqDescText"/>
+
+                            <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                                <Title text="Flujo &lt; 100,000 USD (2 niveles)" level="H5"/>
+                                <Button text="+ Nivel" type="Transparent" press="onAddNivel" customData:data-tipo="0" customData:data-flujo="simple"
+                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                            </HBox>
+                            <Table
+                                id="tableContinuidadSimple"
+                                items="{tiposMC>/tiposMC/0/aprobacionSimple/niveles}"
+                                noDataText="Sin niveles configurados">
+                                <columns>
+                                    <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
+                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column><Text text="Cargo / Rol"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectNumber number="{tiposMC>nivel}" state="None"/>
+                                            <ObjectStatus text="{tiposMC>codigo}" state="Information"/>
+                                            <Text text="{tiposMC>cargo}"/>
+                                            <core:Icon src="{= ${tiposMC>obligatorio} ? 'sap-icon://accept' : 'sap-icon://decline'}"
+                                                       color="{= ${tiposMC>obligatorio} ? '#107e3e' : '#bb0000'}"/>
+                                            <HBox justifyContent="Center">
+                                                <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar nivel"
+                                                        press="onEditNivel" customData:data-tipo="0" customData:data-flujo="simple"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                                <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar nivel"
+                                                        press="onDeleteNivel" customData:data-tipo="0" customData:data-flujo="simple"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+                                <Title text="Flujo &gt;= 100,000 USD (5 niveles)" level="H5"/>
+                                <Button text="+ Nivel" type="Transparent" press="onAddNivel" customData:data-tipo="0" customData:data-flujo="completa"
+                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                            </HBox>
+                            <Table
+                                id="tableContinuidadCompleta"
+                                items="{tiposMC>/tiposMC/0/aprobacionCompleta/niveles}"
+                                noDataText="Sin niveles configurados">
+                                <columns>
+                                    <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
+                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column><Text text="Cargo / Rol"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectNumber number="{tiposMC>nivel}" state="None"/>
+                                            <ObjectStatus text="{tiposMC>codigo}" state="Warning"/>
+                                            <Text text="{tiposMC>cargo}"/>
+                                            <core:Icon src="{= ${tiposMC>obligatorio} ? 'sap-icon://accept' : 'sap-icon://decline'}"
+                                                       color="{= ${tiposMC>obligatorio} ? '#107e3e' : '#bb0000'}"/>
+                                            <HBox justifyContent="Center">
+                                                <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar nivel"
+                                                        press="onEditNivel" customData:data-tipo="0" customData:data-flujo="completa"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                                <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar nivel"
+                                                        press="onDeleteNivel" customData:data-tipo="0" customData:data-flujo="completa"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Tipo 2 -->
+                <Panel id="panelProyectos" expandable="true" expanded="true" class="mtnListPanel">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Proyectos / RFP" level="H5"/>
+                            <ToolbarSpacer/>
+                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripción" press="onEditTipo" customData:data-idx="1"
+                                    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox class="mtnDlgContent">
+                            <Text text="{tiposMC>/tiposMC/1/descripcion}" wrapping="true" class="sapUiSmallMarginBottom reqDescText"/>
+
+                            <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                                <Title text="Flujo &lt; 100,000 USD (2 niveles)" level="H5"/>
+                                <Button text="+ Nivel" type="Transparent" press="onAddNivel" customData:data-tipo="1" customData:data-flujo="simple"
+                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                            </HBox>
+                            <Table
+                                id="tableProyectosSimple"
+                                items="{tiposMC>/tiposMC/1/aprobacionSimple/niveles}"
+                                noDataText="Sin niveles configurados">
+                                <columns>
+                                    <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
+                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column><Text text="Cargo / Rol"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectNumber number="{tiposMC>nivel}" state="None"/>
+                                            <ObjectStatus text="{tiposMC>codigo}" state="Information"/>
+                                            <Text text="{tiposMC>cargo}"/>
+                                            <core:Icon src="{= ${tiposMC>obligatorio} ? 'sap-icon://accept' : 'sap-icon://decline'}"
+                                                       color="{= ${tiposMC>obligatorio} ? '#107e3e' : '#bb0000'}"/>
+                                            <HBox justifyContent="Center">
+                                                <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar nivel"
+                                                        press="onEditNivel" customData:data-tipo="1" customData:data-flujo="simple"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                                <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar nivel"
+                                                        press="onDeleteNivel" customData:data-tipo="1" customData:data-flujo="simple"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+                                <Title text="Flujo &gt;= 100,000 USD (5 niveles)" level="H5"/>
+                                <Button text="+ Nivel" type="Transparent" press="onAddNivel" customData:data-tipo="1" customData:data-flujo="completa"
+                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                            </HBox>
+                            <Table
+                                id="tableProyectosCompleta"
+                                items="{tiposMC>/tiposMC/1/aprobacionCompleta/niveles}"
+                                noDataText="Sin niveles configurados">
+                                <columns>
+                                    <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
+                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column><Text text="Cargo / Rol"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
+                                    <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectNumber number="{tiposMC>nivel}" state="None"/>
+                                            <ObjectStatus text="{tiposMC>codigo}" state="Warning"/>
+                                            <Text text="{tiposMC>cargo}"/>
+                                            <core:Icon src="{= ${tiposMC>obligatorio} ? 'sap-icon://accept' : 'sap-icon://decline'}"
+                                                       color="{= ${tiposMC>obligatorio} ? '#107e3e' : '#bb0000'}"/>
+                                            <HBox justifyContent="Center">
+                                                <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar nivel"
+                                                        press="onEditNivel" customData:data-tipo="1" customData:data-flujo="completa"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                                <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar nivel"
+                                                        press="onDeleteNivel" customData:data-tipo="1" customData:data-flujo="completa"
+                                                        xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

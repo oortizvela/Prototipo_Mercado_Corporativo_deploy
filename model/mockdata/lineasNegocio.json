@@ -1,0 +1,68 @@
+{
+  "lineasNegocio": [
+    {
+      "key": "OperacionesSoporte",
+      "text": "Operaciones y Soporte",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "AtencionTecnologicaEmpresas", "text": "Atención Tecnológica Empresas", "segmentos": [{ "key": "MantenimientoCorporativo", "text": "Mantenimiento Corporativo", "responsable": "Carlos Fernandez" }] },
+        { "key": "CiberseguridadEmpresas", "text": "Ciberseguridad Empresas", "segmentos": [{ "key": "Ciberseguridad", "text": "Ciberseguridad", "responsable": "Carlos Fernandez" }] },
+        { "key": "ImplementacionServicios", "text": "Implementación de Servicios Empresas", "segmentos": [{ "key": "InstalacionesPEXT", "text": "Instalaciones (PINT, PEXT, Soporte Operación, Contratistas)", "responsable": "Katherine Gutierrez" }] }
+      ]
+    },
+    {
+      "key": "ServiciosDigitalesCloud",
+      "text": "Servicios Digitales / Cloud",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "ServiciosCloudIaaS", "text": "Servicios Cloud IaaS/Data Center y TI", "segmentos": [{ "key": "ServiciosCloudIaaSSegmento", "text": "Servicios Cloud IaaS/Data Center y TI", "responsable": "G. Zamorano" }] },
+        { "key": "ServiciosCloudSaaS", "text": "Servicios Cloud SaaS", "segmentos": [{ "key": "ServiciosCloudSaaSSegmento", "text": "Servicios Cloud SaaS", "responsable": "Jorge Galarza" }] }
+      ]
+    },
+    {
+      "key": "ConsultoriaDiseno",
+      "text": "Consultoría y Diseño",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "AdminProyectoSolucProducto", "text": "Administración Proyecto Soluc. Producto", "segmentos": [{ "key": "ConsultoriaDisenioEmpresas", "text": "Consultoría y Diseño Empresas / ADP Empresas", "responsable": "Oscar Tipula" }] },
+        { "key": "AdminProyectoSolucMedida", "text": "Administración Proyecto Soluc. a Medida", "segmentos": [{ "key": "ADPNegocios", "text": "ADP Negocios", "responsable": "Elmer Carhuancote" }] },
+        { "key": "ConsultoriaGobierno", "text": "Consultoría y Diseño Gobierno", "segmentos": [{ "key": "ConsultoriaGobiernoSeg", "text": "Consultoría y Diseño Gobierno", "responsable": "Victor Levano" }] },
+        { "key": "ConsultoriaNegocios", "text": "Consultoría y Diseño Negocios", "segmentos": [{ "key": "ConsultoriaDisenioNegocios", "text": "Consultoría y Diseño Negocios", "responsable": "Fausto Ambrocio" }] }
+      ]
+    },
+    {
+      "key": "FactibilidadBackoffice",
+      "text": "Factibilidad / Backoffice",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "Factibilidad", "text": "Factibilidad", "segmentos": [{ "key": "BackOffice", "text": "Back Office y Factibilidad", "responsable": "Jose Toscano" }] }
+      ]
+    },
+    {
+      "key": "GestionProyectos",
+      "text": "Gestión de Proyectos",
+      "tipoSolicitud": "Proyectos / RFP",
+      "areasFunc": [
+        { "key": "GestionProyectosGobierno", "text": "Gestión de Proyectos y Procesos Gobierno", "segmentos": [{ "key": "ADPGobierno", "text": "ADP Gobierno", "responsable": "Jorge Cortez" }] },
+        { "key": "PMO", "text": "PMO", "segmentos": [{ "key": "PMOSeg", "text": "PMO", "responsable": "Guillermo Llanos" }] }
+      ]
+    },
+    {
+      "key": "Producto",
+      "text": "Producto",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "ProductoCorporativo", "text": "Producto Corporativo", "segmentos": [{ "key": "ProductoCorporativoSeg", "text": "Producto Corporativo (Gestionado, Fijo, Móvil)", "responsable": "Tatiana Valderrama" }] }
+      ]
+    },
+    {
+      "key": "SolucionesEspecializadas",
+      "text": "Soluciones Especializadas",
+      "tipoSolicitud": "both",
+      "areasFunc": [
+        { "key": "CapacidadesSatelitales", "text": "Capacidades Satelitales", "segmentos": [{ "key": "ModoCorporativoSatelital", "text": "Modo Corporativo Capacidades Satelitales", "responsable": "" }] },
+        { "key": "SolucionesHuawei", "text": "Soluciones Huawei", "segmentos": [{ "key": "SolucionesHuaweiSeg", "text": "Soluciones Huawei", "responsable": "" }] }
+      ]
+    }
+  ]
+}

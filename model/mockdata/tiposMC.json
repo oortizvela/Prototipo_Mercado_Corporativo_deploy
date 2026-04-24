@@ -1,0 +1,52 @@
+{
+  "tiposMC": [
+    {
+      "key": "Continuidad",
+      "text": "Continuidad Tecnológica y de Servicios",
+      "descripcion": "Solicitudes de continuidad de servicios tecnológicos existentes, mantenimiento y soporte operativo.",
+      "umbralUSD": 100000,
+      "aprobacionSimple": {
+        "label": "Importe < 100,000 USD",
+        "niveles": [
+          { "nivel": 1, "cargo": "Jefe Área Usuaria", "codigo": "N1", "obligatorio": true },
+          { "nivel": 5, "cargo": "Analista Compras", "codigo": "N5", "obligatorio": true }
+        ]
+      },
+      "aprobacionCompleta": {
+        "label": "Importe >= 100,000 USD",
+        "niveles": [
+          { "nivel": 1, "cargo": "Jefe Área Usuaria", "codigo": "N1", "obligatorio": true },
+          { "nivel": 2, "cargo": "Gerencia Área Usuaria", "codigo": "N2", "obligatorio": true },
+          { "nivel": 3, "cargo": "Sub Dirección Área Usuaria", "codigo": "N3", "obligatorio": true },
+          { "nivel": 4, "cargo": "Dirección Área Usuaria", "codigo": "N4", "obligatorio": true },
+          { "nivel": 5, "cargo": "Analista Compras", "codigo": "N5", "obligatorio": true }
+        ]
+      },
+      "estado": true
+    },
+    {
+      "key": "ProyectosRFP",
+      "text": "Proyectos / RFP",
+      "descripcion": "Solicitudes para nuevos proyectos, licitaciones (RFP) y oportunidades de negocio registradas en Salesforce.",
+      "umbralUSD": 100000,
+      "aprobacionSimple": {
+        "label": "Importe < 100,000 USD",
+        "niveles": [
+          { "nivel": 1, "cargo": "Jefe Área Usuaria", "codigo": "N1", "obligatorio": true },
+          { "nivel": 5, "cargo": "Analista Compras", "codigo": "N5", "obligatorio": true }
+        ]
+      },
+      "aprobacionCompleta": {
+        "label": "Importe >= 100,000 USD",
+        "niveles": [
+          { "nivel": 1, "cargo": "Jefe Área Usuaria", "codigo": "N1", "obligatorio": true },
+          { "nivel": 2, "cargo": "Gerencia Área Usuaria", "codigo": "N2", "obligatorio": true },
+          { "nivel": 3, "cargo": "Sub Dirección Área Usuaria", "codigo": "N3", "obligatorio": true },
+          { "nivel": 4, "cargo": "Dirección Área Usuaria", "codigo": "N4", "obligatorio": true },
+          { "nivel": 5, "cargo": "Analista Compras", "codigo": "N5", "obligatorio": true }
+        ]
+      },
+      "estado": true
+    }
+  ]
+}

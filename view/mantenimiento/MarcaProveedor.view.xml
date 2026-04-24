@@ -1,0 +1,62 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.mantenimiento.MarcaProveedor"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="Marca Proveedor"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <headerContent>
+            <Button text="+ Agregar Nuevo" type="Emphasized" press="onAddMarca"/>
+            <Button icon="sap-icon://refresh" type="Transparent" press="onRefresh" tooltip="Actualizar"/>
+        </headerContent>
+
+        <content>
+            <Panel id="panelMarcas" expandable="true" expanded="true" class="mtnListPanel">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Elementos ({= (${mantenimiento>/marcaProveedor} || []).length})" level="H5"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <Table
+                    id="tableMarcas"
+                    items="{mantenimiento>/marcaProveedor}"
+                    noDataText="No se encontraron registros"
+                    growing="true"
+                    growingThreshold="10">
+                    <columns>
+                        <Column width="10rem"><Text text="Tipo Solicitud"/></Column>
+                        <Column width="10rem"><Text text="Marca"/></Column>
+                        <Column width="12rem"><Text text="RUC"/></Column>
+                        <Column><Text text="Razón Social"/></Column>
+                        <Column width="7rem"><Text text="Estado"/></Column>
+                        <Column width="9rem" hAlign="Center"><Text text="Acciones"/></Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation" press="onMarcaRowPress">
+                            <cells>
+                                <Text text="{mantenimiento>tipoSolicitud}"/>
+                                <Text text="{mantenimiento>marca}"/>
+                                <Text text="{mantenimiento>ruc}"/>
+                                <Text text="{mantenimiento>razonSocial}"/>
+                                <ObjectStatus
+                                    text="{= ${mantenimiento>estado} ? 'Activo' : 'Inactivo'}"
+                                    state="{= ${mantenimiento>estado} ? 'Success' : 'Error'}"/>
+                                <HBox>
+                                    <Button icon="sap-icon://edit"   type="Transparent" tooltip="Editar"   press="onEditMarca"/>
+                                    <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteMarca"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

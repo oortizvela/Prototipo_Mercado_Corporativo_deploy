@@ -1,0 +1,384 @@
+{
+  "constantes": [
+    {"id": 1, "codigo": "APPROVER_NV3",      "descripcion": "Compras",                        "valorPrincipal": "Anibal Marlo", "valorSecundario": "anibalmarloaguilar@gmail.com", "valorAdicional1": "E77423", "valorAdicional2": "", "operador": "EQ", "tipoValor": "TEXTO", "categoria": "APPROVE", "estado": true},
+    {"id": 2, "codigo": "APPROVER_NV1_CARTA","descripcion": "Director de Finanzas",           "valorPrincipal": "Anibal Marlo", "valorSecundario": "anibalmarloaguilar@gmail.com", "valorAdicional1": "E77423", "valorAdicional2": "", "operador": "EQ", "tipoValor": "TEXTO", "categoria": "APPROVE", "estado": true},
+    {"id": 3, "codigo": "APPROVER_NV4",      "descripcion": "Director Mercado Masivo",        "valorPrincipal": "Anibal Marlo", "valorSecundario": "anibalmarloaguilar@gmail.com", "valorAdicional1": "E77423", "valorAdicional2": "", "operador": "EQ", "tipoValor": "TEXTO", "categoria": "APPROVE", "estado": true},
+    {"id": 4, "codigo": "APPROVER_NV1",      "descripcion": "Jefe de Planificacion Comercial","valorPrincipal": "Anibal Marlo", "valorSecundario": "anibalmarloaguilar@gmail.com", "valorAdicional1": "E77423", "valorAdicional2": "", "operador": "EQ", "tipoValor": "TEXTO", "categoria": "APPROVE", "estado": true},
+    {"id": 5, "codigo": "APPROVER_NV2",      "descripcion": "Gerente Planificacion Comercial","valorPrincipal": "Anibal Marlo", "valorSecundario": "anibalmarloaguilar@gmail.com", "valorAdicional1": "E77423", "valorAdicional2": "", "operador": "EQ", "tipoValor": "TEXTO", "categoria": "APPROVE", "estado": true}
+  ],
+  "nivelesAprobacion": [
+    {"id": 1, "nivel": 2, "flujo": "Aprob. Necesidad",    "descripcion": "Gerente de Planificación Comercial", "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV2",       "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original",          "orden": 2, "estado": true},
+    {"id": 2, "nivel": 4, "flujo": "Aprob. Necesidad",    "descripcion": "Director de Mercado Masivo",         "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV4",       "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original",          "orden": 4, "estado": true},
+    {"id": 3, "nivel": 1, "flujo": "Aprob. Necesidad",    "descripcion": "Jefe de Planificación Comercial",    "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV1",       "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original, Derivado","orden": 1, "estado": true},
+    {"id": 4, "nivel": 3, "flujo": "Aprob. Necesidad",    "descripcion": "Compras",                            "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV3",       "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original, Derivado","orden": 3, "estado": true},
+    {"id": 5, "nivel": 5, "flujo": "Aprob. Carta Acept.", "descripcion": "Director de Finanzas",               "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV1_CARTA", "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original",          "orden": 1, "estado": true}
+  ],
+  "marcaProveedor": [
+    {"id": 1, "tipoSolicitud": "",         "marca": "Samsung",  "ruc": "20300263578", "razonSocial": "Samsung Electronics Perú S.A.C",    "estado": true},
+    {"id": 2, "tipoSolicitud": "Original", "marca": "Apple",    "ruc": "20613243535", "razonSocial": "Apple Services Latam LLC",           "estado": true},
+    {"id": 3, "tipoSolicitud": "Original", "marca": "Xiaomi",   "ruc": "20608895630", "razonSocial": "Xiaomi Technologies Perú S.A.C",     "estado": true},
+    {"id": 4, "tipoSolicitud": "Original", "marca": "Motorola", "ruc": "20536231235", "razonSocial": "MOTOROLA MOBILITY PERU S.R.L",       "estado": true}
+  ],
+  "proveedores": [
+    {
+      "ruc": "20601128753",
+      "razonSocial": "HP Inc. Perú SAC",
+      "nombreComercial": "HP Perú",
+      "categoria": "Hardware",
+      "contacto": "Carlos Jiménez",
+      "email": "cjimenez@hp.com",
+      "telefono": "01-6317000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20512528458",
+      "razonSocial": "Samsung Electronics Peru SRL",
+      "nombreComercial": "Samsung Peru",
+      "categoria": "Telecomunicaciones",
+      "contacto": "Ana Riva Agüero",
+      "email": "a.rivaaguero@samsung.com",
+      "telefono": "01-5115000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20389230783",
+      "razonSocial": "Cisco Systems Perú SAC",
+      "nombreComercial": "Cisco Peru",
+      "categoria": "Telecomunicaciones",
+      "contacto": "Miguel Torres",
+      "email": "mtorres@cisco.com",
+      "telefono": "01-6114000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20348830443",
+      "razonSocial": "Microsoft Perú SRL",
+      "nombreComercial": "Microsoft Peru",
+      "categoria": "Software",
+      "contacto": "Lucía Valdivia",
+      "email": "lvaldivia@microsoft.com",
+      "telefono": "01-6113000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20523186888",
+      "razonSocial": "Oracle Perú SAC",
+      "nombreComercial": "Oracle Peru",
+      "categoria": "Software",
+      "contacto": "Roberto Chávez",
+      "email": "rchavez@oracle.com",
+      "telefono": "01-6159000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20601723440",
+      "razonSocial": "Apple Distribuidor Autorizado Perú SAC",
+      "nombreComercial": "iCenter Perú",
+      "categoria": "Hardware",
+      "contacto": "Gabriela Núñez",
+      "email": "gnunez@icenter.pe",
+      "telefono": "01-6121234",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20341810976",
+      "razonSocial": "Motorola Solutions Perú SAC",
+      "nombreComercial": "Motorola Peru",
+      "categoria": "Telecomunicaciones",
+      "contacto": "Diego Palma",
+      "email": "dpalma@motorola.com",
+      "telefono": "01-5109800",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20505568753",
+      "razonSocial": "Mueblería Corporativa del Perú SAC",
+      "nombreComercial": "MuebCorp",
+      "categoria": "Mobiliario",
+      "contacto": "Sandra Soto",
+      "email": "ssoto@muebcorp.pe",
+      "telefono": "01-3452100",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20601987456",
+      "razonSocial": "Fibernet Telecomunicaciones SAC",
+      "nombreComercial": "Fibernet",
+      "categoria": "Telecomunicaciones",
+      "contacto": "Jorge Huayra",
+      "email": "jhuayra@fibernet.pe",
+      "telefono": "01-7809900",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20498765321",
+      "razonSocial": "Electro Industrial del Perú SAC",
+      "nombreComercial": "ElectroInd",
+      "categoria": "Hardware",
+      "contacto": "Francisco Robles",
+      "email": "frobles@electroind.pe",
+      "telefono": "01-4561230",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20387654219",
+      "razonSocial": "Papelería Peruana SAC",
+      "nombreComercial": "Papelería Peruana",
+      "categoria": "Consumibles",
+      "contacto": "Milagros Quispe",
+      "email": "mquispe@papeleriaperuana.pe",
+      "telefono": "01-3280000",
+      "estado": "Activo"
+    },
+    {
+      "ruc": "20456789012",
+      "razonSocial": "LimpiaTech Perú EIRL",
+      "nombreComercial": "LimpiaTech",
+      "categoria": "Servicios",
+      "contacto": "Juan Cárdenas",
+      "email": "jcardenas@limpiatech.pe",
+      "telefono": "01-5671234",
+      "estado": "Inactivo"
+    }
+  ],
+  "materiales": [
+    {
+      "codigo": "MAT-0001",
+      "descripcion": "HP EliteBook 840 G10",
+      "especificacion": "Intel Core i7-1365U, 32GB DDR5, 1TB SSD NVMe, 14\" FHD IPS, Win11 Pro",
+      "categoria": "Hardware",
+      "unidad": "UN",
+      "precioReferencial": 4800.00,
+      "proveedorSugerido": "HP Inc. Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0002",
+      "descripcion": "HP LaserJet Enterprise MFP M430f",
+      "especificacion": "Multifuncional láser monocromo A4, 40ppm, dúplex automático, red, fax",
+      "categoria": "Hardware",
+      "unidad": "UN",
+      "precioReferencial": 3750.00,
+      "proveedorSugerido": "HP Inc. Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0003",
+      "descripcion": "Cisco Catalyst 9300L-48P-4X",
+      "especificacion": "Switch 48p PoE+ 802.3at, 4x SFP+ uplink 10G, IOS-XE, apilable",
+      "categoria": "Telecomunicaciones",
+      "unidad": "UN",
+      "precioReferencial": 28000.00,
+      "proveedorSugerido": "Cisco Systems Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0004",
+      "descripcion": "Cisco Catalyst 9500-40X",
+      "especificacion": "Switch core 40p 10G + 2x 40G QSFP, IOS-XE, VSS, alta disponibilidad",
+      "categoria": "Telecomunicaciones",
+      "unidad": "UN",
+      "precioReferencial": 72000.00,
+      "proveedorSugerido": "Cisco Systems Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0005",
+      "descripcion": "Microsoft 365 Business Premium",
+      "especificacion": "Licencia anual por usuario: Office 365, Teams, Defender, Intune",
+      "categoria": "Software",
+      "unidad": "LIC",
+      "precioReferencial": 358.29,
+      "proveedorSugerido": "Microsoft Perú SRL",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0006",
+      "descripcion": "Samsung Galaxy S25 Ultra 512GB",
+      "especificacion": "Snapdragon 8 Elite, 12GB RAM, 512GB, 6.9\" AMOLED, 200MP, Android 15",
+      "categoria": "Telecomunicaciones",
+      "unidad": "UN",
+      "precioReferencial": 5899.00,
+      "proveedorSugerido": "Samsung Electronics Peru SRL",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0007",
+      "descripcion": "Apple iPhone 16 Pro Max 256GB",
+      "especificacion": "A18 Pro chip, 6.9\" LTPO OLED, titanio, cámara 48MP, iOS 18",
+      "categoria": "Telecomunicaciones",
+      "unidad": "UN",
+      "precioReferencial": 5499.00,
+      "proveedorSugerido": "Apple Distribuidor Autorizado Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0008",
+      "descripcion": "Motorola Defy 2 Rugerizado 64GB",
+      "especificacion": "Dimensity 700, 4GB RAM, 64GB, IP68, MIL-STD-810H, 5000mAh",
+      "categoria": "Telecomunicaciones",
+      "unidad": "UN",
+      "precioReferencial": 950.00,
+      "proveedorSugerido": "Motorola Solutions Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0009",
+      "descripcion": "Cable FO Monomodo 12H OS2",
+      "especificacion": "Fibra óptica monomodo 12 hilos OS2, exterior PE, armada, 1000m",
+      "categoria": "Telecomunicaciones",
+      "unidad": "BOB",
+      "precioReferencial": 1600.00,
+      "proveedorSugerido": "Fibernet Telecomunicaciones SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0010",
+      "descripcion": "Silla Ergonómica Operador",
+      "especificacion": "Silla operador soporte lumbar ajustable, apoyabrazos 4D, tapiz malla",
+      "categoria": "Mobiliario",
+      "unidad": "UN",
+      "precioReferencial": 450.00,
+      "proveedorSugerido": "Mueblería Corporativa del Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0011",
+      "descripcion": "Escritorio Operador 120x60cm",
+      "especificacion": "Melamínico 18mm, canaleta trasera, patas metálicas regulables",
+      "categoria": "Mobiliario",
+      "unidad": "UN",
+      "precioReferencial": 348.75,
+      "proveedorSugerido": "Mueblería Corporativa del Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0012",
+      "descripcion": "Generador Eléctrico Diesel 50KVA",
+      "especificacion": "Caterpillar DE50GC, 50KVA, 3 fases, tanque 100L, arranque automático",
+      "categoria": "Hardware",
+      "unidad": "UN",
+      "precioReferencial": 45000.00,
+      "proveedorSugerido": "Electro Industrial del Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0013",
+      "descripcion": "UPS APC Smart-UPS SRT 10KVA",
+      "especificacion": "SRT10KXLI, on-line doble conversión, 10KVA/10KW, 3U rack",
+      "categoria": "Hardware",
+      "unidad": "UN",
+      "precioReferencial": 10000.00,
+      "proveedorSugerido": "Electro Industrial del Perú SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0014",
+      "descripcion": "Papel Bond A4 75g/m²",
+      "especificacion": "Resma 500 hojas, papel blanco 75gr, apto impresión láser/inkjet",
+      "categoria": "Consumibles",
+      "unidad": "RSM",
+      "precioReferencial": 28.00,
+      "proveedorSugerido": "Papelería Peruana SAC",
+      "estado": "Activo"
+    },
+    {
+      "codigo": "MAT-0015",
+      "descripcion": "Oracle Database 19c Enterprise Edition",
+      "especificacion": "Licencia procesador/año, incluye soporte Oracle Premier Support",
+      "categoria": "Software",
+      "unidad": "LIC",
+      "precioReferencial": 42000.00,
+      "proveedorSugerido": "Oracle Perú SAC",
+      "estado": "Activo"
+    }
+  ],
+  "centrosCosto": [
+    {
+      "codigo": "CC-1001",
+      "descripcion": "Gerencia General",
+      "gerencia": "Presidencia Ejecutiva",
+      "responsable": "CEO Claro Perú",
+      "presupuestoAnual": 500000.00,
+      "ejecutado": 187500.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1002",
+      "descripcion": "Tecnología de Información",
+      "gerencia": "Gerencia TI",
+      "responsable": "Francisco Tapia Ramos",
+      "presupuestoAnual": 2800000.00,
+      "ejecutado": 1960000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1003",
+      "descripcion": "Recursos Humanos",
+      "gerencia": "Gerencia RR.HH.",
+      "responsable": "Paola Cárdenas Huanca",
+      "presupuestoAnual": 450000.00,
+      "ejecutado": 198000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1004",
+      "descripcion": "Finanzas y Contabilidad",
+      "gerencia": "Gerencia Financiera",
+      "responsable": "Sandra Huanca López",
+      "presupuestoAnual": 320000.00,
+      "ejecutado": 96000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1005",
+      "descripcion": "Comercial y Ventas",
+      "gerencia": "Gerencia Comercial",
+      "responsable": "Gabriela Morales Soto",
+      "presupuestoAnual": 1500000.00,
+      "ejecutado": 1395000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1006",
+      "descripcion": "Operaciones",
+      "gerencia": "Gerencia de Operaciones",
+      "responsable": "Hernán Villanueva Torres",
+      "presupuestoAnual": 3200000.00,
+      "ejecutado": 2176000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1007",
+      "descripcion": "Marketing",
+      "gerencia": "Gerencia de Marketing",
+      "responsable": "Roberto Salinas Cruz",
+      "presupuestoAnual": 800000.00,
+      "ejecutado": 472000.00,
+      "estado": "Activo"
+    },
+    {
+      "codigo": "CC-1008",
+      "descripcion": "Legal y Compliance",
+      "gerencia": "Gerencia Legal",
+      "responsable": "Abogado Corporativo",
+      "presupuestoAnual": 280000.00,
+      "ejecutado": 126000.00,
+      "estado": "Activo"
+    }
+  ],
+  "cuentasGL": [
+    { "cuenta": "GL-6010", "descripcion": "Gastos Tecnología de Información", "tipo": "Gasto Operativo", "grupo": "TI y Sistemas", "estado": "Activo" },
+    { "cuenta": "GL-6020", "descripcion": "Materiales y Suministros de Oficina", "tipo": "Gasto Operativo", "grupo": "Administración", "estado": "Activo" },
+    { "cuenta": "GL-6030", "descripcion": "Servicios Externos Contratados", "tipo": "Gasto Operativo", "grupo": "Servicios", "estado": "Activo" },
+    { "cuenta": "GL-6040", "descripcion": "Adquisición de Activos Fijos", "tipo": "Inversión CAPEX", "grupo": "Activos", "estado": "Activo" },
+    { "cuenta": "GL-6050", "descripcion": "Mobiliario y Equipos de Oficina", "tipo": "Inversión CAPEX", "grupo": "Activos", "estado": "Activo" },
+    { "cuenta": "GL-6060", "descripcion": "Gastos de Telecomunicaciones", "tipo": "Gasto Operativo", "grupo": "Telecomunicaciones", "estado": "Activo" },
+    { "cuenta": "GL-6070", "descripcion": "Capacitación y Desarrollo", "tipo": "Gasto Operativo", "grupo": "RR.HH.", "estado": "Activo" },
+    { "cuenta": "GL-6080", "descripcion": "Gastos de Representación", "tipo": "Gasto Operativo", "grupo": "Administración", "estado": "Activo" },
+    { "cuenta": "GL-6090", "descripcion": "Seguros y Pólizas", "tipo": "Gasto Operativo", "grupo": "Administración", "estado": "Activo" },
+    { "cuenta": "GL-6100", "descripcion": "Mantenimiento y Reparaciones", "tipo": "Gasto Operativo", "grupo": "Operaciones", "estado": "Activo" },
+    { "cuenta": "GL-9010", "descripcion": "Licencias de Software", "tipo": "Inversión CAPEX", "grupo": "TI y Sistemas", "estado": "Activo" },
+    { "cuenta": "GL-9020", "descripcion": "Infraestructura de Red y Telecomunicaciones", "tipo": "Inversión CAPEX", "grupo": "Telecomunicaciones", "estado": "Activo" }
+  ]
+}
