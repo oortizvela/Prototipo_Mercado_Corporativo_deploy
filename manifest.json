@@ -125,6 +125,11 @@
             "routes": [
                 {
                     "pattern": "",
+                    "name": "login",
+                    "target": "login"
+                },
+                {
+                    "pattern": "portal",
                     "name": "portal",
                     "target": "portal"
                 },
@@ -179,6 +184,36 @@
                     "target": "mcRequerimientoList"
                 },
                 {
+                    "pattern": "infra/requerimiento",
+                    "name": "infraMCList",
+                    "target": "infraMCList"
+                },
+                {
+                    "pattern": "infra/redmovil",
+                    "name": "infraRedMovilList",
+                    "target": "infraRedMovilList"
+                },
+                {
+                    "pattern": "infra/redfija",
+                    "name": "infraRedFijaList",
+                    "target": "infraRedFijaList"
+                },
+                {
+                    "pattern": "infra/om",
+                    "name": "infraOMList",
+                    "target": "infraOMList"
+                },
+                {
+                    "pattern": "compraslocales/list",
+                    "name": "comprasLocalesList",
+                    "target": "comprasLocalesList"
+                },
+                {
+                    "pattern": "handset/list",
+                    "name": "handsetList",
+                    "target": "handsetList"
+                },
+                {
                     "pattern": "mc/requerimiento/crear",
                     "name": "mcRequerimientoCreate",
                     "target": "mcRequerimientoCreate"
@@ -187,6 +222,36 @@
                     "pattern": "mc/requerimiento/{reqId}",
                     "name": "mcRequerimientoDetail",
                     "target": "mcRequerimientoDetail"
+                },
+                {
+                    "pattern": "mc/factibilidad/{reqId}",
+                    "name": "mcFactibilidadDetail",
+                    "target": "mcFactibilidadDetail"
+                },
+                {
+                    "pattern": "mc/comercial/{reqId}",
+                    "name": "mcComercialDetail",
+                    "target": "mcComercialDetail"
+                },
+                {
+                    "pattern": "infra/redmovil/{reqId}",
+                    "name": "infraRedMovilDetail",
+                    "target": "infraRedMovilDetail"
+                },
+                {
+                    "pattern": "infra/redfija/{reqId}",
+                    "name": "infraRedFijaDetail",
+                    "target": "infraRedFijaDetail"
+                },
+                {
+                    "pattern": "infra/om/{reqId}",
+                    "name": "infraOMDetail",
+                    "target": "infraOMDetail"
+                },
+                {
+                    "pattern": "compraslocales/{reqId}",
+                    "name": "comprasLocalesDetail",
+                    "target": "comprasLocalesDetail"
                 },
                 {
                     "pattern": "mc/aprobaciones",
@@ -220,6 +285,11 @@
                 }
             ],
             "targets": {
+                "login": {
+                    "viewId": "login",
+                    "viewName": "Login",
+                    "viewLevel": 0
+                },
                 "portal": {
                     "viewId": "portal",
                     "viewName": "Portal",
@@ -275,6 +345,36 @@
                     "viewName": "requerimiento.List",
                     "viewLevel": 2
                 },
+                "infraMCList": {
+                    "viewId": "infraMCList",
+                    "viewName": "requerimiento.InfraMCList",
+                    "viewLevel": 2
+                },
+                "infraRedMovilList": {
+                    "viewId": "infraRedMovilList",
+                    "viewName": "requerimiento.InfraRedMovilList",
+                    "viewLevel": 2
+                },
+                "infraRedFijaList": {
+                    "viewId": "infraRedFijaList",
+                    "viewName": "requerimiento.InfraRedFijaList",
+                    "viewLevel": 2
+                },
+                "infraOMList": {
+                    "viewId": "infraOMList",
+                    "viewName": "requerimiento.InfraOMList",
+                    "viewLevel": 2
+                },
+                "comprasLocalesList": {
+                    "viewId": "comprasLocalesList",
+                    "viewName": "requerimiento.ComprasLocalesList",
+                    "viewLevel": 2
+                },
+                "handsetList": {
+                    "viewId": "handsetList",
+                    "viewName": "requerimiento.HandsetList",
+                    "viewLevel": 2
+                },
                 "mcRequerimientoCreate": {
                     "viewId": "mcRequerimientoCreate",
                     "viewName": "requerimiento.Create",
@@ -282,6 +382,36 @@
                 },
                 "mcRequerimientoDetail": {
                     "viewId": "mcRequerimientoDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "mcFactibilidadDetail": {
+                    "viewId": "mcFactibilidadDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "mcComercialDetail": {
+                    "viewId": "mcComercialDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "infraRedMovilDetail": {
+                    "viewId": "infraRedMovilDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "infraRedFijaDetail": {
+                    "viewId": "infraRedFijaDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "infraOMDetail": {
+                    "viewId": "infraOMDetail",
+                    "viewName": "requerimiento.Detail",
+                    "viewLevel": 3
+                },
+                "comprasLocalesDetail": {
+                    "viewId": "comprasLocalesDetail",
                     "viewName": "requerimiento.Detail",
                     "viewLevel": 3
                 },

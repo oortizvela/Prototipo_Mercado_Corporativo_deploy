@@ -5,8 +5,8 @@
     displayBlock="true">
     <MessagePage
         title="Portal Compras"
-        text="Página no encontrada"
-        description="La página solicitada no existe. Regrese al inicio."
+        text="PÃ¡gina no encontrada"
+        description="La pÃ¡gina solicitada no existe. Regrese al inicio."
         showHeader="true"
         showNavButton="true"
         navButtonPress="onNavBack"

@@ -1,220 +1,700 @@
-<mvc:View
+﻿<mvc:View
     controllerName="com.claro.compras.portal.controller.aprobaciones.Detail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:uxap="sap.uxap"
-    xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     displayBlock="true">
 
-    <uxap:ObjectPageLayout id="objPageApr">
-
-        <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:navigationActions>
+    <Page showHeader="false" enableScrolling="true">
+        <customHeader>
+            <Bar>
+                <contentLeft>
                     <Button icon="sap-icon://nav-back" type="Transparent" press="onNavBack" tooltip="Volver" />
-                </uxap:navigationActions>
-                <uxap:heading>
-                    <Title text="{aprobaciones>aprId}" level="H2" />
-                </uxap:heading>
-                <uxap:expandedContent>
+                    <Title text="{aprobaciones>aprId}" class="reqDetailId" />
                     <ObjectStatus
                         text="{aprobaciones>estado}"
-                        state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}"
+                        state="{= ${aprobaciones>estado} === 'Aprobado Final' ? 'Success' : ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}"
                         inverted="true" />
-                </uxap:expandedContent>
-                <uxap:actions>
-                    <Button
-                        text="Aprobar"
-                        type="Emphasized"
-                        icon="sap-icon://accept"
-                        visible="{= ${aprobaciones>estado} === 'Pendiente'}"
-                        press="onApprove" />
-                    <Button
-                        text="Rechazar"
-                        type="Reject"
-                        icon="sap-icon://decline"
-                        visible="{= ${aprobaciones>estado} === 'Pendiente'}"
-                        press="onReject" />
-                    <Button
-                        text="Reasignar"
-                        icon="sap-icon://forward"
-                        visible="{= ${aprobaciones>estado} === 'Pendiente'}"
-                        press="onReassign" />
-                </uxap:actions>
-            </uxap:ObjectPageDynamicHeaderTitle>
-        </uxap:headerTitle>
+                </contentLeft>
+                <contentRight>
+                    <Button text="Exportar Excel" icon="sap-icon://excel-attachment" type="Transparent" press="onExportarExcel" />
+                    <Button text="Descargar PDF"  icon="sap-icon://pdf-attachment"   type="Transparent" press="onDescargarPDF"  />
+                    <Button icon="sap-icon://slim-arrow-left" type="Transparent" press="onToggleHeader" tooltip="Contraer cabecera" />
+                </contentRight>
+            </Bar>
+        </customHeader>
 
-        <!-- KPI Header content -->
-        <uxap:headerContent>
-            <HBox class="detailHeaderKPIs">
-                <VBox class="detailKpiItem">
-                    <Label text="Empleado" />
-                    <Text text="{aprobaciones>empleado}" class="kpiText" />
+        <!-- HEADER INFO -->
+        <VBox id="aprInfoPanel" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+            <HBox wrap="Wrap">
+                <VBox width="22rem" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                    <Label text="T&#237;tulo" design="Bold" />
+                    <Text text="{aprobaciones>titulo}" wrapping="false" />
                 </VBox>
-                <VBox class="detailKpiItem">
-                    <Label text="Cargo" />
-                    <Text text="{aprobaciones>cargo}" class="kpiText" />
+                <VBox width="14rem" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                    <Label text="Canal" design="Bold" />
+                    <Text text="{aprobaciones>canal}" />
                 </VBox>
-                <VBox class="detailKpiItem">
-                    <Label text="Área" />
-                    <Text text="{aprobaciones>area}" class="kpiText" />
+                <VBox width="22rem" class="sapUiSmallMarginEnd sapUiTinyMarginBottom">
+                    <Label text="Tipo de Solicitud" design="Bold" />
+                    <Text text="{aprobaciones>tipoSolicitud}" />
                 </VBox>
-                <VBox class="detailKpiItem">
-                    <Label text="Fecha Solicitud" />
-                    <Text text="{aprobaciones>fechaSolicitud}" class="kpiText" />
-                </VBox>
-                <VBox class="detailKpiItem">
-                    <Label text="Prioridad" />
-                    <ObjectStatus
-                        text="{aprobaciones>prioridad}"
-                        state="{= ${aprobaciones>prioridad} === 'Alta' ? 'Error' : ${aprobaciones>prioridad} === 'Media' ? 'Warning' : 'None'}" />
-                </VBox>
-                <!-- KPI Compras Locales -->
-                <VBox class="detailKpiItem" visible="{= !${ui>/mercadoCorporativo}}">
-                    <Label text="Valor Estimado" />
-                    <ObjectNumber
-                        number="{path: 'aprobaciones>valorEstimado', type: 'sap.ui.model.type.Float', formatOptions: { minimumFractionDigits: 2 }}"
-                        unit="PEN"
-                        emphasized="true" />
-                </VBox>
-                <!-- KPI Mercado Corporativo -->
-                <VBox class="detailKpiItem" visible="{ui>/mercadoCorporativo}">
-                    <Label text="Cliente" />
-                    <Text text="{aprobaciones>cliente}" class="kpiText" />
-                </VBox>
-                <VBox class="detailKpiItem" visible="{ui>/mercadoCorporativo}">
-                    <Label text="Línea de Negocio" />
-                    <Text text="{aprobaciones>lineaNegocio}" class="kpiText" />
-                </VBox>
-                <VBox class="detailKpiItem" visible="{ui>/mercadoCorporativo}">
-                    <Label text="Importe Estimado" />
-                    <ObjectNumber
-                        number="{path: 'aprobaciones>importeUSD', type: 'sap.ui.model.type.Float', formatOptions: { minimumFractionDigits: 2 }}"
-                        unit="USD"
-                        emphasized="true"
-                        state="{= ${aprobaciones>importeUSD} >= 100000 ? 'Error' : 'None'}" />
-                </VBox>
-                <VBox class="detailKpiItem" visible="{ui>/mercadoCorporativo}">
-                    <Label text="Nivel Actual" />
-                    <Text text="{aprobaciones>nivelAprobacion}" class="kpiText" />
+                <VBox width="16rem" class="sapUiTinyMarginBottom">
+                    <Label text="L&#237;nea de Negocio" design="Bold" />
+                    <Text text="{aprobaciones>lineaNegocio}" />
                 </VBox>
             </HBox>
-        </uxap:headerContent>
+        </VBox>
 
-        <uxap:sections>
+        <!-- TABS -->
+        <IconTabBar id="aprTabs" class="reqDetailTabs" backgroundDesign="Transparent">
+            <items>
 
-        <!-- Section: Datos del Dispositivo (solo Compras Locales) -->
-            <uxap:ObjectPageSection title="Datos del Dispositivo Solicitado" visible="{= !${ui>/mercadoCorporativo}}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <f:SimpleForm editable="false" layout="ResponsiveGridLayout"
-                            labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
-                            columnsXL="2" columnsL="2" columnsM="1">
-                            <f:content>
-                                <Label text="Tipo de Dispositivo" />
-                                <Text text="{aprobaciones>dispositivo}" />
-                                <Label text="Marca / Modelo" />
-                                <Text text="{aprobaciones>marca} {aprobaciones>modelo}" />
-                                <Label text="Almacenamiento" />
-                                <Text text="{= ${aprobaciones>almacenamiento} || '—'}" />
-                                <Label text="Color" />
-                                <Text text="{= ${aprobaciones>color} || '—'}" />
-                                <Label text="Cantidad" />
+            <!-- HANDSET -->
+            <IconTabFilter icon="sap-icon://detail-view" text="Informaci&#243;n" key="hsInfo" visible="{ui>/esHandset}">
+                <content>
+                    <VBox class="reqTabSection">
+                        <Title text="Datos de la Solicitud" level="H4" class="reqSectionTitle" />
+                        <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Periodo" /><Text text="{aprobaciones>periodo}" /></VBox>
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Empleado" /><Text text="{aprobaciones>empleado}" /></VBox>
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Cargo" /><Text text="{aprobaciones>cargo}" /></VBox>
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="&#193;rea" /><Text text="{aprobaciones>area}" /></VBox>
+                        </HBox>
+                        <HBox wrap="Wrap">
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Dispositivo" /><Text text="{aprobaciones>dispositivo}" /></VBox>
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Modelo" /><Text text="{aprobaciones>modelo}" /></VBox>
+                            <VBox class="reqTabField sapUiSmallMarginEnd"><Label text="Cantidad" /><Text text="{aprobaciones>cantidad}" /></VBox>
+                            <VBox class="sapUiSmallMarginEnd" width="30rem"><Label text="Justificaci&#243;n" /><Text text="{aprobaciones>justificacion}" wrapping="true" /></VBox>
+                        </HBox>
+                    </VBox>
+                </content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://pdf-attachment" text="Plan de Compras" key="hsPlanCompras"
+                visible="{= ${ui>/esHandset} &amp;&amp; ${aprobaciones>estado} !== 'Enviado a Firma de Acta'}">
+                <content>
+                    <VBox class="reqTabSection">
+                        <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                            <Title text="{aprobaciones>planCompras/lote}" level="H4" class="reqSectionTitle" />
+                            <Text text="{aprobaciones>planCompras/tipo}"  class="sapUiSmallMarginBegin" />
+                            <Text text="{aprobaciones>planCompras/fecha}" class="sapUiSmallMarginBegin" />
+                        </HBox>
+                        <ScrollContainer horizontal="true" vertical="false" width="100%">
+                            <Table id="hsPlanTable" items="{aprobaciones>planCompras/items}" fixedLayout="false" class="reqItemsTable">
+                                <columns>
+                                    <Column><Text text="Modelo" /></Column>
+                                    <Column><Text text="C&#243;digo" /></Column>
+                                    <Column><Text text="C&#243;digo Material" /></Column>
+                                    <Column><Text text="Color" /></Column>
+                                    <Column hAlign="End"><Text text="Cantidad" /></Column>
+                                    <Column hAlign="End"><Text text="Precio Fact. US$" /></Column>
+                                    <Column hAlign="End"><Text text="VIR Fact. US$" /></Column>
+                                    <Column hAlign="End"><Text text="Precio Neto US$" /></Column>
+                                    <Column hAlign="End"><Text text="Total Fact. US$" /></Column>
+                                    <Column hAlign="End"><Text text="Total VIR US$" /></Column>
+                                    <Column hAlign="End"><Text text="Total Neto US$" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{aprobaciones>modelo}" /><Text text="{aprobaciones>codigo}" />
+                                            <Text text="{aprobaciones>codigoMaterial}" /><Text text="{aprobaciones>color}" />
+                                            <Text text="{aprobaciones>cantidad}" /><Text text="{aprobaciones>precioFact}" />
+                                            <Text text="{aprobaciones>virFact}" /><Text text="{aprobaciones>precioNeto}" />
+                                            <Text text="{aprobaciones>totalFact}" /><Text text="{aprobaciones>totalVIR}" />
+                                            <Text text="{aprobaciones>totalNeto}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ScrollContainer>
+                        <Title text="APORTES US$" level="H5" class="reqSectionTitle sapUiMediumMarginTop" />
+                        <HBox class="sapUiSmallMarginBottom"><Label text="VIR:" class="sapUiSmallMarginEnd" /><Text text="{aprobaciones>planCompras/aportes/vir}" /></HBox>
+                        <Table id="hsAportesTable" items="{aprobaciones>planCompras/aportes/otros}" fixedLayout="false" noDataText="" showSeparators="None">
+                            <columns>
+                                <Column><Text text="" /></Column>
+                                <Column hAlign="End" width="8rem"><Text text="Monto US$" /></Column>
+                                <Column hAlign="End" width="6rem"><Text text="%" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{aprobaciones>concepto}" />
+                                        <Text text="{aprobaciones>monto}" />
+                                        <Text text="{aprobaciones>porcentaje}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                        <HBox justifyContent="SpaceBetween" class="sapUiLargeMarginTop" wrap="Wrap">
+                            <VBox alignItems="Center" width="30%" class="sapUiSmallMarginEnd">
+                                <HBox height="2px" width="100%" class="aprSignLine" />
+                                <Text text="{aprobaciones>aprobadores/0/nombre}" class="sapUiTinyMarginTop" />
+                                <Text text="{aprobaciones>aprobadores/0/rol}" />
+                            </VBox>
+                            <VBox alignItems="Center" width="30%" class="sapUiSmallMarginEnd">
+                                <HBox height="2px" width="100%" class="aprSignLine" />
+                                <Text text="{aprobaciones>aprobadores/1/nombre}" class="sapUiTinyMarginTop" />
+                                <Text text="{aprobaciones>aprobadores/1/rol}" />
+                            </VBox>
+                            <VBox alignItems="Center" width="30%">
+                                <HBox height="2px" width="100%" class="aprSignLine" />
+                                <Text text="{aprobaciones>aprobadores/2/nombre}" class="sapUiTinyMarginTop" />
+                                <Text text="{aprobaciones>aprobadores/2/rol}" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </content>
+            </IconTabFilter>
+
+            <!-- ── PASO 6.1: Acta de conformidad (solo Handset, estado Enviado a Firma de Acta) ── -->
+            <IconTabFilter
+                icon="sap-icon://pdf-attachment"
+                text="Acta de conformidad"
+                key="hsActaAceptacion"
+                visible="{ui>/esHandset}">
+                <content>
+                    <VBox class="reqTabSection">
+
+                        <!-- Toolbar interno: DocuSign + Descargar -->
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                            <Title text="Acta de Aceptaci&#243;n" level="H4" class="reqSectionTitle" />
+                            <HBox alignItems="Center">
+                                <Link
+                                    text="&#128279; URL DocuSign (Proveedor)"
+                                    href="{aprobaciones>actaAceptacion/docuSignUrl}"
+                                    target="_blank"
+                                    class="sapUiSmallMarginEnd"
+                                    visible="{= !!${aprobaciones>actaAceptacion/docuSignUrl}}" />
+                                <Button
+                                    text="Descargar PDF"
+                                    icon="sap-icon://pdf-attachment"
+                                    type="Transparent"
+                                    press="onDescargarActaPDF" />
+                            </HBox>
+                        </HBox>
+
+                        <!-- Vista previa del documento -->
+                        <VBox class="actaDocPreview sapUiMediumMarginBeginEnd">
+
+                            <!-- Cabecera -->
+                            <HBox justifyContent="SpaceBetween" alignItems="Start" class="actaDocHeader">
+                                <VBox>
+                                    <core:Icon src="sap-icon://business-objects-experience" size="3rem" color="#cc0000" class="sapUiSmallMarginBottom" />
+                                </VBox>
+                                <VBox alignItems="End">
+                                    <Text text="Am&#233;rica M&#243;vil Per&#250; S.A.C." class="actaDocEmpresa" />
+                                    <Text text="Av. Nicol&#225;s Arriola 480, Santa Catalina" class="actaDocDireccion" />
+                                    <Text text="La Victoria, Lima, Per&#250;" class="actaDocDireccion" />
+                                    <Text text="Tel&#233;fono: +51 1 613-1000" class="actaDocDireccion" />
+                                    <Text text="Fax: +51 1 613-1063" class="actaDocDireccion" />
+                                    <Link text="www.claro.com.pe" class="actaDocDireccion" />
+                                </VBox>
+                            </HBox>
+
+                            <HBox justifyContent="SpaceBetween" class="actaDocSubHeader">
+                                <Text text="{aprobaciones>actaAceptacion/fechaDocumento}" class="actaDocFecha" />
+                                <Text text="{aprobaciones>actaAceptacion/numeroActa}"     class="actaDocNumero" />
+                            </HBox>
+
+                            <!-- Destinatario -->
+                            <VBox class="actaDocDestinatario">
+                                <Text text="Se&#241;ores:" class="actaDocLabel" />
+                                <Text text="{aprobaciones>actaAceptacion/proveedor}" class="actaDocProvNombre" />
+                            </VBox>
+                            <HBox class="actaDocCampo">
+                                <Label text="Atenci&#243;n   :" width="9rem" design="Bold" />
+                                <Text text="{aprobaciones>actaAceptacion/contacto}" />
+                            </HBox>
+                            <HBox class="actaDocCampo sapUiTinyMarginTop">
+                                <Label text="Asunto       :" width="9rem" design="Bold" />
+                                <Text text="{aprobaciones>actaAceptacion/asunto}" />
+                            </HBox>
+
+                            <!-- Cuerpo del acta -->
+                            <VBox class="actaDocCuerpo">
+                                <Text
+                                    text="Por medio de la presente y siempre que la presente comunicaci&#243;n sea devuelta con la firma de su representante legal en se&#241;al de aceptaci&#243;n de los t&#233;rminos aqu&#237; se&#241;alados, procedemos a confirmar la adquisici&#243;n de los siguientes equipos a {aprobaciones>actaAceptacion/proveedor} (en adelante, el Proveedor):"
+                                    wrapping="true" class="actaDocTexto" />
+                            </VBox>
+
+                            <!-- Tabla de ítems -->
+                            <ScrollContainer horizontal="true" vertical="false" width="100%">
+                                <Table
+                                    id="aprActaItemsTable"
+                                    items="{aprobaciones>actaAceptacion/items}"
+                                    fixedLayout="false"
+                                    noDataText="Sin &#237;tems"
+                                    class="actaItemsTable">
+                                    <columns>
+                                        <Column><Text text="Modelo" /></Column>
+                                        <Column width="9rem"><Text text="Color" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                        <Column width="12rem" hAlign="End"><Text text="Precio Facturaci&#243;n US$" /></Column>
+                                        <Column width="12rem" hAlign="End"><Text text="Total US$" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{aprobaciones>modelo}" wrapping="false" />
+                                                <Text text="{aprobaciones>color}" />
+                                                <Text text="{aprobaciones>cantidad}" textAlign="End" />
+                                                <Text text="{aprobaciones>precioFact}" textAlign="End" />
+                                                <Text text="{aprobaciones>totalFact}" textAlign="End" class="reqAmountBold" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </ScrollContainer>
+
+                            <!-- Cl&#225;usula precios -->
+                            <Text
+                                text="Los precios aplicables a este pedido no ser&#225;n mayores a los aprobados como precios globales para el grupo Am&#233;rica M&#243;vil y/o para Telcel. De ser el caso se aplicar&#225; una protecci&#243;n de precios en base a los precios negociados para la regi&#243;n. Se deber&#225; acreditar cualquier diferencia a trav&#233;s de las notas de cr&#233;dito correspondientes."
+                                wrapping="true" class="actaDocTexto actaDocClausula" />
+
+                            <Text
+                                text="Sin perjuicio de las obligaciones asumidas, el Proveedor se compromete a (1) pagar cualquier sanci&#243;n, multa o penalidad de pago que se requiera a CLARO en el marco de cualquier denuncia, queja y/o reclamo iniciado en su contra por la falta de registro en el RETRMIEP de cualquiera de los equipos que haya vendido y entregados a CLARO y/o por cualquier otra circunstancia relacionada al referido registro, y (2) defender a CLARO y mantenerla indemne ante cualquier consecuencia derivada del incumplimiento o del eventual cumplimiento infractor a las normas legales vinculadas al RETRMIEP, y mantenerla indemne de cualquier incumplimiento y/o cumplimiento parcial de alguna de las obligaciones a su cargo."
+                                wrapping="true" class="actaDocTexto actaDocClausula" />
+
+                            <!-- Firmas -->
+                            <HBox justifyContent="SpaceBetween" class="actaDocFirmas">
+                                <VBox alignItems="Center" width="45%">
+                                    <VBox class="actaFirmaLinea" />
+                                    <Text text="{aprobaciones>actaAceptacion/firmaDirectorFinanzas}" class="actaFirmaLabel" />
+                                    <Text text="{aprobaciones>actaAceptacion/rolDirectorFinanzas}"   class="actaFirmaSubLabel" />
+                                    <Text text="{aprobaciones>actaAceptacion/empresaDirector}"       class="actaFirmaSubLabel" />
+                                </VBox>
+                                <VBox alignItems="Center" width="45%">
+                                    <VBox class="actaFirmaLinea" />
+                                    <Text text="{aprobaciones>actaAceptacion/firmaProveedor}"  class="actaFirmaLabel" />
+                                    <Text text="{aprobaciones>actaAceptacion/rolProveedor}"    class="actaFirmaSubLabel" />
+                                    <Text text="{aprobaciones>actaAceptacion/empresaProveedor}" class="actaFirmaSubLabel" />
+                                </VBox>
+                            </HBox>
+
+                        </VBox>
+                        <!-- Fin vista previa -->
+
+                        <!-- Nota C1 -->
+                        <MessageStrip
+                            text="(C1) Con la aprobaci&#243;n del Director de Finanzas se avanza con el proceso para la creaci&#243;n del pedido en SAP. Se adjuntar&#225;n en Ariba la carta de compromiso y necesidad, y se crear&#225; una tarea a Compras para cerrarla una vez se confirme la creaci&#243;n del pedido."
+                            type="Information" showIcon="true"
+                            class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd" />
+
+                        <!-- Botones Aprobar / Rechazar dentro del tab -->
+                        <HBox justifyContent="End" class="sapUiSmallMarginEnd sapUiSmallMarginTopBottom"
+                              visible="{= ${aprobaciones>estado} === 'Enviado a Firma de Acta'}">
+                            <Button text="&#10003; Aprobar"  type="Accept" icon="sap-icon://accept"  press="onApprove" class="sapUiSmallMarginEnd" />
+                            <Button text="&#10007; Rechazar" type="Reject" icon="sap-icon://decline" press="onReject" />
+                        </HBox>
+
+                    </VBox>
+                </content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="hsFlujo" visible="{ui>/esHandset}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol / Responsable" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : ${aprobaciones>estado} === 'En Espera' ? 'None' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+
+                    <!-- Paso final: Firma de Acta de Conformidad (Director de Finanzas) -->
+                    <Title text="Firma de Acta de Conformidad" level="H5" class="reqSectionTitle sapUiMediumMarginTop" />
+                    <Table fixedLayout="false" showSeparators="None">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Paso" /></Column>
+                            <Column><Text text="Responsable" /></Column>
+                            <Column width="14rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="FIRMA" />
+                                    <Text text="Director de Finanzas" />
+                                    <Text text="Carlos Solano Morales" />
+                                    <ObjectStatus
+                                        text="{= ${aprobaciones>estado} === 'Aprobado Director Finanzas' ? 'Aprobado' : ${aprobaciones>estado} === 'Enviado a Firma de Acta' ? 'Pendiente firma' : 'En Espera'}"
+                                        state="{= ${aprobaciones>estado} === 'Aprobado Director Finanzas' ? 'Success' : ${aprobaciones>estado} === 'Enviado a Firma de Acta' ? 'Warning' : 'None'}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <!-- MERCADO CORPORATIVO -->
+            <IconTabFilter icon="sap-icon://money-bills" text="Costos &amp; Ingresos" key="mcCostos" visible="{ui>/esMC}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Costos e Ingresos del Proyecto" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>costos}" fixedLayout="false" noDataText="Sin datos." class="reqItemsTable">
+                        <columns>
+                            <Column width="12rem"><Text text="Tipo" /></Column>
+                            <Column><Text text="Descripci&#243;n" /></Column>
+                            <Column width="12rem" hAlign="End"><Text text="Monto (US$)" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>tipo}" />
+                            <Text text="{aprobaciones>descripcion}" />
+                            <Text text="{aprobaciones>monto}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://bar-chart" text="KPI's" key="mcKpis" visible="{ui>/esMC}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Indicadores de Rentabilidad" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>kpis}" fixedLayout="false" noDataText="Sin KPIs." class="reqItemsTable">
+                        <columns>
+                            <Column><Text text="KPI" /></Column>
+                            <Column width="12rem" hAlign="End"><Text text="Valor" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>kpi}" />
+                            <Text text="{aprobaciones>valor}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://document-text" text="Presentaci&#243;n Cliente" key="mcPresentacion" visible="{ui>/esMC}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Presentaci&#243;n al Cliente" level="H4" class="reqSectionTitle" />
+                    <FormattedText htmlText="{aprobaciones>presentacion}" class="aprPresentacionContent" />
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="mcFlujo" visible="{ui>/esMC}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n &#8211; Mercado Corporativo" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : ${aprobaciones>estado} === 'En Espera' ? 'None' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <!-- RED MOVIL -->
+            <IconTabFilter icon="sap-icon://supplier" text="Planificaci&#243;n" key="rmPlan" visible="{ui>/esRedMovil}">
+                <content><VBox class="reqTabSection">
+                    <Title text="&#205;tems de Planificaci&#243;n &#8211; Red M&#243;vil" level="H4" class="reqSectionTitle" />
+                    <ScrollContainer horizontal="true" vertical="false" width="100%">
+                        <Table items="{aprobaciones>items}" fixedLayout="false" noDataText="Sin &#237;tems." class="reqItemsTable">
+                            <columns>
+                                <Column width="3rem" hAlign="Center"><Text text="N&#176;" /></Column>
+                                <Column width="9rem"><Text text="Tipo &#205;tem" /></Column>
+                                <Column width="18rem"><Text text="Descripci&#243;n" /></Column>
+                                <Column width="10rem"><Text text="Tecnolog&#237;a" /></Column>
+                                <Column width="9rem"><Text text="Banda" /></Column>
+                                <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                <Column width="9rem"><Text text="Tipo Sitio" /></Column>
+                                <Column width="10rem"><Text text="Ubicaci&#243;n" /></Column>
+                                <Column width="12rem"><Text text="Proveedor" /></Column>
+                                <Column width="15rem"><Text text="Observaci&#243;n" /></Column>
+                            </columns>
+                            <items><ColumnListItem><cells>
+                                <Text text="{aprobaciones>no}" />
+                                <Text text="{aprobaciones>tipoItem}" />
+                                <Text text="{aprobaciones>descripcion}" />
+                                <Text text="{aprobaciones>tecnologia}" />
+                                <Text text="{aprobaciones>banda}" />
                                 <Text text="{aprobaciones>cantidad}" />
-                                <Label text="Plan Sugerido" />
-                                <Text text="{= ${aprobaciones>planSugerido} || '—'}" />
-                                <Label text="Justificación" />
-                                <Text text="{aprobaciones>justificacion}" />
-                                <Label text="Reemplaza a" />
-                                <Text text="{= ${aprobaciones>dispositivoAnterior} || 'No aplica'}" />
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+                                <Text text="{aprobaciones>tipoSitio}" />
+                                <Text text="{aprobaciones>ubicacion}" />
+                                <Text text="{aprobaciones>proveedor}" />
+                                <Text text="{aprobaciones>observacion}" />
+                            </cells></ColumnListItem></items>
+                        </Table>
+                    </ScrollContainer>
+                </VBox></content>
+            </IconTabFilter>
 
-            <!-- Section: Datos del Proyecto/Servicio (solo Mercado Corporativo) -->
-            <uxap:ObjectPageSection title="Datos del Proyecto / Servicio" visible="{ui>/mercadoCorporativo}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <f:SimpleForm editable="false" layout="ResponsiveGridLayout"
-                            labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
-                            columnsXL="2" columnsL="2" columnsM="1">
-                            <f:content>
-                                <Label text="Cliente" />
-                                <Text text="{aprobaciones>cliente}" />
-                                <Label text="Línea de Negocio" />
-                                <Text text="{aprobaciones>lineaNegocio}" />
-                                <Label text="Área Funcional" />
-                                <Text text="{= ${aprobaciones>areaFuncional} || '—'}" />
-                                <Label text="Tipo de Requerimiento" />
-                                <Text text="{aprobaciones>tipoSolicitud}" />
-                                <Label text="Importe Estimado (USD)" />
-                                <ObjectNumber
-                                    number="{path: 'aprobaciones>importeUSD', type: 'sap.ui.model.type.Float', formatOptions: { minimumFractionDigits: 2 }}"
-                                    unit="USD"
-                                    state="{= ${aprobaciones>importeUSD} >= 100000 ? 'Error' : 'None'}" />
-                                <Label text="ID Oportunidad (Salesforce)" />
-                                <Text text="{= ${aprobaciones>oportunidadId} || '—'}" />
-                                <Label text="Nivel de Aprobación" />
-                                <Text text="{aprobaciones>nivelAprobacion}" />
-                                <Label text="Solicitante" />
-                                <Text text="{aprobaciones>solicitante}" />
-                                <Label text="Cargo Solicitante" />
-                                <Text text="{aprobaciones>cargo}" />
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="rmFlujo" visible="{ui>/esRedMovil}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n &#8211; Red M&#243;vil" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
 
-            <!-- Section: Datos del Empleado -->
-            <uxap:ObjectPageSection title="Datos del Empleado">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <f:SimpleForm editable="false" layout="ResponsiveGridLayout"
-                            labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
-                            columnsXL="2" columnsL="2" columnsM="1">
-                            <f:content>
-                                <Label text="N° Empleado" />
-                                <Text text="{= ${aprobaciones>nroEmpleado} || '—'}" />
-                                <Label text="Nombre Completo" />
-                                <Text text="{aprobaciones>empleado}" />
-                                <Label text="Cargo" />
-                                <Text text="{aprobaciones>cargo}" />
-                                <Label text="Área / Gerencia" />
-                                <Text text="{aprobaciones>area}" />
-                                <Label text="Sede" />
-                                <Text text="{= ${aprobaciones>sede} || '—'}" />
-                                <Label text="Correo Corporativo" />
-                                <Text text="{= ${aprobaciones>emailEmpleado} || '—'}" />
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+            <IconTabFilter icon="sap-icon://attachment" text="Adjuntos" key="rmAdjuntos" visible="{ui>/esRedMovil}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Documentos T&#233;cnicos" level="H4" class="reqSectionTitle" />
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <Label text="Dise&#241;o T&#233;cnico:" width="12rem" />
+                        <core:Icon src="sap-icon://pdf-attachment" color="#d32f2f" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/disenhoTecnico/nombre}" />
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Label text="Otros Archivos:" width="12rem" />
+                        <core:Icon src="sap-icon://attachment" color="#1565c0" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/otrosArchivos/nombre}" />
+                    </HBox>
+                </VBox></content>
+            </IconTabFilter>
 
-            <!-- Section: Resolución -->
-            <uxap:ObjectPageSection title="Resolución">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <f:SimpleForm editable="false" layout="ResponsiveGridLayout"
-                            labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
-                            columnsXL="2" columnsL="2" columnsM="1">
-                            <f:content>
-                                <Label text="Aprobador" />
-                                <Text text="{= ${aprobaciones>aprobador} || 'Pendiente'}" />
-                                <Label text="Fecha Aprobación" />
-                                <Text text="{= ${aprobaciones>fechaAprobacion} || '—'}" />
-                                <Label text="Comentario" />
-                                <Text text="{= ${aprobaciones>comentarioAprobador} || '—'}" />
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
+            <!-- RED FIJA -->
+            <IconTabFilter icon="sap-icon://supplier" text="Planificaci&#243;n" key="rfPlan" visible="{ui>/esRedFija}">
+                <content><VBox class="reqTabSection">
+                    <Title text="&#205;tems de Planificaci&#243;n &#8211; Red Fija" level="H4" class="reqSectionTitle" />
+                    <ScrollContainer horizontal="true" vertical="false" width="100%">
+                        <Table items="{aprobaciones>items}" fixedLayout="false" noDataText="Sin &#237;tems." class="reqItemsTable">
+                            <columns>
+                                <Column width="3rem" hAlign="Center"><Text text="N&#176;" /></Column>
+                                <Column width="9rem"><Text text="Tipo &#205;tem" /></Column>
+                                <Column width="18rem"><Text text="Descripci&#243;n" /></Column>
+                                <Column width="10rem"><Text text="Tipo Red" /></Column>
+                                <Column width="9rem"><Text text="Capacidad" /></Column>
+                                <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                <Column width="11rem"><Text text="Tipo Instalaci&#243;n" /></Column>
+                                <Column width="10rem"><Text text="Ubicaci&#243;n" /></Column>
+                                <Column width="12rem"><Text text="Proveedor" /></Column>
+                                <Column width="15rem"><Text text="Observaci&#243;n" /></Column>
+                            </columns>
+                            <items><ColumnListItem><cells>
+                                <Text text="{aprobaciones>no}" />
+                                <Text text="{aprobaciones>tipoItem}" />
+                                <Text text="{aprobaciones>descripcion}" />
+                                <Text text="{aprobaciones>tipoRed}" />
+                                <Text text="{aprobaciones>capacidad}" />
+                                <Text text="{aprobaciones>cantidad}" />
+                                <Text text="{aprobaciones>tipoInstalacion}" />
+                                <Text text="{aprobaciones>ubicacion}" />
+                                <Text text="{aprobaciones>proveedor}" />
+                                <Text text="{aprobaciones>observacion}" />
+                            </cells></ColumnListItem></items>
+                        </Table>
+                    </ScrollContainer>
+                </VBox></content>
+            </IconTabFilter>
 
-        </uxap:sections>
-    </uxap:ObjectPageLayout>
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="rfFlujo" visible="{ui>/esRedFija}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n &#8211; Red Fija" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://attachment" text="Adjuntos" key="rfAdjuntos" visible="{ui>/esRedFija}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Documentos T&#233;cnicos" level="H4" class="reqSectionTitle" />
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <Label text="Dise&#241;o T&#233;cnico:" width="12rem" />
+                        <core:Icon src="sap-icon://pdf-attachment" color="#d32f2f" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/disenhoTecnico/nombre}" />
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Label text="Otros Archivos:" width="12rem" />
+                        <core:Icon src="sap-icon://attachment" color="#1565c0" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/otrosArchivos/nombre}" />
+                    </HBox>
+                </VBox></content>
+            </IconTabFilter>
+
+            <!-- O&M -->
+            <IconTabFilter icon="sap-icon://supplier" text="Planificaci&#243;n" key="omPlan" visible="{ui>/esOM}">
+                <content><VBox class="reqTabSection">
+                    <Title text="&#205;tems de Planificaci&#243;n &#8211; O&amp;M" level="H4" class="reqSectionTitle" />
+                    <ScrollContainer horizontal="true" vertical="false" width="100%">
+                        <Table items="{aprobaciones>items}" fixedLayout="false" noDataText="Sin &#237;tems." class="reqItemsTable">
+                            <columns>
+                                <Column width="3rem" hAlign="Center"><Text text="N&#176;" /></Column>
+                                <Column width="9rem"><Text text="Tipo &#205;tem" /></Column>
+                                <Column width="18rem"><Text text="Descripci&#243;n" /></Column>
+                                <Column width="11rem"><Text text="Tipo Equipo" /></Column>
+                                <Column width="10rem"><Text text="Motivo" /></Column>
+                                <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                <Column width="12rem"><Text text="Tipo Intervenci&#243;n" /></Column>
+                                <Column width="10rem"><Text text="Ubicaci&#243;n" /></Column>
+                                <Column width="12rem"><Text text="Proveedor" /></Column>
+                                <Column width="15rem"><Text text="Observaci&#243;n" /></Column>
+                            </columns>
+                            <items><ColumnListItem><cells>
+                                <Text text="{aprobaciones>no}" />
+                                <Text text="{aprobaciones>tipoItem}" />
+                                <Text text="{aprobaciones>descripcion}" />
+                                <Text text="{aprobaciones>tipoEquipo}" />
+                                <Text text="{aprobaciones>motivo}" />
+                                <Text text="{aprobaciones>cantidad}" />
+                                <Text text="{aprobaciones>tipoIntervencion}" />
+                                <Text text="{aprobaciones>ubicacion}" />
+                                <Text text="{aprobaciones>proveedor}" />
+                                <Text text="{aprobaciones>observacion}" />
+                            </cells></ColumnListItem></items>
+                        </Table>
+                    </ScrollContainer>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="omFlujo" visible="{ui>/esOM}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n &#8211; O&amp;M" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://attachment" text="Adjuntos" key="omAdjuntos" visible="{ui>/esOM}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Documentos T&#233;cnicos" level="H4" class="reqSectionTitle" />
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <Label text="Dise&#241;o T&#233;cnico:" width="12rem" />
+                        <core:Icon src="sap-icon://pdf-attachment" color="#d32f2f" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/disenhoTecnico/nombre}" />
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Label text="Otros Archivos:" width="12rem" />
+                        <core:Icon src="sap-icon://attachment" color="#1565c0" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/otrosArchivos/nombre}" />
+                    </HBox>
+                </VBox></content>
+            </IconTabFilter>
+
+            <!-- COMPRAS LOCALES -->
+            <IconTabFilter icon="sap-icon://supplier" text="Planificaci&#243;n" key="clPlan" visible="{ui>/esComprasLocales}">
+                <content><VBox class="reqTabSection">
+                    <Title text="&#205;tems de Planificaci&#243;n &#8211; Compras Locales" level="H4" class="reqSectionTitle" />
+                    <ScrollContainer horizontal="true" vertical="false" width="100%">
+                        <Table items="{aprobaciones>items}" fixedLayout="false" noDataText="Sin &#237;tems." class="reqItemsTable">
+                            <columns>
+                                <Column width="3rem" hAlign="Center"><Text text="N&#176;" /></Column>
+                                <Column width="9rem"><Text text="Tipo &#205;tem" /></Column>
+                                <Column width="18rem"><Text text="Descripci&#243;n" /></Column>
+                                <Column width="10rem"><Text text="Categor&#237;a" /></Column>
+                                <Column width="10rem"><Text text="Motivo" /></Column>
+                                <Column width="7rem" hAlign="End"><Text text="Cantidad" /></Column>
+                                <Column width="9rem"><Text text="Unidad" /></Column>
+                                <Column width="10rem"><Text text="Ubicaci&#243;n" /></Column>
+                                <Column width="12rem"><Text text="Proveedor" /></Column>
+                                <Column width="15rem"><Text text="Observaci&#243;n" /></Column>
+                            </columns>
+                            <items><ColumnListItem><cells>
+                                <Text text="{aprobaciones>no}" />
+                                <Text text="{aprobaciones>tipoItem}" />
+                                <Text text="{aprobaciones>descripcion}" />
+                                <Text text="{aprobaciones>categoria}" />
+                                <Text text="{aprobaciones>motivo}" />
+                                <Text text="{aprobaciones>cantidad}" />
+                                <Text text="{aprobaciones>unidad}" />
+                                <Text text="{aprobaciones>ubicacion}" />
+                                <Text text="{aprobaciones>proveedor}" />
+                                <Text text="{aprobaciones>observacion}" />
+                            </cells></ColumnListItem></items>
+                        </Table>
+                    </ScrollContainer>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://checklist-2" text="Flujo de Aprobaci&#243;n" key="clFlujo" visible="{ui>/esComprasLocales}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Cadena de Aprobaci&#243;n &#8211; Compras Locales" level="H4" class="reqSectionTitle" />
+                    <Table items="{aprobaciones>aprobadores}" fixedLayout="false" noDataText="Sin cadena definida.">
+                        <columns>
+                            <Column width="5rem" hAlign="Center"><Text text="Nivel" /></Column>
+                            <Column><Text text="Rol" /></Column>
+                            <Column width="12rem"><Text text="Nombre" /></Column>
+                            <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
+                        </columns>
+                        <items><ColumnListItem><cells>
+                            <Text text="{aprobaciones>nivel}" />
+                            <Text text="{aprobaciones>rol}" />
+                            <Text text="{aprobaciones>nombre}" />
+                            <ObjectStatus text="{aprobaciones>estado}" state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                        </cells></ColumnListItem></items>
+                    </Table>
+                </VBox></content>
+            </IconTabFilter>
+
+            <IconTabFilter icon="sap-icon://attachment" text="Adjuntos" key="clAdjuntos" visible="{ui>/esComprasLocales}">
+                <content><VBox class="reqTabSection">
+                    <Title text="Documentos" level="H4" class="reqSectionTitle" />
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <Label text="Dise&#241;o Operativo:" width="13rem" />
+                        <core:Icon src="sap-icon://pdf-attachment" color="#d32f2f" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/disenhoOperativo/nombre}" />
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Label text="Otros Archivos:" width="13rem" />
+                        <core:Icon src="sap-icon://attachment" color="#1565c0" class="sapUiSmallMarginEnd" />
+                        <Text text="{aprobaciones>adjuntos/otrosArchivos/nombre}" />
+                    </HBox>
+                </VBox></content>
+            </IconTabFilter>
+
+            </items>
+        </IconTabBar>
+
+        <!-- BARRA DE ACCION – Aprobar / Rechazar (aplica para todos los estados activos) -->
+        <HBox justifyContent="End" class="sapUiSmallMarginEnd sapUiSmallMarginTopBottom"
+              visible="{= ${aprobaciones>estado} === 'En Aprobaci\u00f3n'
+                       || ${aprobaciones>estado} === 'Pendiente Aprobaci\u00f3n'
+                       || ${aprobaciones>estado} === 'Aprobado Final'
+                       || ${aprobaciones>estado} === 'En Revisi\u00f3n'
+                       || ${aprobaciones>estado} === 'Pendiente'}">
+            <Button text="&#10003; Aprobar"  type="Accept" icon="sap-icon://accept"  press="onApprove" class="sapUiSmallMarginEnd" />
+            <Button text="&#10007; Rechazar" type="Reject" icon="sap-icon://decline" press="onReject" />
+        </HBox>
+
+    </Page>
 </mvc:View>

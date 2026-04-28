@@ -34,7 +34,7 @@
                         <Column width="10rem"><Text text="Tipo Solicitud"/></Column>
                         <Column width="10rem"><Text text="Marca"/></Column>
                         <Column width="12rem"><Text text="RUC"/></Column>
-                        <Column><Text text="Razón Social"/></Column>
+                        <Column><Text text="RazÃ³n Social"/></Column>
                         <Column width="7rem"><Text text="Estado"/></Column>
                         <Column width="9rem" hAlign="Center"><Text text="Acciones"/></Column>
                     </columns>

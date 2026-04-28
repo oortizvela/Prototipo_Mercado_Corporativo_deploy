@@ -70,8 +70,8 @@ sap.ui.define([
             var oCtx  = oEvent.getSource().getBindingContext("clientesMC");
             var sNombre = oCtx.getProperty("text");
             var that  = this;
-            MessageBox.confirm("¿Eliminar el cliente \"" + sNombre + "\"?", {
-                title: "Confirmar Eliminación",
+            MessageBox.confirm("Â¿Eliminar el cliente \"" + sNombre + "\"?", {
+                title: "Confirmar EliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction !== MessageBox.Action.OK) { return; }
                     var oModel  = that.getOwnerComponent().getModel("clientesMC");
@@ -94,7 +94,7 @@ sap.ui.define([
             var oRucInput    = new Input({ value: oData.ruc     || "", width: "100%",
                                            placeholder: "Ej. 20100047218" });
             var oSectorInput = new Input({ value: oData.sector  || "", width: "100%",
-                                           placeholder: "Ej. Banca y Finanzas, Gobierno, Minería..." });
+                                           placeholder: "Ej. Banca y Finanzas, Gobierno, MinerÃ­a..." });
             var oEstadoSel   = new Select({ width: "100%" });
             [["Activo","Activo"],["Inactivo","Inactivo"]].forEach(function (a) {
                 oEstadoSel.addItem(new Item({ key: a[0], text: a[1] }));

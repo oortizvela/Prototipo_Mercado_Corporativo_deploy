@@ -53,8 +53,8 @@ sap.ui.define([
         onDeleteNivel: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("mantenimiento");
             var sNivel = oCtx.getProperty("nivel");
-            MessageBox.confirm("¿Desea eliminar el nivel " + sNivel + "?", {
-                title: "Confirmar eliminación",
+            MessageBox.confirm("Â¿Desea eliminar el nivel " + sNivel + "?", {
+                title: "Confirmar eliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         var oModel = this.getOwnerComponent().getModel("mantenimiento");
@@ -62,13 +62,13 @@ sap.ui.define([
                         var iIdx = parseInt(oCtx.getPath().replace("/nivelesAprobacion/", ""), 10);
                         aItems.splice(iIdx, 1);
                         oModel.setProperty("/nivelesAprobacion", aItems);
-                        MessageToast.show("Nivel de aprobación eliminado");
+                        MessageToast.show("Nivel de aprobaciÃ³n eliminado");
                     }
                 }.bind(this)
             });
         },
 
-        // ── Dialog ────────────────────────────────────────────────────────────
+        // â”€â”€ Dialog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _openDialog: function (oCtx) {
             var oModel = this.getOwnerComponent().getModel("mantenimiento");
             var bNew   = !oCtx;
@@ -79,7 +79,7 @@ sap.ui.define([
 
             var oData = oCtx ? Object.assign({}, oCtx.getObject()) : {
                 nivel: nextNivel, orden: "", descripcion: "",
-                flujo: "Aprobación de Necesidad", tipoAprobador: "Constante",
+                flujo: "AprobaciÃ³n de Necesidad", tipoAprobador: "Constante",
                 constanteAprobadora: "", nombreGrupoIAS: "",
                 notifica: true, tiposSolicitud: "", estado: true
             };
@@ -88,7 +88,7 @@ sap.ui.define([
             var bOriginal = (oData.tiposSolicitud || "").indexOf("Original") >= 0;
             var bDerivado = (oData.tiposSolicitud || "").indexOf("Derivado") >= 0;
 
-            // ── Fields ────────────────────────────────────────────────────────
+            // â”€â”€ Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             var oNivelInput = new Input({
                 value: String(oData.nivel),
                 editable: false,
@@ -97,20 +97,20 @@ sap.ui.define([
 
             var oOrdenInput = new Input({
                 value: oData.orden ? String(oData.orden) : "",
-                placeholder: "Auto si vacío",
+                placeholder: "Auto si vacÃ­o",
                 width: "100%",
                 type: "Number"
             });
 
             var oDescInput = new Input({
                 value: oData.descripcion,
-                placeholder: "Ej: Gerente, Director de Área",
+                placeholder: "Ej: Gerente, Director de Ãrea",
                 width: "100%",
                 required: true
             });
 
             var oFlujoSelect = new Select({ width: "100%" });
-            [["Aprobación de Necesidad","Aprobación de Necesidad"],
+            [["AprobaciÃ³n de Necesidad","AprobaciÃ³n de Necesidad"],
              ["Aprob. Carta Acept.","Aprob. Carta Acept."]
             ].forEach(function (a) {
                 oFlujoSelect.addItem(new Item({ key: a[0], text: a[1] }));
@@ -127,7 +127,7 @@ sap.ui.define([
             var aConstantes = oModel.getProperty("/constantes") || [];
             var oConstanteSelect = new Select({ width: "100%" });
             aConstantes.forEach(function (c) {
-                oConstanteSelect.addItem(new Item({ key: c.codigo, text: c.codigo + " — " + c.descripcion }));
+                oConstanteSelect.addItem(new Item({ key: c.codigo, text: c.codigo + " â€” " + c.descripcion }));
             });
             oConstanteSelect.setSelectedKey(oData.constanteAprobadora);
 
@@ -164,22 +164,22 @@ sap.ui.define([
                         width: "100%",
                         items: [
                             new VBox({ width: "50%", items: [ new Label({ text: "Nivel", required: true }), oNivelInput ] }),
-                            new VBox({ width: "50%", items: [ new Label({ text: "Orden Ejecución" }), oOrdenInput ] })
+                            new VBox({ width: "50%", items: [ new Label({ text: "Orden EjecuciÃ³n" }), oOrdenInput ] })
                         ]
                     }),
-                    new Label({ text: "Descripción", required: true }),
+                    new Label({ text: "DescripciÃ³n", required: true }),
                     oDescInput,
-                    new Label({ text: "Flujo de Aprobación", required: true }),
+                    new Label({ text: "Flujo de AprobaciÃ³n", required: true }),
                     oFlujoSelect,
                     new Label({ text: "Tipo de Aprobador", required: true }),
                     oTipoAprobSelect,
                     oConstanteBox,
                     oGrupoIASBox,
-                    new Label({ text: "Configuración" }),
+                    new Label({ text: "ConfiguraciÃ³n" }),
                     oNotificaCheck,
                     new Label({ text: "Tipos de Solicitud Aplicables" }),
                     new HBox({ items: [ oOriginalCheck, oDerivadoCheck ] }),
-                    new Label({ text: "Sin selección = aplica para todos", design: "Standard" }),
+                    new Label({ text: "Sin selecciÃ³n = aplica para todos", design: "Standard" }),
                     new Label({ text: "Estado" }),
                     oEstadoSwitch
                 ]
@@ -187,7 +187,7 @@ sap.ui.define([
 
             var that = this;
             var oDialog = new Dialog({
-                title: bNew ? "Agregar Niveles de Aprobación" : "Editar Niveles de Aprobación",
+                title: bNew ? "Agregar Niveles de AprobaciÃ³n" : "Editar Niveles de AprobaciÃ³n",
                 contentWidth: "30rem",
                 content: [ oContent ],
                 beginButton: new Button({
@@ -196,7 +196,7 @@ sap.ui.define([
                     type: "Emphasized",
                     press: function () {
                         if (!oDescInput.getValue().trim()) {
-                            MessageToast.show("La Descripción es obligatoria");
+                            MessageToast.show("La DescripciÃ³n es obligatoria");
                             return;
                         }
                         var sTipo = oTipoAprobSelect.getSelectedKey();
@@ -230,7 +230,7 @@ sap.ui.define([
                                 estado:              oEstadoSwitch.getState()
                             });
                             oModel.setProperty("/nivelesAprobacion", aItems);
-                            MessageToast.show("Nivel de aprobación creado");
+                            MessageToast.show("Nivel de aprobaciÃ³n creado");
                         } else {
                             var sPath = oCtx.getPath();
                             oModel.setProperty(sPath + "/flujo",               oFlujoSelect.getSelectedKey());
@@ -242,7 +242,7 @@ sap.ui.define([
                             oModel.setProperty(sPath + "/tiposSolicitud",      aTS.join(", "));
                             oModel.setProperty(sPath + "/orden",               parseInt(sOrden, 10) || 0);
                             oModel.setProperty(sPath + "/estado",              oEstadoSwitch.getState());
-                            MessageToast.show("Nivel de aprobación actualizado");
+                            MessageToast.show("Nivel de aprobaciÃ³n actualizado");
                         }
                         oDialog.close();
                     }

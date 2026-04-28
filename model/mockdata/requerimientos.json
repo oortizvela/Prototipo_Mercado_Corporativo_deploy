@@ -1,11 +1,198 @@
-﻿{
+{
     "requerimientos":  [
+                           {
+                               "reqId":  "REQ-2026-000001",
+                               "titulo":  "Día de la Madre - Samsung Galaxy S26",
+                               "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
+                               "marca":  "Samsung",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Registrado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "current.user@claro.com",
+                               "fechaCreacion":  "17.02.2026 06:05",
+                               "ultimaModificacion":  "17.02.2026 06:05",
+                               "validoHasta":  "17.02.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 0, "contribucionLogistica": 0, "preOrder": 0, "fondoSellOut": 0, "nuevosCanalesB2B": 0, "rebateIncentivo": 0 },
+                               "items": [
+                                   { "no": 1, "modelo": "Galaxy S26 Ultra", "codigo": "SM-S926UZKDX", "codigoMaterial": "MAT-SAM-001", "color": "Phantom Black", "cantidad": 600, "precioFacturacion": 1299.00, "virUnitario": 150.00, "totalFacturacion": 779400.00, "totalVir": 90000.00, "totalNeto": 689400.00, "stockCDVES": 300, "stockDistribuido": 200 },
+                                   { "no": 2, "modelo": "Galaxy S26+", "codigo": "SM-S926UZWD", "codigoMaterial": "MAT-SAM-002", "color": "Cream White", "cantidad": 400, "precioFacturacion": 999.00, "virUnitario": 100.00, "totalFacturacion": 399600.00, "totalVir": 40000.00, "totalNeto": 359600.00, "stockCDVES": 200, "stockDistribuido": 210 },
+                                   { "no": 3, "modelo": "Galaxy S26", "codigo": "SM-S926UZGDX", "codigoMaterial": "MAT-SAM-007", "color": "Green", "cantidad": 300, "precioFacturacion": 799.00, "virUnitario": 80.00, "totalFacturacion": 239700.00, "totalVir": 24000.00, "totalNeto": 215700.00, "stockCDVES": 150, "stockDistribuido": 200 }
+                               ],
+                               "aportesVIR":  [], "flujoAprobacion":  [], "historialVentas":  []
+                           },
+                           {
+                               "reqId":  "REQ-2026-000002",
+                               "titulo":  "Equipos Apple iPhone 17 - Q1 2026",
+                               "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
+                               "marca":  "Apple",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset asociado a Pedido Importacion",
+                               "estado":  "En Aprobación",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "omar.ortiz@claro.com.pe",
+                               "fechaCreacion":  "05.04.2026 10:00",
+                               "ultimaModificacion":  "10.04.2026 11:00",
+                               "validoHasta":  "30.06.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 5200, "contribucionLogistica": 1800, "preOrder": 1200, "fondoSellOut": 2100, "nuevosCanalesB2B": 450, "rebateIncentivo": 670 },
+                               "items": [
+                                   { "no": 1, "modelo": "iPhone 17 Pro Max", "codigo": "AAPL-MYV83LL", "codigoMaterial": "MAT-APL-001", "color": "Desert Titanium", "cantidad": 400, "precioFacturacion": 1199.00, "virUnitario": 120.00, "totalFacturacion": 479600.00, "totalVir": 48000.00, "totalNeto": 431600.00, "stockCDVES": 180, "stockDistribuido": 120 },
+                                   { "no": 2, "modelo": "iPhone 17 Pro",     "codigo": "AAPL-MYV73LL", "codigoMaterial": "MAT-APL-002", "color": "Black Titanium",  "cantidad": 350, "precioFacturacion": 999.00,  "virUnitario": 100.00, "totalFacturacion": 349650.00, "totalVir": 35000.00, "totalNeto": 314650.00, "stockCDVES": 150, "stockDistribuido": 90  },
+                                   { "no": 3, "modelo": "iPhone 17",         "codigo": "AAPL-MYV63LL", "codigoMaterial": "MAT-APL-003", "color": "Ultramarine",      "cantidad": 500, "precioFacturacion": 799.00,  "virUnitario": 80.00,  "totalFacturacion": 399500.00, "totalVir": 40000.00, "totalNeto": 359500.00, "stockCDVES": 220, "stockDistribuido": 160 },
+                                   { "no": 4, "modelo": "iPhone 17 Plus",    "codigo": "AAPL-MYV53LL", "codigoMaterial": "MAT-APL-004", "color": "Teal",             "cantidad": 250, "precioFacturacion": 899.00,  "virUnitario": 90.00,  "totalFacturacion": 224750.00, "totalVir": 22500.00, "totalNeto": 202250.00, "stockCDVES": 100, "stockDistribuido": 70  }
+                               ],
+                               "aportesVIR": [
+                                   { "nombre": "Pre Order",      "monto": 1200.00 },
+                                   { "nombre": "Fondo Sell Out", "monto": 2100.00 }
+                               ],
+                               "flujoAprobacion": [
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificación Comercial",  "iniciales": "JP", "estado": "Aprobado",   "fecha": "08.04.2026 09:15", "comentario": "Aprobado. Volúmenes alineados con forecast Q1." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificación Comercial", "iniciales": "GP", "estado": "En Proceso", "fecha": "",               "comentario": "" },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                          "iniciales": "C",  "estado": "Pendiente",  "fecha": "",               "comentario": "" }
+                               ],
+                               "adjuntos": [
+                                   { "nombre": "Cotizacion_Apple_iPhone17_Q1_2026.pdf", "tipo": "PDF",   "fecha": "06.04.2026 10:30", "cargadoPor": "omar.ortiz@claro.com.pe" },
+                                   { "nombre": "Forecast_Apple_Q1_2026.xlsx",          "tipo": "Excel", "fecha": "07.04.2026 14:00", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                               ],
+                               "historialVentas": [
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro Max", "periodo": "Enero 2026",  "cantidad": 310 },
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro Max", "periodo": "Febrero 2026", "cantidad": 295 },
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro Max", "periodo": "Marzo 2026",  "cantidad": 340 },
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro",     "periodo": "Enero 2026",  "cantidad": 270 },
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro",     "periodo": "Febrero 2026", "cantidad": 255 },
+                                   { "marca": "Apple", "modelo": "iPhone 16 Pro",     "periodo": "Marzo 2026",  "cantidad": 285 }
+                               ]
+                           },
+                           {
+                               "reqId":  "REQ-2026-000003",
+                               "titulo":  "Equipos Samsung Galaxy A56 - Q1 2026",
+                               "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
+                               "marca":  "Samsung",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset asociado a Pedido Directo",
+                               "estado":  "Aprobado",
+                               "numeroOC":  "4500138821",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "omar.ortiz@claro.com.pe",
+                               "fechaCreacion":  "08.04.2026 08:30",
+                               "ultimaModificacion":  "15.04.2026 14:00",
+                               "validoHasta":  "30.06.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 3800, "contribucionLogistica": 1200, "preOrder": 950, "fondoSellOut": 1600, "nuevosCanalesB2B": 320, "rebateIncentivo": 480 },
+                               "items": [
+                                   { "no": 1, "modelo": "Galaxy A56 5G",  "codigo": "SM-A566BZKDLTP", "codigoMaterial": "MAT-SAM-010", "color": "Awesome Navy",  "cantidad": 800, "precioFacturacion": 449.00, "virUnitario": 45.00, "totalFacturacion": 359200.00, "totalVir": 36000.00, "totalNeto": 323200.00, "stockCDVES": 350, "stockDistribuido": 280 },
+                                   { "no": 2, "modelo": "Galaxy A36 5G",  "codigo": "SM-A366BZGDLTP", "codigoMaterial": "MAT-SAM-011", "color": "Awesome Lime",  "cantidad": 600, "precioFacturacion": 349.00, "virUnitario": 35.00, "totalFacturacion": 209400.00, "totalVir": 21000.00, "totalNeto": 188400.00, "stockCDVES": 260, "stockDistribuido": 190 },
+                                   { "no": 3, "modelo": "Galaxy A16 5G",  "codigo": "SM-A166BZKDLTP", "codigoMaterial": "MAT-SAM-012", "color": "Light Blue",    "cantidad": 700, "precioFacturacion": 249.00, "virUnitario": 25.00, "totalFacturacion": 174300.00, "totalVir": 17500.00, "totalNeto": 156800.00, "stockCDVES": 300, "stockDistribuido": 220 }
+                               ],
+                               "aportesVIR": [
+                                   { "nombre": "Pre Order",      "monto": 950.00  },
+                                   { "nombre": "Fondo Sell Out", "monto": 1600.00 },
+                                   { "nombre": "Data Sharing",   "monto": 3800.00 }
+                               ],
+                               "flujoAprobacion": [
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificación Comercial",  "iniciales": "JP", "estado": "Aprobado", "fecha": "10.04.2026 09:00", "comentario": "Aprobado. Alineado con estrategia comercial Q1." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificación Comercial", "iniciales": "GP", "estado": "Aprobado", "fecha": "12.04.2026 11:30", "comentario": "Aprobado. Márgenes y volúmenes correctos." },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                          "iniciales": "C",  "estado": "Aprobado", "fecha": "14.04.2026 16:00", "comentario": "OK. OC generada 4500138821." }
+                               ],
+                               "adjuntos": [
+                                   { "nombre": "Cotizacion_Samsung_GalaxyA56_Q1_2026.pdf",  "tipo": "PDF",   "fecha": "09.04.2026 08:45", "cargadoPor": "omar.ortiz@claro.com.pe" },
+                                   { "nombre": "Planificacion_Samsung_A56_A36_A16.xlsx",    "tipo": "Excel", "fecha": "09.04.2026 09:00", "cargadoPor": "omar.ortiz@claro.com.pe" },
+                                   { "nombre": "OC_4500138821_Samsung_A56.pdf",              "tipo": "PDF",   "fecha": "15.04.2026 14:30", "cargadoPor": "compras@claro.com.pe"  }
+                               ],
+                               "historialVentas": [
+                                   { "marca": "Samsung", "modelo": "Galaxy A55 5G", "periodo": "Enero 2026",   "cantidad": 620 },
+                                   { "marca": "Samsung", "modelo": "Galaxy A55 5G", "periodo": "Febrero 2026", "cantidad": 590 },
+                                   { "marca": "Samsung", "modelo": "Galaxy A55 5G", "periodo": "Marzo 2026",   "cantidad": 650 },
+                                   { "marca": "Samsung", "modelo": "Galaxy A35 5G", "periodo": "Enero 2026",   "cantidad": 480 },
+                                   { "marca": "Samsung", "modelo": "Galaxy A35 5G", "periodo": "Febrero 2026", "cantidad": 455 },
+                                   { "marca": "Samsung", "modelo": "Galaxy A35 5G", "periodo": "Marzo 2026",   "cantidad": 510 }
+                               ]
+                           },
+                           {
+                               "reqId":  "REQ-2026-000004",
+                               "titulo":  "Equipos Xiaomi Redmi Note 15 - Q2 2026",
+                               "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
+                               "marca":  "Xiaomi",
+                               "periodo":  "2026 Q2",
+                               "tipoSolicitud":  "Handset asociado a Pedido Derivado",
+                               "estado":  "Registrado",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "current.user@claro.com",
+                               "fechaCreacion":  "06.02.2025 19:00",
+                               "ultimaModificacion":  "06.02.2025 19:00",
+                               "validoHasta":  "03.03.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 13289, "contribucionLogistica": 0, "preOrder": 846, "fondoSellOut": 1199, "nuevosCanalesB2B": 106, "rebateIncentivo": 141 },
+                               "items": [
+                                   { "no": 1, "modelo": "Xiaomi Redmi Note 15 Pro", "codigo": "XM-RN15P-BLK", "codigoMaterial": "MAT-XIA-001", "color": "Midnight Black", "cantidad": 500, "precioFacturacion": 349.00, "virUnitario": 0.00, "totalFacturacion": 174500.00, "totalVir": 0.00, "totalNeto": 174500.00, "stockCDVES": 150, "stockDistribuido": 80, "pedidoAbierto": "460000001" },
+                                   { "no": 2, "modelo": "Xiaomi Redmi Note 15", "codigo": "XM-RN15-GRN", "codigoMaterial": "MAT-XIA-002", "color": "Forest Green", "cantidad": 300, "precioFacturacion": 279.00, "virUnitario": 0.00, "totalFacturacion": 83700.00, "totalVir": 0.00, "totalNeto": 83700.00, "stockCDVES": 100, "stockDistribuido": 60, "pedidoAbierto": "460000002" }
+                               ],
+                               "pedidosAbiertos": [
+                                   { "pedidoId": "460000001", "descripcion": "Pedido Abierto Xiaomi Redmi Note 15 Pro – Q2 2026", "proveedor": "Xiaomi Technology", "cantidad": 500, "importeUSD": "174,500.00", "estado": "Liberado" },
+                                   { "pedidoId": "460000002", "descripcion": "Pedido Abierto Xiaomi Redmi Note 15 – Q2 2026", "proveedor": "Xiaomi Technology", "cantidad": 300, "importeUSD": "83,700.00", "estado": "Liberado" },
+                                   { "pedidoId": "460000003", "descripcion": "Pedido Abierto Xiaomi Redmi Note 14 – Stock Residual", "proveedor": "Xiaomi Technology", "cantidad": 120, "importeUSD": "30,000.00", "estado": "Parcial" }
+                               ],
+                               "aportesVIR":  [], "flujoAprobacion":  [], "historialVentas":  []
+                           },
+                           {
+                               "reqId":  "REQ-2026-000005",
+                               "titulo":  "Equipos Motorola Edge 50 - Q1 2026",
+                               "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
+                               "marca":  "Motorola",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset asociado a Pedido Derivado",
+                               "estado":  "En Aprobación",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "omar.ortiz@claro.com.pe",
+                               "fechaCreacion":  "12.04.2026 10:00",
+                               "ultimaModificacion":  "18.04.2026 09:00",
+                               "validoHasta":  "30.06.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 2100, "contribucionLogistica": 800, "preOrder": 600, "fondoSellOut": 900, "nuevosCanalesB2B": 180, "rebateIncentivo": 250 },
+                               "items": [
+                                   { "no": 1, "modelo": "Motorola Edge 50 Pro",  "codigo": "MOTO-XT2321-1-BLK", "codigoMaterial": "MAT-MOT-001", "color": "Black Beauty",   "cantidad": 450, "precioFacturacion": 499.00, "virUnitario": 50.00, "totalFacturacion": 224550.00, "totalVir": 22500.00, "totalNeto": 202050.00, "stockCDVES": 180, "stockDistribuido": 130 },
+                                   { "no": 2, "modelo": "Motorola Edge 50",      "codigo": "MOTO-XT2321-2-WHT", "codigoMaterial": "MAT-MOT-002", "color": "Peach Fuzz",     "cantidad": 350, "precioFacturacion": 399.00, "virUnitario": 40.00, "totalFacturacion": 139650.00, "totalVir": 14000.00, "totalNeto": 125650.00, "stockCDVES": 140, "stockDistribuido": 95  },
+                                   { "no": 3, "modelo": "Motorola Edge 50 Fusion","codigo": "MOTO-XT2321-3-BLU", "codigoMaterial": "MAT-MOT-003", "color": "Forest Blue",   "cantidad": 300, "precioFacturacion": 329.00, "virUnitario": 33.00, "totalFacturacion": 98700.00,  "totalVir": 9900.00,  "totalNeto": 88800.00,  "stockCDVES": 120, "stockDistribuido": 80  }
+                               ],
+                               "pedidosAbiertos": [
+                                   { "pedidoId": "460000010", "descripcion": "Pedido Abierto Motorola Edge 50 Pro – Q1 2026",    "proveedor": "Motorola Solutions", "cantidad": 450, "importeUSD": "224,550.00", "estado": "Liberado" },
+                                   { "pedidoId": "460000011", "descripcion": "Pedido Abierto Motorola Edge 50 – Q1 2026",        "proveedor": "Motorola Solutions", "cantidad": 350, "importeUSD": "139,650.00", "estado": "Liberado" },
+                                   { "pedidoId": "460000012", "descripcion": "Pedido Abierto Motorola Edge 50 Fusion – Q1 2026", "proveedor": "Motorola Solutions", "cantidad": 300, "importeUSD": "98,700.00",  "estado": "Parcial"  }
+                               ],
+                               "aportesVIR": [
+                                   { "nombre": "Pre Order",      "monto": 600.00 },
+                                   { "nombre": "Fondo Sell Out", "monto": 900.00 }
+                               ],
+                               "flujoAprobacion": [
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificación Comercial",  "iniciales": "JP", "estado": "Aprobado",   "fecha": "15.04.2026 10:20", "comentario": "Aprobado. Motorola con buena rotación en mercado masivo." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificación Comercial", "iniciales": "GP", "estado": "En Proceso", "fecha": "",               "comentario": "" },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                          "iniciales": "C",  "estado": "Pendiente",  "fecha": "",               "comentario": "" }
+                               ],
+                               "adjuntos": [
+                                   { "nombre": "Cotizacion_Motorola_Edge50_Q1_2026.pdf",  "tipo": "PDF",   "fecha": "13.04.2026 11:00", "cargadoPor": "omar.ortiz@claro.com.pe" },
+                                   { "nombre": "Necesidad_Motorola_Edge50_planif.xlsx",   "tipo": "Excel", "fecha": "13.04.2026 11:20", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                               ],
+                               "historialVentas": [
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40 Pro",  "periodo": "Enero 2026",   "cantidad": 320 },
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40 Pro",  "periodo": "Febrero 2026", "cantidad": 305 },
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40 Pro",  "periodo": "Marzo 2026",   "cantidad": 355 },
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40",      "periodo": "Enero 2026",   "cantidad": 260 },
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40",      "periodo": "Febrero 2026", "cantidad": 240 },
+                                   { "marca": "Motorola", "modelo": "Motorola Edge 40",      "periodo": "Marzo 2026",   "cantidad": 275 }
+                               ]
+                           },
                            {
                                "reqId":  "REQ-2026-910908",
                                "titulo":  "ggggg",
                                "marca":  "Samsung",
-                               "periodo":  "Enero a Marzo 2026",
-                               "tipoSolicitud":  "Handset Derivado",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset asociado a Pedido Derivado",
                                "estado":  "Rechazado",
                                "numeroOC":  "-",
                                "numeroOCDerivada":  "-",
@@ -877,51 +1064,26 @@
                            {
                                "reqId":  "REQ-MC-2026-001",
                                "mercado":  "corporativo",
-                               "titulo":  "Implementación Data Center Lima Norte – BCP",
-                               "tipoSolicitud":  "Proyectos / RFP",
-                               "cliente":  "Banco de Crédito del Perú",
-                               "lineaNegocio":  "Servicios Digitales / Cloud",
-                               "macroAreaFuncional":  "Proyectos / RFP",
+                               "titulo":  "Despliegue de Infraestructura para BBVA - Sede Miraflores",
+                               "tipoSolicitud":  "Solución a Medida > 60 Días",
+                               "canal":  "Infraestructura",
+                               "lineaNegocio":  "Mercado Corporativo",
+                               "cliente":  "BBVA Perú",
                                "areaFuncional":  "Servicios Cloud IaaS/Data Center y TI",
-                               "segmento":  "Servicios Cloud IaaS/Data Center y TI",
+                               "segmento":  "Grandes Empresas",
                                "responsable":  "G. Zamorano",
                                "oportunidadId":  "SF-2026-00423",
-                               "importeEstimadoUSD":  250000.00,
+                               "importeEstimadoUSD":  0,
                                "moneda":  "USD",
-                               "estado":  "Pendiente Aprobación",
-                               "creadoPor":  "miguel.caballero@claro.com.pe",
-                               "fechaCreacion":  "10.04.2026 09:00",
-                               "ultimaModificacion":  "15.04.2026 14:30",
-                               "descripcionTecnica":  "Implementación de infraestructura cloud privada (servidores, almacenamiento, redes) para el nuevo Data Center de la región Lima Norte. El alcance incluye la instalación de servidores HPE ProLiant, switches Cisco Catalyst y solución de almacenamiento NetApp.",
+                               "estado":  "En Aprobación",
+                               "creadoPor":  "-",
+                               "fechaCreacion":  "-",
+                               "ultimaModificacion":  "-",
                                "items":  [
-                                             {
-                                                 "no":  1,
-                                                 "descripcion":  "Servidor HPE ProLiant DL380 Gen10",
-                                                 "cantidad":  5,
-                                                 "unidad":  "UND",
-                                                 "precioUnitarioUSD":  15000.00,
-                                                 "totalUSD":  75000.00,
-                                                 "proveedor":  "HP Inc. Perú SAC"
-                                             },
-                                             {
-                                                 "no":  2,
-                                                 "descripcion":  "Switch Cisco Catalyst 9300 48P",
-                                                 "cantidad":  10,
-                                                 "unidad":  "UND",
-                                                 "precioUnitarioUSD":  8500.00,
-                                                 "totalUSD":  85000.00,
-                                                 "proveedor":  "Cisco Systems Perú SAC"
-                                             },
-                                             {
-                                                 "no":  3,
-                                                 "descripcion":  "Almacenamiento NetApp AFF A250",
-                                                 "cantidad":  2,
-                                                 "unidad":  "UND",
-                                                 "precioUnitarioUSD":  45000.00,
-                                                 "totalUSD":  90000.00,
-                                                 "proveedor":  "Oracle Perú SAC"
-                                             }
-                                         ],
+                                   { "no": 1, "materialServicio": "MAT-00001", "descripcion": "Servidor HPE ProLiant DL380 Gen10 Plus",          "cantidad": 5,   "stockCDVES": 300, "stockDistribuido": 200 },
+                                   { "no": 2, "materialServicio": "MAT-00001", "descripcion": "Switch Cisco Catalyst 9300 48P PoE+",             "cantidad": 200, "stockCDVES": 200, "stockDistribuido": 210 },
+                                   { "no": 3, "materialServicio": "MAT-00001", "descripcion": "Almacenamiento NetApp AFF A250 (24 x 3.8TB SSD)", "cantidad": 150, "stockCDVES": 150, "stockDistribuido": 200 }
+                               ],
                                "evaluacionFinanciera":  {
                                                             "costos":  225000.00,
                                                             "ingresos":  320000.00,

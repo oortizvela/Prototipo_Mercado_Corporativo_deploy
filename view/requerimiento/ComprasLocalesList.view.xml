@@ -1,0 +1,180 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.requerimiento.ComprasLocalesList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page showHeader="false" enableScrolling="false">
+        <content>
+
+            <VBox class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+                <Title text="Gestión de Solicitud de Requerimientos de Compras" level="H2" />
+            </VBox>
+
+            <!-- Filtros (2.3.3) -->
+            <Panel expandable="false" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <content>
+                    <HBox wrap="Wrap" alignItems="End" class="sapUiSmallMargin">
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Número de Solicitud" labelFor="clFilterNumSol" />
+                            <Input id="clFilterNumSol" liveChange="onFilterChange" width="11rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Título" labelFor="clFilterTitulo" />
+                            <Input id="clFilterTitulo" liveChange="onFilterChange" width="14rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Estado" labelFor="clFilterEstado" />
+                            <Select id="clFilterEstado" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Registrado"    text="Registrado" />
+                                <core:Item key="En Aprobación" text="En Aprobación" />
+                                <core:Item key="Aprobado"      text="Aprobado" />
+                                <core:Item key="Rechazado"     text="Rechazado" />
+                                <core:Item key="Finalizado"    text="Finalizado" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Solped" labelFor="clFilterSolped" />
+                            <Select id="clFilterSolped" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="2000000001" text="2000000001" />
+                                <core:Item key="2000000002" text="2000000002" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Pedido" labelFor="clFilterPedido" />
+                            <Select id="clFilterPedido" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="4500000001" text="4500000001" />
+                                <core:Item key="4500000002" text="4500000002" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Tp Solicitud" labelFor="clFilterTipo" />
+                            <Select id="clFilterTipo" change="onFilterChange" width="16rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Compra Urgente"         text="Compra Urgente" />
+                                <core:Item key="Compra Menor"           text="Compra Menor" />
+                                <core:Item key="Reposición Operativa"   text="Reposición Operativa" />
+                                <core:Item key="Compra Directa"         text="Compra Directa" />
+                            </Select>
+                        </VBox>
+                        <Link text="Limpiar Filtros" press="onClearFilters" class="sapUiSmallMarginBegin" />
+                    </HBox>
+                </content>
+            </Panel>
+
+            <!-- Tabla (2.3.1) -->
+            <Table
+                id="comprasLocalesTable"
+                items="{comprasLocales>/items}"
+                growing="true"
+                growingThreshold="20"
+                noDataText="No se encontraron solicitudes"
+                mode="MultiSelect"
+                selectionChange="onSelectionChange"
+                class="sapUiSmallMarginBeginEnd">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Solicitudes" level="H3" />
+                        <ToolbarSpacer />
+                        <Button text="+ Crear Solicitud"
+                                type="Emphasized"
+                                press="onCrearSolicitud" />
+                        <Button text="Aprob. Necesidad"
+                                icon="sap-icon://approvals"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onAprobNecesidad" />
+                        <Button text="Enviar a Compras"
+                                icon="sap-icon://paper-plane"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onEnviarCompras" />
+                        <Button text="Finalizar Solicitud"
+                                icon="sap-icon://task"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onFinalizar" />
+                        <Button text="Exportar Excel"
+                                icon="sap-icon://excel-attachment"
+                                type="Transparent"
+                                press="onExportar" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="13rem"><Text text="Número de Solicitud" /></Column>
+                    <Column><Text text="Título" /></Column>
+                    <Column width="16rem"><Text text="Tipo de Solicitud" /></Column>
+                    <Column width="14rem"><Text text="Estado" /></Column>
+                    <Column width="10rem"><Text text="Solped" /></Column>
+                    <Column width="10rem"><Text text="Pedido" /></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onItemPress">
+                        <cells>
+                            <Link text="{comprasLocales>reqId}" press="onItemPress" />
+                            <Text text="{comprasLocales>titulo}" wrapping="false" />
+                            <Text text="{comprasLocales>tipoSolicitud}" wrapping="false" />
+                            <ObjectStatus
+                                text="{comprasLocales>estado}"
+                                icon="{= ${comprasLocales>estado} === 'Rechazado'     ? 'sap-icon://sys-cancel-2' :
+                                          ${comprasLocales>estado} === 'Finalizado'   ? 'sap-icon://sys-enter-2'  :
+                                          ${comprasLocales>estado} === 'Aprobado'     ? 'sap-icon://sys-enter-2'  :
+                                          ${comprasLocales>estado} === 'En Aprobación'? 'sap-icon://sys-help-2'   :
+                                          ${comprasLocales>estado} === 'Registrado'   ? 'sap-icon://create-form'  :
+                                                                                         'sap-icon://sys-help-2'}"
+                                state="{= ${comprasLocales>estado} === 'Rechazado'     ? 'Error'   :
+                                          ${comprasLocales>estado} === 'Finalizado'    ? 'Success' :
+                                          ${comprasLocales>estado} === 'Aprobado'      ? 'Success' :
+                                          ${comprasLocales>estado} === 'En Aprobación' ? 'Warning' :
+                                                                                          'None'}" />
+                            <Text text="{comprasLocales>numeroSolped}" />
+                            <Text text="{comprasLocales>numeroPedido}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+
+    <!-- Diálogo Crear Solicitud Compras Locales (2.3.2) -->
+    <Dialog
+        id="dlgCrearCL"
+        title="Crear Solicitud"
+        contentWidth="36rem"
+        verticalScrolling="false"
+        stretch="false"
+        class="sapUiContentPadding">
+        <content>
+            <VBox width="100%">
+                <VBox class="sapUiSmallMarginBottom">
+                    <Label text="Título:" required="true" labelFor="dlgClTitulo" />
+                    <Input id="dlgClTitulo"
+                           placeholder="Ingrese el título de la solicitud"
+                           width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Tipo de Solicitud:" required="true" labelFor="dlgClTipo" />
+                    <Select id="dlgClTipo" width="100%">
+                        <core:Item key="Compra Urgente"       text="Compra Urgente" />
+                        <core:Item key="Compra Menor"         text="Compra Menor" />
+                        <core:Item key="Reposición Operativa" text="Reposición Operativa" />
+                        <core:Item key="Compra Directa"       text="Compra Directa" />
+                    </Select>
+                </VBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Crear"    type="Emphasized" press="onConfirmCrear" />
+            <Button text="Cancelar"                   press="onCancelCrear" />
+        </buttons>
+    </Dialog>
+
+</mvc:View>

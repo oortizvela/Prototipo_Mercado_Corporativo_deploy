@@ -9,7 +9,7 @@ sap.ui.define([
     return BaseController.extend("com.claro.compras.portal.controller.requerimiento.Create", {
 
         onInit: function () {
-            // Local model para ítems del formulario
+            // Local model para Ã­tems del formulario
             var oItemsModel = new JSONModel({ items: [] });
             this.getView().setModel(oItemsModel);
             this._iItemPos = 0;
@@ -91,7 +91,7 @@ sap.ui.define([
             }
 
             if (aItems.length === 0) {
-                MessageBox.error("Debe agregar al menos una posición al requerimiento.");
+                MessageBox.error("Debe agregar al menos una posiciÃ³n al requerimiento.");
                 bValid = false;
             }
 
@@ -104,7 +104,7 @@ sap.ui.define([
 
         onSubmit: function () {
             if (!this._validateForm()) { return; }
-            this._saveRequerimiento("En Revisión");
+            this._saveRequerimiento("En RevisiÃ³n");
         },
 
         _saveRequerimiento: function (sEstado) {
@@ -126,7 +126,7 @@ sap.ui.define([
             var oNewReq = {
                 reqId: sNewId,
                 descripcion: oDescripcion.getValue(),
-                solicitante: "Omar Ortiz",
+                solicitante: "Oscar Ortiz",
                 centroCosto: oCentroCosto.getSelectedKey(),
                 cuentaGL: oCuentaGL.getSelectedKey(),
                 urgencia: oUrgencia.getSelectedKey(),
@@ -144,7 +144,7 @@ sap.ui.define([
 
             MessageToast.show(sEstado === "Borrador"
                 ? "Requerimiento guardado como borrador: " + sNewId
-                : "Requerimiento " + sNewId + " enviado a aprobación exitosamente");
+                : "Requerimiento " + sNewId + " enviado a aprobaciÃ³n exitosamente");
 
             this.getRouter().navTo("requerimientoList");
         }

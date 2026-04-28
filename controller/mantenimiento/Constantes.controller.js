@@ -38,30 +38,30 @@ sap.ui.define([
             this._onRouteMatched();
         },
 
-        // ── Add ──────────────────────────────────────────────────────────────
+        // â”€â”€ Add â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onAddConstante: function () {
             this._openDialog(null);
         },
 
-        // ── Edit (from toolbar button) ────────────────────────────────────────
+        // â”€â”€ Edit (from toolbar button) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onEditConstante: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("mantenimiento");
             this._openDialog(oCtx);
         },
 
-        // ── Row press (code link) ─────────────────────────────────────────────
+        // â”€â”€ Row press (code link) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onConstanteRowPress: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("mantenimiento");
             if (!oCtx) { return; }
             this._openDialog(oCtx);
         },
 
-        // ── Delete ────────────────────────────────────────────────────────────
+        // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onDeleteConstante: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("mantenimiento");
             var sCod = oCtx.getProperty("codigo");
-            MessageBox.confirm("¿Desea eliminar la constante '" + sCod + "'?", {
-                title: "Confirmar eliminación",
+            MessageBox.confirm("Â¿Desea eliminar la constante '" + sCod + "'?", {
+                title: "Confirmar eliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         var oModel = this.getOwnerComponent().getModel("mantenimiento");
@@ -75,7 +75,7 @@ sap.ui.define([
             });
         },
 
-        // ── Dialog ────────────────────────────────────────────────────────────
+        // â”€â”€ Dialog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _openDialog: function (oCtx) {
             var oModel  = this.getOwnerComponent().getModel("mantenimiento");
             var bNew    = !oCtx;
@@ -85,18 +85,18 @@ sap.ui.define([
                 tipoValor: "TEXTO", categoria: "", estado: true
             };
 
-            // ── Fields ────────────────────────────────────────────────────────
+            // â”€â”€ Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             var oCodigoInput = new Input({
                 value: oData.codigo,
                 editable: bNew,
-                placeholder: "Ingrese el código único",
+                placeholder: "Ingrese el cÃ³digo Ãºnico",
                 required: true,
                 width: "100%"
             });
 
             var oDescTextarea = new TextArea({
                 value: oData.descripcion,
-                placeholder: "Ingrese la descripción",
+                placeholder: "Ingrese la descripciÃ³n",
                 rows: 3,
                 width: "100%"
             });
@@ -134,7 +134,7 @@ sap.ui.define([
             oOperadorSelect.setSelectedKey(oData.operador);
 
             var oTipoValorSelect = new Select({ width: "100%" });
-            [["TEXTO","Texto"],["NUMERO","Número"],["FECHA","Fecha"],["BOOLEANO","Booleano"]
+            [["TEXTO","Texto"],["NUMERO","NÃºmero"],["FECHA","Fecha"],["BOOLEANO","Booleano"]
             ].forEach(function (a) {
                 oTipoValorSelect.addItem(new Item({ key: a[0], text: a[1] }));
             });
@@ -142,20 +142,20 @@ sap.ui.define([
 
             var oCategoriaInput = new Input({
                 value: oData.categoria,
-                placeholder: "Ingrese la categoría",
+                placeholder: "Ingrese la categorÃ­a",
                 width: "100%"
             });
 
             var oEstadoSwitch = new Switch({ state: oData.estado });
 
-            // ── Form layout ───────────────────────────────────────────────────
+            // â”€â”€ Form layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             var oContent = new VBox({
                 width: "100%",
                 styleClass: "mtnDlgContent",
                 items: [
-                    new Label({ text: "Código", required: true }),
+                    new Label({ text: "CÃ³digo", required: true }),
                     oCodigoInput,
-                    new Label({ text: "Descripción", required: true }),
+                    new Label({ text: "DescripciÃ³n", required: true }),
                     oDescTextarea,
                     new Label({ text: "Valor Principal" }),
                     oValPrincipalInput,
@@ -174,7 +174,7 @@ sap.ui.define([
                         width: "100%",
                         items: [
                             new VBox({ width: "50%", items: [ new Label({ text: "Tipo de Valor" }), oTipoValorSelect ] }),
-                            new VBox({ width: "50%", items: [ new Label({ text: "Categoría" }), oCategoriaInput ] })
+                            new VBox({ width: "50%", items: [ new Label({ text: "CategorÃ­a" }), oCategoriaInput ] })
                         ]
                     }),
                     new Label({ text: "Estado" }),
@@ -182,7 +182,7 @@ sap.ui.define([
                 ]
             });
 
-            // ── Buttons ───────────────────────────────────────────────────────
+            // â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             var that = this;
             var oDialog = new Dialog({
                 title: bNew ? "Agregar Constantes" : "Editar Constantes",
@@ -194,7 +194,7 @@ sap.ui.define([
                     type: "Emphasized",
                     press: function () {
                         if (!oCodigoInput.getValue().trim() || !oDescTextarea.getValue().trim()) {
-                            MessageToast.show("Código y Descripción son obligatorios");
+                            MessageToast.show("CÃ³digo y DescripciÃ³n son obligatorios");
                             return;
                         }
                         if (bNew) {
@@ -242,7 +242,7 @@ sap.ui.define([
             oDialog.open();
         },
 
-        // ── Update portal KPI counts after changes ────────────────────────────
+        // â”€â”€ Update portal KPI counts after changes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _updateMainKpi: function () {
             // The Main controller listens on route; just refresh the binding
             var oTable = this.byId("tableConstantes");

@@ -1,4 +1,4 @@
-﻿sap.ui.define([
+sap.ui.define([
     "com/claro/compras/portal/controller/BaseController",
     "sap/ui/model/json/JSONModel"
 ], function (BaseController, JSONModel) {

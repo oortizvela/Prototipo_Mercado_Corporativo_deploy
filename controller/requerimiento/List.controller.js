@@ -1,19 +1,47 @@
-﻿sap.ui.define([
+sap.ui.define([
     "com/claro/compras/portal/controller/BaseController",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], function (BaseController, Filter, FilterOperator, JSONModel, MessageToast, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
+], function (BaseController, Filter, FilterOperator, JSONModel, MessageToast, MessageBox, History) {
     "use strict";
 
     return BaseController.extend("com.claro.compras.portal.controller.requerimiento.List", {
 
         onInit: function () {
             // Modelo UI para estado de botones y contexto de mercado
-            var oUiModel = new JSONModel({ haySeleccion: false, mercadoCorporativo: false });
+            var oUiModel = new JSONModel({
+                haySeleccion:            false,
+                mercadoCorporativo:      false,
+                mostrarSeleccion:        false,
+                canalSeleccionado:       "Infraestructura",
+                lineaNegocioSeleccionada: "RedMovil",
+                mostrarPedidosAbiertos:  false
+            });
             this.getView().setModel(oUiModel, "ui");
+
+            // Modelo de planificaciones publicadas (mock – P1: en producción viene de BPC/IBP)
+            var aPlanAll = [
+                { titulo: "Samsung - 2026Q1",  marca: "Samsung",  periodo: "2026 Q1", publicadoEl: "27.01.2025 19:00" },
+                { titulo: "Samsung - 2026Q2",  marca: "Samsung",  periodo: "2026 Q2", publicadoEl: "15.04.2025 10:00" },
+                { titulo: "Motorola - 2026Q1", marca: "Motorola", periodo: "2026 Q1", publicadoEl: "27.01.2025 19:00" },
+                { titulo: "Apple - 2026Q1",    marca: "Apple",    periodo: "2026 Q1", publicadoEl: "27.01.2025 19:00" },
+                { titulo: "Xiaomi - 2026Q1",   marca: "Xiaomi",   periodo: "2026 Q1", publicadoEl: "27.01.2025 19:00" }
+            ];
+            this._aPlanAll = aPlanAll;
+            this.getView().setModel(new JSONModel({ items: aPlanAll }), "planificaciones");
+
+            // Modelo de pedidos abiertos (mock – C2: visible solo para tipo Derivado)
+            this.getView().setModel(new JSONModel({
+                items: [
+                    { pedidoId: "460000001", descripcion: "Pedido Día Madre",        proveedor: "Samsung Electronics", monto: "USD 120,000" },
+                    { pedidoId: "460000002", descripcion: "Pedido Fiestas Patrias",   proveedor: "Motorola Solutions",  monto: "USD 85,000"  },
+                    { pedidoId: "460000003", descripcion: "Pedido Promoción Samsung", proveedor: "Samsung Electronics", monto: "USD 200,000" }
+                ]
+            }), "pedidosAbiertos");
 
             this.getRouter()
                 .getRoute("requerimientoList")
@@ -25,15 +53,30 @@
         },
 
         _onRouteMatched: function (bMC) {
-            this.getView().getModel("ui").setProperty("/mercadoCorporativo", !!bMC);
+            var oUi = this.getView().getModel("ui");
+            oUi.setProperty("/mercadoCorporativo", !!bMC);
+
+            // Si venimos de una vista de detalle (back desde el detalle de un requerimiento),
+            // NO resetear mostrarSeleccion para que se vea directamente la lista
+            var sPrev = History.getInstance().getPreviousHash();
+            var bFromDetail = sPrev !== undefined &&
+                (sPrev.indexOf("requerimiento/") !== -1 ||
+                 sPrev.indexOf("mc/requerimiento/") !== -1);
+
+            if (!bFromDetail) {
+                oUi.setProperty("/mostrarSeleccion", !bMC);
+                oUi.setProperty("/canalSeleccionado", "Infraestructura");
+                oUi.setProperty("/lineaNegocioSeleccionada", "RedMovil");
+            }
+
             // Reset filtros al navegar
             this._clearFilters();
             this._applyFilters();
 
-            // Reset selecciÃ³n
+            // Reset selección tabla
             var oTable = this.byId("reqTable");
             if (oTable) { oTable.removeSelections(true); }
-            this.getView().getModel("ui").setProperty("/haySeleccion", false);
+            oUi.setProperty("/haySeleccion", false);
         },
 
         /* â”€â”€â”€â”€â”€â”€â”€â”€ FILTROS â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -78,6 +121,12 @@
             // Filtro por mercado (local vs corporativo)
             aFilters.push(new Filter("mercado", FilterOperator.EQ, bMC ? "corporativo" : "local"));
 
+            // (2.1.1) Filtro por canal cuando es Handset: solo tipoSolicitud que contengan "Handset"
+            var sCanal = this.getView().getModel("ui").getProperty("/canalSeleccionado");
+            if (!bMC && sCanal === "Handset") {
+                aFilters.push(new Filter("tipoSolicitud", FilterOperator.Contains, "Handset"));
+            }
+
             if (sNum.trim())    { aFilters.push(new Filter("reqId",   FilterOperator.Contains, sNum)); }
             if (sTitulo.trim()) { aFilters.push(new Filter("titulo",  FilterOperator.Contains, sTitulo)); }
             if (sEstado)        { aFilters.push(new Filter("estado",  FilterOperator.EQ, sEstado)); }
@@ -96,31 +145,180 @@
             this.getView().getModel("ui").setProperty("/haySeleccion", bHay);
         },
 
-        /* ———————— CREAR SOLICITUD (Dialog) ———————— */
+        /* ──────── PASO 1: Seleccionar Canal / Línea de Negocio (tarjeta inline) ──────── */
+        onSelCanalChange: function (oEvent) {
+            var sCanal = oEvent.getSource().getSelectedKey();
+            this.getView().getModel("ui").setProperty("/canalSeleccionado", sCanal);
+            // Resetear línea de negocio si el canal no tiene ninguna (C2)
+            if (sCanal !== "Infraestructura") {
+                this.getView().getModel("ui").setProperty("/lineaNegocioSeleccionada", "");
+            }
+        },
+
+        onConfirmTipoRequerimiento: function () {
+            var oUi    = this.getView().getModel("ui");
+            var sCanal = this.byId("selCanal").getSelectedKey();
+            var sLinea = (sCanal === "Infraestructura")
+                ? this.byId("selLineaNegocio").getSelectedKey()
+                : "";
+
+            oUi.setProperty("/canalSeleccionado", sCanal);
+            oUi.setProperty("/lineaNegocioSeleccionada", sLinea);
+
+            // Infra + Mercado Corporativo → vista dedicada
+            if (sCanal === "Infraestructura" && sLinea === "MercadoCorporativo") {
+                this.getRouter().navTo("infraMCList");
+                return;
+            }
+
+            // Infra + Red Movil → vista dedicada
+            if (sCanal === "Infraestructura" && sLinea === "RedMovil") {
+                this.getRouter().navTo("infraRedMovilList");
+                return;
+            }
+
+            // Infra + Red Fija → vista dedicada
+            if (sCanal === "Infraestructura" && sLinea === "RedFija") {
+                this.getRouter().navTo("infraRedFijaList");
+                return;
+            }
+
+            // Infra + O&M → vista dedicada
+            if (sCanal === "Infraestructura" && sLinea === "OM") {
+                this.getRouter().navTo("infraOMList");
+                return;
+            }
+
+            // Compras Locales → vista dedicada
+            if (sCanal === "ComprasLocales") {
+                this.getRouter().navTo("comprasLocalesList");
+                return;
+            }
+
+            // Handset → vista dedicada
+            if (sCanal === "Handset") {
+                this.getRouter().navTo("handsetList");
+                return;
+            }
+
+            oUi.setProperty("/mostrarSeleccion", false);
+            this._applyFilters();
+        },
+
+        onCancelTipoRequerimiento: function () {
+            this.getRouter().navTo("portal");
+        },
+
+        /* ──────── CREAR SOLICITUD (Dialog) ──────── */
         onCrearSolicitud: function () {
             var bMC = this.getView().getModel("ui").getProperty("/mercadoCorporativo");
-            this.byId("dlgTitulo").setValue("");
+            this._openCrearSolicitudDialog(bMC);
+        },
+
+        _openCrearSolicitudDialog: function (bMC) {
+            var oUi = this.getView().getModel("ui");
+            oUi.setProperty("/mostrarPedidosAbiertos", false);
+
+            // Resetear filtros y selección de planificaciones al abrir
+            var oList = this.byId("lstPlanificaciones");
+            if (oList) {
+                oList.getBinding("items").filter([]);
+                oList.removeSelections(true);
+            }
+
+            // Resetear selección de pedidos abiertos al abrir
+            var oTbl = this.byId("tblPedidosAbiertos");
+            if (oTbl) { oTbl.removeSelections(true); }
+
             if (bMC) {
+                this.byId("dlgTituloMC").setValue("");
                 this.byId("dlgTipoMC").setSelectedKey("Continuidad Tecnológica y de Servicios");
                 this.byId("dlgCliente").setSelectedKey("");
                 this.byId("dlgLineaNegocio").setSelectedKey("");
                 this.byId("dlgImporteUSD").setValue("");
                 this.byId("dlgOportunidadId").setValue("");
             } else {
-                this.byId("dlgTipoSolicitud").setSelectedKey("Handset Original");
+                this.byId("dlgTitulo").setValue("");
                 this.byId("dlgMarca").setSelectedKey("");
+                this.byId("dlgTipoSolicitud").setSelectedKey("Handset asociado a Pedido Directo");
                 this.byId("dlgPeriodo").setSelectedKey("");
             }
             this.byId("dlgCrearSolicitud").open();
         },
 
+        // C2: pedidos abiertos = solicitudes Derivado no cerradas
+        onDlgTipoSolicitudChange: function (oEvent) {
+            var sTipo = oEvent.getSource().getSelectedKey();
+            var bDerivado = sTipo === "Handset asociado a Pedido Derivado";
+            this.getView().getModel("ui").setProperty("/mostrarPedidosAbiertos", bDerivado);
+            if (bDerivado) { this._loadPedidosAbiertos(); }
+        },
+
+        _loadPedidosAbiertos: function () {
+            var aEstadosCerrados = ["Finalizado", "Rechazado", "Cancelado"];
+            var aReqs = this.getOwnerComponent().getModel().getProperty("/requerimientos") || [];
+            var aPedidos = aReqs
+                .filter(function (r) {
+                    return r.tipoSolicitud === "Handset asociado a Pedido Derivado"
+                        && aEstadosCerrados.indexOf(r.estado) === -1;
+                })
+                .map(function (r) {
+                    return { pedidoId: r.reqId, descripcion: r.titulo };
+                });
+            this.getView().getModel("pedidosAbiertos").setProperty("/items", aPedidos);
+        },
+
+        onPlanSelectionChange: function () {
+            // Mantener el filtro activo al seleccionar un item
+        },
+
+        onDlgMarcaChange: function () {
+            this._filterPlanificaciones();
+        },
+
+        onDlgPeriodoChange: function () {
+            this._filterPlanificaciones();
+        },
+
+        _filterPlanificaciones: function () {
+            var sMarca   = this.byId("dlgMarca")   ? this.byId("dlgMarca").getSelectedKey()   : "";
+            var sPeriodo = this.byId("dlgPeriodo") ? this.byId("dlgPeriodo").getSelectedKey() : "";
+            var aFilters = [];
+
+            if (sMarca) {
+                // "Samsung Electronics" debe coincidir con items de marca "Samsung"
+                aFilters.push(new Filter({
+                    path: "marca",
+                    test: function (v) {
+                        return v && sMarca.toLowerCase().indexOf(v.toLowerCase()) >= 0;
+                    }
+                }));
+            }
+            if (sPeriodo) {
+                aFilters.push(new Filter("periodo", FilterOperator.EQ, sPeriodo));
+            }
+
+            var oList = this.byId("lstPlanificaciones");
+            if (oList) {
+                oList.getBinding("items").filter(
+                    aFilters.length ? new Filter({ filters: aFilters, and: true }) : []
+                );
+            }
+        },
+
         onConfirmCrear: function () {
             var bMC     = this.getView().getModel("ui").getProperty("/mercadoCorporativo");
-            var sTitulo = this.byId("dlgTitulo").getValue().trim();
+            var sTitulo = bMC
+                ? this.byId("dlgTituloMC").getValue().trim()
+                : this.byId("dlgTitulo").getValue().trim();
             var bError  = false;
 
-            if (!sTitulo) { this.byId("dlgTitulo").setValueState("Error"); bError = true; }
-            else          { this.byId("dlgTitulo").setValueState("None"); }
+            if (!sTitulo) {
+                (bMC ? this.byId("dlgTituloMC") : this.byId("dlgTitulo")).setValueState("Error");
+                bError = true;
+            } else {
+                (bMC ? this.byId("dlgTituloMC") : this.byId("dlgTitulo")).setValueState("None");
+            }
 
             var oModel = this.getOwnerComponent().getModel();
             var aReqs  = oModel.getProperty("/requerimientos") || [];
@@ -173,7 +371,7 @@
                 var sNewIdL = "REQ-2026-" + String(Math.floor(Math.random() * 900000) + 100000);
                 oNew = {
                     reqId: sNewIdL, mercado: "local", titulo: sTitulo, marca: sMarca,
-                    periodo: sPeriodo, tipoSolicitud: sTipo, estado: "Borrador",
+                    periodo: sPeriodo, tipoSolicitud: sTipo, estado: "Registrado",
                     numeroOC: "-", numeroOCDerivada: "-",
                     creadoPor: "oscar.fabian.ortiz.velayarce@emeal.nttdata.com",
                     fechaCreacion: sNow, ultimaModificacion: sNow, validoHasta: "",

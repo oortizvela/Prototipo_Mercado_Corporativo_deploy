@@ -51,8 +51,8 @@ sap.ui.define([
         onDeleteMarca: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("mantenimiento");
             var sMarca = oCtx.getProperty("marca");
-            MessageBox.confirm("¿Desea eliminar la marca '" + sMarca + "'?", {
-                title: "Confirmar eliminación",
+            MessageBox.confirm("Â¿Desea eliminar la marca '" + sMarca + "'?", {
+                title: "Confirmar eliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         var oModel = this.getOwnerComponent().getModel("mantenimiento");
@@ -66,7 +66,7 @@ sap.ui.define([
             });
         },
 
-        // ── Dialog ────────────────────────────────────────────────────────────
+        // â”€â”€ Dialog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _openDialog: function (oCtx) {
             var oModel = this.getOwnerComponent().getModel("mantenimiento");
             var bNew   = !oCtx;
@@ -113,7 +113,7 @@ sap.ui.define([
                     oMarcaInput,
                     new Label({ text: "RUC", required: true }),
                     oRucInput,
-                    new Label({ text: "Razón Social", required: true }),
+                    new Label({ text: "RazÃ³n Social", required: true }),
                     oRazonInput,
                     new Label({ text: "Estado" }),
                     oEstadoSwitch
@@ -138,7 +138,7 @@ sap.ui.define([
                             return;
                         }
                         if (!oRazonInput.getValue().trim()) {
-                            MessageToast.show("La Razón Social es obligatoria");
+                            MessageToast.show("La RazÃ³n Social es obligatoria");
                             return;
                         }
                         if (bNew) {

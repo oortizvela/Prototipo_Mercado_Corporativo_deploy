@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/Device",
-    "com/claro/compras/portal/model/models"
-], function (UIComponent, Device, models) {
+    "com/claro/compras/portal/model/models",
+    "sap/ui/model/json/JSONModel"
+], function (UIComponent, Device, models, JSONModel) {
     "use strict";
 
     return UIComponent.extend("com.claro.compras.portal.Component", {
@@ -19,7 +20,17 @@ sap.ui.define([
             this.setModel(models.createAprobacionesModel(), "aprobaciones");
             this.setModel(models.createMantenimientoModel(), "mantenimiento");
 
+            // Modelo de sesión (vacío hasta que el usuario inicie sesión)
+            this.setModel(new JSONModel({
+                loggedIn:  false,
+                usuario:   "",
+                nombre:    "",
+                rol:       "",
+                categoria: ""
+            }), "session");
+
             this.getRouter().initialize();
         }
     });
 });
+

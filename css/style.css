@@ -21,8 +21,36 @@
 }
 
 /* ── Body & Global ───────────────────────────────────────── */
-body.sapUiBody {
+html, body.sapUiBody {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
     background: var(--portal-content-bg);
+}
+
+/* El ComponentContainer y el componente raíz deben heredar la altura */
+#content,
+#container,
+.sapUiComponentContainer,
+.sapUiComponentContainer > div {
+    height: 100% !important;
+}
+
+/* ── App Root Layout ─────────────────────────────────────── */
+/* VBox raíz que contiene el shell header + NavContainer       */
+.appRootVBox.sapMVBox {
+    height: 100% !important;
+    overflow: hidden;
+}
+
+/* El App (NavContainer) ocupa todo el espacio restante.
+   SAP aplica position:absolute top:0 right:0 bottom:0 left:0 al sapMApp.
+   Sobreescribimos a position:relative para que participe en el flujo flex;
+   el flex-grow:1 calcula la altura exacta y los hijos absolute lo rellenan. */
+.appNavContainer.sapMApp {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    position: relative !important;
 }
 
 /* ── Shell Header (HBox en content — full control) ──────── */
@@ -465,77 +493,7 @@ body.sapUiBody {
     }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   REQUERIMIENTO DE COMPRAS — Lista
-═══════════════════════════════════════════════════════════ */
-
-/* Página contenedora */
-.reqListPage.sapMPage > .sapMPageHeader { display: none; }
-.reqListPage.sapMPage { background: #f5f6f7 !important; }
-
-/* Título principal */
-.reqListTitleBar {
-    padding: 1.25rem 1.5rem 0.5rem 1.5rem;
-    background: #ffffff;
-}
-.reqListTitle.sapMTitle .sapMTitleText {
-    font-size: 1.25rem !important;
-    font-weight: 600 !important;
-    color: #1c2229 !important;
-}
-
-/* Barra de filtros */
-.reqFilterBar {
-    background: #ffffff;
-    padding: 0.75rem 1.5rem 1rem 1.5rem;
-    border-bottom: 1px solid #e4e7eb;
-}
-.reqFilterRow.sapMHBox {
-    gap: 1rem;
-    align-items: flex-end;
-    flex-wrap: wrap;
-}
-.reqFilterField.sapMVBox {
-    gap: 0.2rem;
-    min-width: 8rem;
-}
-.reqFilterField.sapMVBox > .sapMLabel {
-    font-size: 0.75rem !important;
-    color: #6a7480 !important;
-}
-.reqClearFilters.sapMLnk {
-    color: #0064d9 !important;
-    font-size: 0.875rem !important;
-    margin-bottom: 0.25rem;
-    white-space: nowrap;
-}
-
-/* Fila colapso */
-.reqCollapseRow.sapMHBox {
-    background: #f5f6f7;
-    padding: 0.2rem 0;
-    gap: 0.25rem;
-    justify-content: center;
-}
-.reqCollapseBtn.sapMBtn { opacity: 0.6; }
-
-/* Tabla */
-.reqTable.sapMList { background: #ffffff; }
-.reqTableToolbar.sapMOTB {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e4e7eb !important;
-}
-.reqTableTitle.sapMTitle .sapMTitleText {
-    font-size: 1rem !important;
-    font-weight: 600 !important;
-}
-.reqBtnCrear.sapMBtn .sapMBtnContent {
-    font-weight: 600;
-}
-.reqIdCell.sapMText {
-    color: #0064d9 !important;
-    font-weight: 500;
-}
+/* (REQUERIMIENTO — Lista: ahora usa controles SAP estándar sin CSS personalizado) */
 
 /* ═══════════════════════════════════════════════════════════
    REQUERIMIENTO DE COMPRAS — Detalle
@@ -878,6 +836,99 @@ body.sapUiBody {
     color: #0064d9 !important;
 }
 
+/* ── Acta de Aceptación – Vista previa PDF ────── */
+.actaDocPreview {
+    background: #ffffff;
+    border: 1px solid #d9dde0;
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    max-width: 860px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    margin-bottom: 1rem;
+}
+.actaDocHeader.sapMHBox {
+    border-bottom: 2px solid #cc0000;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.actaDocEmpresa.sapMText {
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    color: #1c2e3e !important;
+}
+.actaDocDireccion.sapMText,
+.actaDocDireccion.sapMLink {
+    font-size: 0.78rem !important;
+    color: #6a6d70 !important;
+}
+.actaDocSubHeader.sapMHBox {
+    margin-bottom: 1.25rem;
+}
+.actaDocFecha.sapMText {
+    font-size: 0.85rem !important;
+    color: #32363a;
+}
+.actaDocNumero.sapMText {
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    color: #cc0000 !important;
+}
+.actaDocDestinatario.sapMVBox {
+    margin-bottom: 0.75rem;
+}
+.actaDocLabel.sapMText {
+    font-size: 0.85rem !important;
+}
+.actaDocProvNombre.sapMText {
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+}
+.actaDocCampo.sapMHBox {
+    margin-bottom: 0.2rem;
+}
+.actaDocCuerpo.sapMVBox {
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+}
+.actaDocTexto.sapMText {
+    font-size: 0.82rem !important;
+    color: #32363a;
+    line-height: 1.5;
+}
+.actaDocClausula.sapMText {
+    margin-top: 0.75rem;
+    border-top: 1px dashed #d9dde0;
+    padding-top: 0.75rem;
+}
+.actaItemsTable.sapMList {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid #ffd700;
+}
+.actaItemsTable.sapMList thead .sapMListTblHeader {
+    background: #ffd700 !important;
+    color: #32363a !important;
+    font-weight: 700 !important;
+}
+.actaDocFirmas.sapMHBox {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #d9dde0;
+}
+.actaFirmaLinea.sapMVBox {
+    border-top: 1px solid #32363a;
+    width: 80%;
+    margin-bottom: 0.5rem;
+}
+.actaFirmaLabel.sapMText {
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+}
+.actaFirmaSubLabel.sapMText {
+    font-size: 0.78rem !important;
+    color: #6a6d70 !important;
+}
+
 
 /* ============================================================
    Mercado Corporativo – Styles
@@ -955,3 +1006,254 @@ body.sapUiBody {
 }
 
 /*******/
+
+/* ══════════════════════════════════════════════════════════
+   LOGIN PAGE – Estilos SAP Build Work Zone (réplica)
+   ══════════════════════════════════════════════════════════ */
+
+.loginPage.sapMPage {
+    background: #f0f0f0 !important;
+}
+
+.loginBackground.sapMVBox {
+    min-height: 100vh;
+    background: #f0f0f0;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Tarjeta central */
+.loginCard.sapMVBox {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    padding: 2.5rem 2rem 2rem 2rem;
+    width: 100%;
+    max-width: 440px;
+    box-sizing: border-box;
+    align-items: flex-start;
+}
+
+/* Logo SAP */
+.loginSapLogo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #0070f2;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    margin-bottom: 1.2rem;
+}
+
+/* Título "Iniciar sesión" */
+.loginTitle.sapMTitle {
+    font-size: 1.7rem !important;
+    font-weight: 700 !important;
+    color: #1c2e3e !important;
+    margin-bottom: 0.3rem !important;
+}
+
+/* Subtítulo entorno */
+.loginSubtitle.sapMText {
+    font-size: 0.85rem !important;
+    color: #6a6d70 !important;
+    margin-bottom: 0.5rem;
+}
+
+/* Filas de campo */
+.loginFieldRow.sapMVBox {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.loginLabel.sapMLabel {
+    font-size: 0.8rem !important;
+    color: #32363a !important;
+    margin-bottom: 0.3rem;
+}
+
+.loginInput.sapMInput {
+    width: 100% !important;
+    border: 1px solid #c0c0c0 !important;
+    border-radius: 4px !important;
+}
+
+.loginInput.sapMInputFocused,
+.loginInput.sapMInput:focus-within {
+    border-color: #0070f2 !important;
+    box-shadow: 0 0 0 2px rgba(0,112,242,0.2) !important;
+}
+
+/* Fila checkBox + link */
+.loginCheckRow.sapMHBox {
+    width: 100%;
+    margin-bottom: 0.8rem;
+}
+
+/* Mensaje de error */
+.loginErrorText.sapMText {
+    color: #bb0000 !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 0.5rem;
+}
+
+/* Botón Continuar */
+.loginBtn.sapMBtn {
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 4px !important;
+}
+
+/* ─── Tabla de usuarios de referencia ─────────────────── */
+.loginDemoUsers.sapMVBox {
+    margin-top: 1.5rem;
+    max-width: 640px;
+    width: 100%;
+}
+
+.loginDemoTitle.sapMText {
+    font-size: 0.78rem !important;
+    color: #6a6d70 !important;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.loginDemoTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    background: #fff;
+    border-radius: 6px;
+    overflow: visible;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+}
+
+.loginDemoTable thead tr {
+    background: #1c2e3e;
+    color: #fff;
+}
+
+.loginDemoTable th,
+.loginDemoTable td {
+    padding: 0.4rem 0.7rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.loginDemoTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.loginDemoTable tbody tr:nth-child(even) {
+    background: #f7f7f7;
+}
+
+/* Botón de acceso rápido en la tabla demo */
+.loginDemoBtn.sapMBtn {
+    white-space: nowrap;
+    overflow: visible;
+    min-width: 5rem;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DIÁLOGO CREAR SOLICITUD – layout sin ResponsiveGridLayout
+   ══════════════════════════════════════════════════════════ */
+.dlgCrearContent.sapMVBox {
+    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.dlgFieldRow.sapMVBox {
+    margin-bottom: 0.9rem;
+    width: 100%;
+}
+
+.dlgLabel.sapMLabel {
+    font-size: 0.85rem !important;
+    color: #32363a !important;
+    margin-bottom: 0.25rem;
+}
+
+.dlgSectionTitle.sapMTitle {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.4rem !important;
+    color: #32363a !important;
+}
+
+/* Columna del botón: no comprimir */
+.loginDemoUsers .sapMListTblCell:last-child {
+    width: 7rem;
+    text-align: center;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+/* Celdas de la tabla demo: padding adecuado */
+.loginDemoUsers .sapMListTblCell {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PASO 1 – Tarjeta Seleccionar Tipo Requerimiento
+   ══════════════════════════════════════════════════════════ */
+
+/* Fondo de pantalla completo que centra la tarjeta */
+.tipoReqBackground.sapMVBox {
+    min-height: calc(100vh - 8rem);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Tarjeta blanca central */
+.tipoReqCard.sapMVBox {
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    padding: 1.8rem 2rem 1.5rem 2rem;
+    min-width: 22rem;
+    max-width: 30rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Título de la tarjeta */
+.tipoReqCardTitle.sapMTitle {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #32363a !important;
+    margin-bottom: 1.2rem !important;
+}
+
+/* Filas de campo (label + select) */
+.tipoReqRow.sapMHBox {
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.tipoReqLabel.sapMLabel {
+    min-width: 9rem;
+    font-size: 0.85rem !important;
+    color: #32363a !important;
+}
+
+.tipoReqSelect.sapMSelect {
+    flex: 1;
+}
+
+/* Fila de botones */
+.tipoReqButtons.sapMHBox {
+    margin-top: 1.4rem;
+    justify-content: center;
+}

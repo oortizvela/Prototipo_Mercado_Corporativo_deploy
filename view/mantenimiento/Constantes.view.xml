@@ -31,10 +31,10 @@
                     growing="true"
                     growingThreshold="10">
                     <columns>
-                        <Column width="12rem"><Text text="Código"/></Column>
-                        <Column><Text text="Descripción"/></Column>
+                        <Column width="12rem"><Text text="CÃ³digo"/></Column>
+                        <Column><Text text="DescripciÃ³n"/></Column>
                         <Column width="12rem"><Text text="Valor Principal"/></Column>
-                        <Column width="9rem"><Text text="Categoría"/></Column>
+                        <Column width="9rem"><Text text="CategorÃ­a"/></Column>
                         <Column width="7rem"><Text text="Estado"/></Column>
                         <Column width="9rem" hAlign="Center"><Text text="Acciones"/></Column>
                     </columns>

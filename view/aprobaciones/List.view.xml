@@ -7,14 +7,14 @@
     displayBlock="true">
 
     <Page
-        title="{= ${ui>/mercadoCorporativo} ? 'Bandeja Aprobación – Mercado Corporativo' : 'Aprobaciones Handset'}"
+        title="Bandeja de Aprobaci&#243;n"
         showNavButton="true"
         navButtonPress="onNavBack"
         class="appPage">
 
         <content>
             <HBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop sapUiSmallMarginBottom">
-                <Title text="{= ${ui>/mercadoCorporativo} ? 'Bandeja de Aprobación – Mercado Corporativo' : 'Bandeja Aprobacion'}" level="H2" />
+                <Title text="{= ${ui>/mercadoCorporativo} ? 'Bandeja de AprobaciÃ³n â€“ Mercado Corporativo' : 'Bandeja Aprobacion'}" level="H2" />
                 <ObjectStatus text="{= ${ui>/mercadoCorporativo} ? 'Mercado Corporativo' : 'Compras Locales'}" state="{= ${ui>/mercadoCorporativo} ? 'Information' : 'None'}" class="sapUiSmallMarginBegin" />
             </HBox>
 
@@ -58,9 +58,9 @@
                             <Select id="filterTipoSolicitud" width="100%">
                                 <core:Item key="" text="" />
                                 <core:Item key="Handset" text="Handset" visible="{= !${ui>/mercadoCorporativo}}" />
-                                <core:Item key="Equipo Cómputo" text="Equipo Cómputo" visible="{= !${ui>/mercadoCorporativo}}" />
+                                <core:Item key="Equipo CÃ³mputo" text="Equipo CÃ³mputo" visible="{= !${ui>/mercadoCorporativo}}" />
                                 <core:Item key="Proyectos / RFP" text="Proyectos / RFP" visible="{ui>/mercadoCorporativo}" />
-                                <core:Item key="Continuidad Tecnológica y de Servicios" text="Continuidad Tecnológica y de Servicios" visible="{ui>/mercadoCorporativo}" />
+                                <core:Item key="Continuidad TecnolÃ³gica y de Servicios" text="Continuidad TecnolÃ³gica y de Servicios" visible="{ui>/mercadoCorporativo}" />
                             </Select>
                         </VBox>
 
@@ -102,14 +102,11 @@
 
                 <columns>
                     <Column width="10rem"><Text text="N Solicitud" /></Column>
-                    <Column><Text text="Titulo" /></Column>
+                    <Column><Text text="T&#237;tulo" /></Column>
+                    <Column width="12rem"><Text text="L&#237;nea de Negocio" /></Column>
                     <Column width="10rem"><Text text="Fecha y Hora" /></Column>
                     <Column width="9rem" hAlign="Center"><Text text="Estado" /></Column>
                     <Column width="10rem"><Text text="Tipo Solicitud" /></Column>
-                    <Column width="8rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Periodo" /></Column>
-                    <Column visible="{ui>/mercadoCorporativo}"><Text text="Cliente" /></Column>
-                    <Column width="12rem" visible="{ui>/mercadoCorporativo}"><Text text="Línea de Negocio" /></Column>
-                    <Column width="8rem" hAlign="End" visible="{ui>/mercadoCorporativo}"><Text text="Importe USD" /></Column>
                     <Column width="9rem" hAlign="Center"><Text text="Acciones" /></Column>
                 </columns>
 
@@ -120,15 +117,12 @@
                         <cells>
                             <Text text="{aprobaciones>aprId}" />
                             <Text text="{aprobaciones>titulo}" />
+                            <Text text="{aprobaciones>lineaNegocio}" />
                             <Text text="{aprobaciones>fechaSolicitud}" />
                             <ObjectStatus
                                 text="{aprobaciones>estado}"
-                                state="{= ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
+                                state="{= ${aprobaciones>estado} === 'Aprobado Final' ? 'Success' : ${aprobaciones>estado} === 'Aprobado' ? 'Success' : ${aprobaciones>estado} === 'Rechazado' ? 'Error' : 'Warning'}" />
                             <Text text="{aprobaciones>tipoSolicitud}" />
-                            <Text text="{aprobaciones>periodo}" visible="{= !${ui>/mercadoCorporativo}}" />
-                            <Text text="{aprobaciones>cliente}" visible="{ui>/mercadoCorporativo}" />
-                            <Text text="{aprobaciones>lineaNegocio}" visible="{ui>/mercadoCorporativo}" />
-                            <ObjectNumber number="{aprobaciones>importeUSD}" unit="USD" visible="{ui>/mercadoCorporativo}" textAlign="End" />
                             <HBox>
                                 <Button
                                     icon="sap-icon://accept"

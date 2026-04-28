@@ -1,4 +1,4 @@
-﻿<mvc:View
+<mvc:View
     controllerName="com.claro.compras.portal.controller.mantenimiento.Main"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"

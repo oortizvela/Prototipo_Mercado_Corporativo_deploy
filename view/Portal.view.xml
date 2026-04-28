@@ -6,53 +6,15 @@
     displayBlock="true">
 
     <!--
-        showHeader="false" — dibujamos nuestro propio shell
+        showHeader="false" â€” dibujamos nuestro propio shell
         dentro del content para tener control total del estilo.
     -->
     <Page showHeader="false" class="portalPage" enableScrolling="true">
         <content>
 
-            <!-- ═══════════════════════════════════════════════════
-                 SHELL HEADER — réplica SAP Build Work Zone
-                 ═══════════════════════════════════════════════════ -->
-            <HBox
-                id="portalShell"
-                alignItems="Center"
-                justifyContent="SpaceBetween"
-                class="portalShellHeader">
-
-                <!-- Izquierda: Brand -->
-                <HBox alignItems="Center" class="shellBrandBox">
-                    <core:HTML content="&lt;div class='sapLogoSquare'&gt;&lt;span&gt;SAP&lt;/span&gt;&lt;/div&gt;" />
-                    <Text text="Build Work Zone" class="shellBrandTitle" />
-                </HBox>
-
-                <!-- Centro: Navegación -->
-                <HBox alignItems="Center" class="shellNavBox">
-                    <Button
-                        text="Home"
-                        icon="sap-icon://slim-arrow-down"
-                        iconFirst="false"
-                        type="Transparent"
-                        class="shellNavHomeBtn" />
-                </HBox>
-
-                <!-- Derecha: Iconos + Avatar -->
-                <HBox alignItems="Center" class="shellIconsBox">
-                    <Button icon="sap-icon://search" type="Transparent" class="shellHeaderIcon" tooltip="Buscar" />
-                    <Button icon="sap-icon://world"  type="Transparent" class="shellHeaderIcon" tooltip="Idioma" />
-                    <Avatar
-                        initials="OO"
-                        displaySize="XS"
-                        class="shellAvatar"
-                        press="onAvatarPress" />
-                </HBox>
-
-            </HBox>
-
-            <!-- ═══════════════════════════════════════════════════
+            <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                  CONTENT AREA
-                 ═══════════════════════════════════════════════════ -->
+                 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
             <VBox class="portalContentArea">
 
                 <VBox class="portalSection">
@@ -60,14 +22,15 @@
 
                     <HBox wrap="Wrap" class="portalTilesRow">
 
-                        <!-- Tile 1: Requerimiento de Compra -->
+                        <!-- Tile 1: Gestión Requerimientos Compras – Solicitante y Administrador -->
                         <GenericTile
                             id="tileRequerimiento"
-                            header="Requerimiento de Compra"
+                            header="Gestión Requerimientos Compras"
                             subheader="Solicitudes"
                             press="onTileRequerimiento"
                             class="portalTile"
-                            frameType="OneByOne">
+                            frameType="OneByOne"
+                            visible="{= ${session>/categoria} === 'Solicitante' || ${session>/categoria} === 'Administrador' }">
                             <tileContent>
                                 <TileContent>
                                     <content>
@@ -77,90 +40,41 @@
                             </tileContent>
                         </GenericTile>
 
-                        <!-- Tile 2: Aprobaciones Handset -->
+                        <!-- Tile 2: Bandeja de Aprobación – Aprobador y Administrador -->
                         <GenericTile
                             id="tileAprobaciones"
-                            header="Aprobaciones Handset"
-                            subheader="Solicitudes"
+                            header="Bandeja de Aprobación"
+                            subheader="Solicitudes pendientes"
                             press="onTileAprobaciones"
                             class="portalTile"
-                            frameType="OneByOne">
+                            frameType="OneByOne"
+                            visible="{= ${session>/categoria} === 'Aprobador' || ${session>/categoria} === 'Administrador' }">
+                            <tileContent>
+                                <TileContent footer="pendientes">
+                                    <content>
+                                        <NumericContent
+                                            value="{portal>/pendientes}"
+                                            withMargin="false"
+                                            valueColor="Critical" />
+                                    </content>
+                                </TileContent>
+                            </tileContent>
                         </GenericTile>
 
-                        <!-- Tile 3: Mantenimiento de Datos -->
+                        <!-- Tile 3: Mantenimiento de Datos – Administrador únicamente -->
                         <GenericTile
                             id="tileMantenimiento"
                             header="Mantenimiento de Datos"
                             press="onTileMantenimiento"
                             class="portalTile"
-                            frameType="OneByOne">
+                            frameType="OneByOne"
+                            visible="{= ${session>/categoria} === 'Administrador' }">
                         </GenericTile>
 
                     </HBox>
                 </VBox>
 
-                <!-- ═══════════════════════════════ MERCADO CORPORATIVO ═══════════════════════════════ -->
-                <VBox class="portalSection">
-                    <HBox alignItems="Center" class="portalSectionTitleRow">
-                        <Title text="Mercado Corporativo" level="H2" class="portalSectionTitle" />
-                        <ObjectStatus text="B2B · Proyectos · Licitaciones" state="Information" class="portalSectionBadge" />
-                    </HBox>
 
-                    <HBox wrap="Wrap" class="portalTilesRow">
-
-                        <!-- Tile MC-1: Registro Necesidad -->
-                        <GenericTile
-                            id="tileMcRegistro"
-                            header="Registro Necesidad"
-                            subheader="Mercado Corporativo"
-                            press="onTileMcRequerimiento"
-                            class="portalTile portalTileMC"
-                            frameType="OneByOne">
-                            <tileContent>
-                                <TileContent>
-                                    <content>
-                                        <ImageContent src="sap-icon://business-objects-experience" />
-                                    </content>
-                                </TileContent>
-                            </tileContent>
-                        </GenericTile>
-
-                        <!-- Tile MC-2: Bandeja Aprobación -->
-                        <GenericTile
-                            id="tileMcAprobaciones"
-                            header="Bandeja Aprobación"
-                            subheader="Mercado Corporativo"
-                            press="onTileMcAprobaciones"
-                            class="portalTile portalTileMC"
-                            frameType="OneByOne">
-                            <tileContent>
-                                <TileContent>
-                                    <content>
-                                        <ImageContent src="sap-icon://approvals" />
-                                    </content>
-                                </TileContent>
-                            </tileContent>
-                        </GenericTile>
-
-                        <!-- Tile MC-3: Configuraciones -->
-                        <GenericTile
-                            id="tileMcConfiguraciones"
-                            header="Configuraciones"
-                            subheader="Mercado Corporativo"
-                            press="onTileMcMantenimiento"
-                            class="portalTile portalTileMC"
-                            frameType="OneByOne">
-                            <tileContent>
-                                <TileContent>
-                                    <content>
-                                        <ImageContent src="sap-icon://action-settings" />
-                                    </content>
-                                </TileContent>
-                            </tileContent>
-                        </GenericTile>
-
-                    </HBox>
-                </VBox>
 
             </VBox>
 

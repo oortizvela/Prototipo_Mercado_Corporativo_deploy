@@ -32,7 +32,7 @@ sap.ui.define([
             }.bind(this));
         },
 
-        // ── Helpers ────────────────────────────────────────────────────────────
+        // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _getCustomData: function (oSource, sKey) {
             var aData = oSource.getCustomData ? oSource.getCustomData() : [];
             var oFound = aData.filter(function (d) { return d.getKey() === sKey; })[0];
@@ -43,7 +43,7 @@ sap.ui.define([
             return "/tiposMC/" + sTipo + "/aprobacion" + (sFlujo === "simple" ? "Simple" : "Completa") + "/niveles";
         },
 
-        // ── Editar descripción del tipo ────────────────────────────────────────
+        // â”€â”€ Editar descripciÃ³n del tipo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onEditTipo: function (oEvent) {
             var oModel = this.getOwnerComponent().getModel("tiposMC");
             var iIdx = parseInt(this._getCustomData(oEvent.getSource(), "idx"), 10);
@@ -52,7 +52,7 @@ sap.ui.define([
 
             var oTextInput = new Input({ value: oData.text, width: "100%", required: true });
             var oDescArea  = new TextArea({ value: oData.descripcion, rows: 4, width: "100%",
-                                            placeholder: "Descripción del tipo de requerimiento" });
+                                            placeholder: "DescripciÃ³n del tipo de requerimiento" });
             var oUmbralInput = new Input({ value: String(oData.umbralUSD || 100000), type: "Number", width: "100%" });
 
             var oDlg = new Dialog({
@@ -63,9 +63,9 @@ sap.ui.define([
                         items: [
                             new Label({ text: "Nombre", required: true }),
                             oTextInput,
-                            new Label({ text: "Descripción" }),
+                            new Label({ text: "DescripciÃ³n" }),
                             oDescArea,
-                            new Label({ text: "Umbral de aprobación (USD)" }),
+                            new Label({ text: "Umbral de aprobaciÃ³n (USD)" }),
                             oUmbralInput
                         ]
                     }).addStyleClass("mtnDlgContent")
@@ -92,7 +92,7 @@ sap.ui.define([
             oDlg.open();
         },
 
-        // ── Agregar nivel ──────────────────────────────────────────────────────
+        // â”€â”€ Agregar nivel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onAddNivel: function (oEvent) {
             var oSrc   = oEvent.getSource();
             var sTipo  = this._getCustomData(oSrc, "tipo");
@@ -100,7 +100,7 @@ sap.ui.define([
             this._openNivelDialog(null, sTipo, sFlujo);
         },
 
-        // ── Editar nivel ───────────────────────────────────────────────────────
+        // â”€â”€ Editar nivel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onEditNivel: function (oEvent) {
             var oSrc   = oEvent.getSource();
             var sTipo  = this._getCustomData(oSrc, "tipo");
@@ -109,7 +109,7 @@ sap.ui.define([
             this._openNivelDialog(oCtx, sTipo, sFlujo);
         },
 
-        // ── Eliminar nivel ─────────────────────────────────────────────────────
+        // â”€â”€ Eliminar nivel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onDeleteNivel: function (oEvent) {
             var oSrc   = oEvent.getSource();
             var sTipo  = this._getCustomData(oSrc, "tipo");
@@ -117,8 +117,8 @@ sap.ui.define([
             var oCtx   = oSrc.getBindingContext("tiposMC");
             var sNivel = oCtx.getProperty("nivel");
 
-            MessageBox.confirm("¿Eliminar el Nivel " + sNivel + "?", {
-                title: "Confirmar eliminación",
+            MessageBox.confirm("Â¿Eliminar el Nivel " + sNivel + "?", {
+                title: "Confirmar eliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction !== MessageBox.Action.OK) { return; }
                     var oModel = this.getOwnerComponent().getModel("tiposMC");
@@ -132,7 +132,7 @@ sap.ui.define([
             });
         },
 
-        // ── Dialog editar / crear nivel ────────────────────────────────────────
+        // â”€â”€ Dialog editar / crear nivel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _openNivelDialog: function (oCtx, sTipo, sFlujo) {
             var oModel     = this.getOwnerComponent().getModel("tiposMC");
             var sArrayPath = this._getFlujoPath(sTipo, sFlujo);
@@ -144,10 +144,10 @@ sap.ui.define([
 
             var oNivelInput  = new Input({ value: String(oData.nivel), type: "Number", width: "100%", required: true });
             var oCodigoInput = new Input({ value: oData.codigo, placeholder: "Ej: N1, N2, N5", width: "100%" });
-            var oCargoInput  = new Input({ value: oData.cargo, placeholder: "Ej: Jefe Área Usuaria", width: "100%", required: true });
+            var oCargoInput  = new Input({ value: oData.cargo, placeholder: "Ej: Jefe Ãrea Usuaria", width: "100%", required: true });
             var oObligCheck  = new CheckBox({ selected: oData.obligatorio !== false, text: "Obligatorio" });
 
-            var sDlgTitle    = (bNew ? "Agregar" : "Editar") + " Nivel – " + (sFlujo === "simple" ? "Flujo Simple" : "Flujo Completo");
+            var sDlgTitle    = (bNew ? "Agregar" : "Editar") + " Nivel â€“ " + (sFlujo === "simple" ? "Flujo Simple" : "Flujo Completo");
 
             var oDlg = new Dialog({
                 title: sDlgTitle,
@@ -157,7 +157,7 @@ sap.ui.define([
                         items: [
                             new HBox({ items: [
                                 new VBox({ width: "50%", items: [ new Label({ text: "Nivel", required: true }), oNivelInput ] }),
-                                new VBox({ width: "50%", items: [ new Label({ text: "Código" }), oCodigoInput ] }).addStyleClass("sapUiSmallMarginBegin")
+                                new VBox({ width: "50%", items: [ new Label({ text: "CÃ³digo" }), oCodigoInput ] }).addStyleClass("sapUiSmallMarginBegin")
                             ]}),
                             new Label({ text: "Cargo / Rol", required: true }),
                             oCargoInput,

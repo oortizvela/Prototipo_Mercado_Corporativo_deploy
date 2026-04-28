@@ -6,7 +6,7 @@
     displayBlock="true">
 
     <Page
-        title="Tipos de Requerimiento – Mercado Corporativo"
+        title="Tipos de Requerimiento â€“ Mercado Corporativo"
         showNavButton="true"
         navButtonPress="onNavBack"
         class="appPage">
@@ -15,7 +15,7 @@
             <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
 
                 <MessageStrip
-                    text="El umbral de 100,000 USD determina el flujo de aprobación. Importes menores requieren 2 niveles; importes iguales o mayores requieren los 5 niveles jerárquicos."
+                    text="El umbral de 100,000 USD determina el flujo de aprobaciÃ³n. Importes menores requieren 2 niveles; importes iguales o mayores requieren los 5 niveles jerÃ¡rquicos."
                     type="Information"
                     showIcon="true"
                     class="sapUiSmallMarginBottom"/>
@@ -24,9 +24,9 @@
                 <Panel id="panelContinuidad" expandable="true" expanded="true" class="mtnListPanel sapUiSmallMarginBottom">
                     <headerToolbar>
                         <OverflowToolbar>
-                            <Title text="Continuidad Tecnológica y de Servicios" level="H5"/>
+                            <Title text="Continuidad TecnolÃ³gica y de Servicios" level="H5"/>
                             <ToolbarSpacer/>
-                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripción" press="onEditTipo" customData:data-idx="0"
+                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripciÃ³n" press="onEditTipo" customData:data-idx="0"
                                     xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
                         </OverflowToolbar>
                     </headerToolbar>
@@ -45,7 +45,7 @@
                                 noDataText="Sin niveles configurados">
                                 <columns>
                                     <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
-                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column width="7rem"><Text text="CÃ³digo"/></Column>
                                     <Column><Text text="Cargo / Rol"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
@@ -82,7 +82,7 @@
                                 noDataText="Sin niveles configurados">
                                 <columns>
                                     <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
-                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column width="7rem"><Text text="CÃ³digo"/></Column>
                                     <Column><Text text="Cargo / Rol"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
@@ -117,7 +117,7 @@
                         <OverflowToolbar>
                             <Title text="Proyectos / RFP" level="H5"/>
                             <ToolbarSpacer/>
-                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripción" press="onEditTipo" customData:data-idx="1"
+                            <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar descripciÃ³n" press="onEditTipo" customData:data-idx="1"
                                     xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"/>
                         </OverflowToolbar>
                     </headerToolbar>
@@ -136,7 +136,7 @@
                                 noDataText="Sin niveles configurados">
                                 <columns>
                                     <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
-                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column width="7rem"><Text text="CÃ³digo"/></Column>
                                     <Column><Text text="Cargo / Rol"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>
@@ -173,7 +173,7 @@
                                 noDataText="Sin niveles configurados">
                                 <columns>
                                     <Column width="5rem" hAlign="Center"><Text text="Nivel"/></Column>
-                                    <Column width="7rem"><Text text="Código"/></Column>
+                                    <Column width="7rem"><Text text="CÃ³digo"/></Column>
                                     <Column><Text text="Cargo / Rol"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Obligatorio"/></Column>
                                     <Column width="8rem" hAlign="Center"><Text text="Acciones"/></Column>

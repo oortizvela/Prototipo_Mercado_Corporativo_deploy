@@ -39,7 +39,7 @@ sap.ui.define([
             this._onRouteMatched();
         },
 
-        // ── Search ─────────────────────────────────────────────────────────────
+        // â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onSearchLinea: function (oEvent) {
             var sQuery = oEvent.getParameter("query") || oEvent.getParameter("newValue") || "";
             var oBinding = this.byId("tableLineas").getBinding("items");
@@ -50,7 +50,7 @@ sap.ui.define([
             }
         },
 
-        // ── Ver Áreas Funcionales ──────────────────────────────────────────────
+        // â”€â”€ Ver Ãreas Funcionales â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onVerAreas: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("lineasNegocio");
             this._openAreasDialog(oCtx);
@@ -71,7 +71,7 @@ sap.ui.define([
             var oTable = this.byId("tableAreas");
             oTable.removeAllItems();
             oTable.removeAllColumns();
-            oTable.addColumn(new Column({ header: new Text({ text: "Área Funcional" }) }));
+            oTable.addColumn(new Column({ header: new Text({ text: "Ãrea Funcional" }) }));
             oTable.addColumn(new Column({ width: "16rem", header: new Text({ text: "Segmento" }) }));
             oTable.addColumn(new Column({ width: "12rem", header: new Text({ text: "Responsable" }) }));
 
@@ -81,7 +81,7 @@ sap.ui.define([
                         cells: [
                             new Text({ text: oArea.text }),
                             new Text({ text: oSeg.text }),
-                            new Text({ text: oSeg.responsable || "–" })
+                            new Text({ text: oSeg.responsable || "â€“" })
                         ]
                     }));
                 });
@@ -94,23 +94,23 @@ sap.ui.define([
             this.byId("dlgAreas").close();
         },
 
-        // ── Add ───────────────────────────────────────────────────────────────
+        // â”€â”€ Add â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onAddLinea: function () {
             this._openEditDialog(null);
         },
 
-        // ── Edit ──────────────────────────────────────────────────────────────
+        // â”€â”€ Edit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onEditLinea: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("lineasNegocio");
             this._openEditDialog(oCtx);
         },
 
-        // ── Delete ────────────────────────────────────────────────────────────
+        // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onDeleteLinea: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext("lineasNegocio");
             var sText = oCtx.getProperty("text");
-            MessageBox.confirm("¿Desea eliminar la línea de negocio '" + sText + "'?", {
-                title: "Confirmar eliminación",
+            MessageBox.confirm("Â¿Desea eliminar la lÃ­nea de negocio '" + sText + "'?", {
+                title: "Confirmar eliminaciÃ³n",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         var oModel = this.getOwnerComponent().getModel("lineasNegocio");
@@ -118,13 +118,13 @@ sap.ui.define([
                         var iIdx = parseInt(oCtx.getPath().replace("/lineasNegocio/", ""), 10);
                         aItems.splice(iIdx, 1);
                         oModel.setProperty("/lineasNegocio", aItems);
-                        MessageToast.show("Línea de negocio eliminada");
+                        MessageToast.show("LÃ­nea de negocio eliminada");
                     }
                 }.bind(this)
             });
         },
 
-        // ── Edit Dialog ────────────────────────────────────────────────────────
+        // â”€â”€ Edit Dialog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _openEditDialog: function (oCtx) {
             var oModel = this.getOwnerComponent().getModel("lineasNegocio");
             var bNew = !oCtx;
@@ -132,13 +132,13 @@ sap.ui.define([
                 key: "", text: "", tipoSolicitud: "both", areasFunc: [], estado: true
             };
 
-            var oKeyInput = new Input({ value: oData.key, editable: bNew, placeholder: "Clave única (sin espacios)", required: true, width: "100%" });
-            var oTextInput = new Input({ value: oData.text, placeholder: "Nombre de la línea de negocio", required: true, width: "100%" });
+            var oKeyInput = new Input({ value: oData.key, editable: bNew, placeholder: "Clave Ãºnica (sin espacios)", required: true, width: "100%" });
+            var oTextInput = new Input({ value: oData.text, placeholder: "Nombre de la lÃ­nea de negocio", required: true, width: "100%" });
 
             var oTipoSelect = new Select({ width: "100%" });
             [
                 { key: "both", text: "Continuidad y Proyectos/RFP" },
-                { key: "Continuidad Tecnológica y de Servicios", text: "Solo Continuidad" },
+                { key: "Continuidad TecnolÃ³gica y de Servicios", text: "Solo Continuidad" },
                 { key: "Proyectos / RFP", text: "Solo Proyectos/RFP" }
             ].forEach(function (o) {
                 oTipoSelect.addItem(new Item({ key: o.key, text: o.text }));
@@ -147,7 +147,7 @@ sap.ui.define([
 
             var that = this;
             var oDlg = new Dialog({
-                title: bNew ? "Nueva Línea de Negocio" : "Editar Línea de Negocio",
+                title: bNew ? "Nueva LÃ­nea de Negocio" : "Editar LÃ­nea de Negocio",
                 contentWidth: "460px",
                 content: [
                     new VBox({
@@ -175,7 +175,7 @@ sap.ui.define([
                                 aItems[iIdx].tipoSolicitud = oTipoSelect.getSelectedKey();
                             }
                             oModel.setProperty("/lineasNegocio", aItems);
-                            MessageToast.show(bNew ? "Línea de negocio creada" : "Línea de negocio actualizada");
+                            MessageToast.show(bNew ? "LÃ­nea de negocio creada" : "LÃ­nea de negocio actualizada");
                             oDlg.close();
                         }
                     }),

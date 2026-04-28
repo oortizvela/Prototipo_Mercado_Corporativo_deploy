@@ -27,6 +27,17 @@ sap.ui.define([
 
         _onRouteMatched: function (bMC) {
             this.getView().getModel("ui").setProperty("/mercadoCorporativo", !!bMC);
+            // Inicializar rolNivelActual en ítems que no lo tengan (mock data existente)
+            var oAprModel = this.getOwnerComponent().getModel("aprobaciones");
+            var aApr = oAprModel.getProperty("/aprobaciones") || [];
+            aApr.forEach(function (item, idx) {
+                if (!item.rolNivelActual && item.rolNivelActual !== "") {
+                    var iNivelIdx = (item.nivelActual || 1) - 1;
+                    var aAprob = item.aprobadores || [];
+                    var sRol = aAprob.length > iNivelIdx ? aAprob[iNivelIdx].rol : "";
+                    oAprModel.setProperty("/aprobaciones/" + idx + "/rolNivelActual", sRol);
+                }
+            });
             this._applyFilters();
         },
 
@@ -56,8 +67,13 @@ sap.ui.define([
             var aFilters = [];
             var bMC = this.getView().getModel("ui").getProperty("/mercadoCorporativo");
 
-            // Filtro por mercado
-            aFilters.push(new Filter("mercado", FilterOperator.EQ, bMC ? "corporativo" : "local"));
+            // Filtrar por rol del usuario logueado (sólo ve las que le toca aprobar)
+            var oSession = this.getOwnerComponent().getModel("session");
+            var sRolUsuario    = oSession ? (oSession.getProperty("/rol")       || "") : "";
+            var sCategoriaUser = oSession ? (oSession.getProperty("/categoria") || "") : "";
+            if (sRolUsuario && sCategoriaUser !== "Administrador") {
+                aFilters.push(new Filter("rolNivelActual", FilterOperator.EQ, sRolUsuario));
+            }
 
             var sNSolicitud = (this.byId("filterNSolicitud") && this.byId("filterNSolicitud").getValue()) || "";
             var sTitulo = (this.byId("filterTitulo") && this.byId("filterTitulo").getValue()) || "";
@@ -96,11 +112,7 @@ sap.ui.define([
 
         onItemPress: function (oEvent) {
             var sAprId = oEvent.getSource().getBindingContext("aprobaciones").getProperty("aprId");
-            var bMC = this.getView().getModel("ui").getProperty("/mercadoCorporativo");
-            this.getRouter().navTo(
-                bMC ? "mcAprobacionesDetail" : "aprobacionesDetail",
-                { aprId: encodeURIComponent(sAprId) }
-            );
+            this.getRouter().navTo("aprobacionesDetail", { aprId: encodeURIComponent(sAprId) });
         },
 
         onApprove: function (oEvent) {
@@ -132,7 +144,7 @@ sap.ui.define([
                         var oModel = this.getOwnerComponent().getModel("aprobaciones");
                         var sEstado = sAction === "Aprobar" ? "Aprobado" : "Rechazado";
                         oModel.setProperty(sPath + "/estado", sEstado);
-                        oModel.setProperty(sPath + "/aprobador", "Omar Ortiz");
+                        oModel.setProperty(sPath + "/aprobador", "Oscar Ortiz");
                         oModel.setProperty(sPath + "/comentarioAprobador", oTextArea.getValue());
                         oModel.setProperty(sPath + "/fechaAprobacion", new Date().toISOString().split("T")[0]);
                         oDialog.close();

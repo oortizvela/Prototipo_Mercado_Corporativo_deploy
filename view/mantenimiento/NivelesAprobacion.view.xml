@@ -6,7 +6,7 @@
     displayBlock="true">
 
     <Page
-        title="Niveles de Aprobación"
+        title="Niveles de AprobaciÃ³n"
         showNavButton="true"
         navButtonPress="onNavBack"
         class="appPage">
@@ -33,7 +33,7 @@
                     <columns>
                         <Column width="4rem" hAlign="Center"><Text text="Nivel"/></Column>
                         <Column width="10rem"><Text text="Flujo"/></Column>
-                        <Column><Text text="Descripción"/></Column>
+                        <Column><Text text="DescripciÃ³n"/></Column>
                         <Column width="14rem"><Text text="Tipo Aprobador"/></Column>
                         <Column width="12rem"><Text text="Tipos Solicitud"/></Column>
                         <Column width="5rem" hAlign="Center"><Text text="Orden"/></Column>

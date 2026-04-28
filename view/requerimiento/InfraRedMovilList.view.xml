@@ -1,0 +1,187 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.requerimiento.InfraRedMovilList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page showHeader="false" enableScrolling="false">
+        <content>
+
+            <!-- Título principal -->
+            <VBox class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+                <Title text="Gestión de Solicitud de Requerimientos de Compras" level="H2" />
+            </VBox>
+
+            <!-- Barra de filtros (2.2.3) -->
+            <Panel expandable="false" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <content>
+                    <HBox wrap="Wrap" alignItems="End" class="sapUiSmallMargin">
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Número de Solicitud" labelFor="rmFilterNumSol" />
+                            <Input id="rmFilterNumSol" liveChange="onFilterChange" width="11rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Título" labelFor="rmFilterTitulo" />
+                            <Input id="rmFilterTitulo" liveChange="onFilterChange" width="14rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Estado" labelFor="rmFilterEstado" />
+                            <Select id="rmFilterEstado" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Registrado"      text="Registrado" />
+                                <core:Item key="En Aprobación"   text="En Aprobación" />
+                                <core:Item key="Aprobado"        text="Aprobado" />
+                                <core:Item key="Rechazado"       text="Rechazado" />
+                                <core:Item key="Finalizado"      text="Finalizado" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Solped" labelFor="rmFilterSolped" />
+                            <Select id="rmFilterSolped" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="SOLPED-001" text="SOLPED-001" />
+                                <core:Item key="SOLPED-002" text="SOLPED-002" />
+                                <core:Item key="SOLPED-003" text="SOLPED-003" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Pedido" labelFor="rmFilterPedido" />
+                            <Select id="rmFilterPedido" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="4500000001" text="4500000001" />
+                                <core:Item key="4500000002" text="4500000002" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Tp Solicitud" labelFor="rmFilterTipo" />
+                            <Select id="rmFilterTipo" change="onFilterChange" width="16rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Proyecto Red Movil"                    text="Proyecto Red Movil" />
+                                <core:Item key="Ampliación de Cobertura"               text="Ampliación de Cobertura" />
+                                <core:Item key="Implementación de Estaciones / Antenas" text="Implementación de Estaciones / Antenas" />
+                                <core:Item key="Upgrade Tecnológico (4G a 5G)"         text="Upgrade Tecnológico (4G a 5G)" />
+                            </Select>
+                        </VBox>
+                        <Link text="Limpiar Filtros" press="onClearFilters" class="sapUiSmallMarginBegin" />
+                    </HBox>
+                </content>
+            </Panel>
+
+            <!-- Tabla de solicitudes (2.2.1) -->
+            <Table
+                id="redMovilTable"
+                items="{redMovil>/items}"
+                growing="true"
+                growingThreshold="20"
+                noDataText="No se encontraron solicitudes"
+                mode="MultiSelect"
+                selectionChange="onSelectionChange"
+                class="sapUiSmallMarginBeginEnd">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Solicitudes" level="H3" />
+                        <ToolbarSpacer />
+                        <Button text="+ Crear Solicitud"
+                                type="Emphasized"
+                                press="onCrearSolicitud" />
+                        <Button text="Validación Técnica"
+                                icon="sap-icon://technical-object"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onValidacionTecnica" />
+                        <Button text="Aprob. Necesidad"
+                                icon="sap-icon://approvals"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onAprobNecesidad" />
+                        <Button text="Enviar a Compras"
+                                icon="sap-icon://paper-plane"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onEnviarCompras" />
+                        <Button text="Finalizar Solicitud"
+                                icon="sap-icon://task"
+                                type="Transparent"
+                                enabled="{ui>/haySeleccion}"
+                                press="onFinalizar" />
+                        <Button text="Exportar Excel"
+                                icon="sap-icon://excel-attachment"
+                                type="Transparent"
+                                press="onExportar" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="13rem"><Text text="Número de Solicitud" /></Column>
+                    <Column><Text text="Título" /></Column>
+                    <Column width="16rem"><Text text="Tipo de Solicitud" /></Column>
+                    <Column width="14rem"><Text text="Estado" /></Column>
+                    <Column width="10rem"><Text text="Solped" /></Column>
+                    <Column width="10rem"><Text text="Pedido" /></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onItemPress">
+                        <cells>
+                            <Link text="{redMovil>reqId}" press="onItemPress" />
+                            <Text text="{redMovil>titulo}" wrapping="false" />
+                            <Text text="{redMovil>tipoSolicitud}" wrapping="false" />
+                            <ObjectStatus
+                                text="{redMovil>estado}"
+                                icon="{= ${redMovil>estado} === 'Rechazado'     ? 'sap-icon://sys-cancel-2' :
+                                          ${redMovil>estado} === 'Finalizado'   ? 'sap-icon://sys-enter-2'  :
+                                          ${redMovil>estado} === 'Aprobado'     ? 'sap-icon://sys-enter-2'  :
+                                          ${redMovil>estado} === 'En Aprobación'? 'sap-icon://sys-help-2'   :
+                                          ${redMovil>estado} === 'Registrado'   ? 'sap-icon://create-form'  :
+                                                                                   'sap-icon://sys-help-2'}"
+                                state="{= ${redMovil>estado} === 'Rechazado'     ? 'Error'   :
+                                          ${redMovil>estado} === 'Finalizado'    ? 'Success' :
+                                          ${redMovil>estado} === 'Aprobado'      ? 'Success' :
+                                          ${redMovil>estado} === 'En Aprobación' ? 'Warning' :
+                                                                                    'None'}" />
+                            <Text text="{redMovil>numeroSolped}" />
+                            <Text text="{redMovil>numeroPedido}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+
+    <!-- Diálogo Crear Solicitud Red Movil (2.2.2) -->
+    <Dialog
+        id="dlgCrearRedMovil"
+        title="Crear Solicitud"
+        contentWidth="36rem"
+        verticalScrolling="false"
+        stretch="false"
+        class="sapUiContentPadding">
+        <content>
+            <VBox width="100%">
+                <VBox class="sapUiSmallMarginBottom">
+                    <Label text="Título:" required="true" labelFor="dlgRmTitulo" />
+                    <Input id="dlgRmTitulo"
+                           placeholder="Ingrese el título de la solicitud"
+                           width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Tipo de Solicitud:" required="true" labelFor="dlgRmTipo" />
+                    <Select id="dlgRmTipo" width="100%">
+                        <core:Item key="Proyecto Red Movil"                     text="Proyecto Red Movil" />
+                        <core:Item key="Ampliación de Cobertura"                text="Ampliación de Cobertura" />
+                        <core:Item key="Implementación de Estaciones / Antenas" text="Implementación de Estaciones / Antenas" />
+                        <core:Item key="Upgrade Tecnológico (4G a 5G)"          text="Upgrade Tecnológico (4G a 5G)" />
+                    </Select>
+                </VBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Crear"    type="Emphasized" press="onConfirmCrear" />
+            <Button text="Cancelar"                   press="onCancelCrear" />
+        </buttons>
+    </Dialog>
+
+</mvc:View>

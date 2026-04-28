@@ -1,90 +1,160 @@
-﻿<mvc:View
+<mvc:View
     controllerName="com.claro.compras.portal.controller.requerimiento.List"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
     displayBlock="true">
 
-    <Page showHeader="false" enableScrolling="true" class="reqListPage">
+    <Page showHeader="false" enableScrolling="false">
         <content>
-            <!-- TÃ­tulo principal -->
-            <VBox class="reqListTitleBar">
-                <HBox alignItems="Center">
-                    <Title text="{= ${ui>/mercadoCorporativo} ? 'Registro de Necesidades – Mercado Corporativo' : 'Gestión de Solicitud de Requerimientos de Compras'}" level="H1" class="reqListTitle" />
-                    <ObjectStatus text="{= ${ui>/mercadoCorporativo} ? 'Mercado Corporativo' : 'Compras Locales'}" state="{= ${ui>/mercadoCorporativo} ? 'Information' : 'None'}" class="sapUiSmallMarginBegin" />
-                </HBox>
+
+            <!-- Título principal -->
+            <VBox class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+                <Title text="{= ${ui>/mercadoCorporativo} ? 'Registro de Necesidades – Mercado Corporativo' : 'Gestión de Solicitud de Requerimientos de Compras'}"
+                       level="H2" />
             </VBox>
+
+            <!-- ═══════════════════════════════════════════════════════
+                 PASO 1 – Seleccionar Tipo Requerimiento (Solicitante)
+                 Solo visible para compras locales al entrar a la página
+                 ═══════════════════════════════════════════════════════ -->
+            <FlexBox id="vboxSeleccionTipo"
+                     visible="{ui>/mostrarSeleccion}"
+                     justifyContent="Center"
+                     alignItems="Center"
+                     height="80vh"
+                     width="100%">
+
+                <Panel width="28rem"
+                       expandable="false"
+                       backgroundDesign="Solid">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Seleccionar Tipo Requerimiento" level="H3" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom">
+
+                            <!-- Canal -->
+                            <VBox class="sapUiSmallMarginBottom">
+                                <Label text="Canal" required="true" labelFor="selCanal" />
+                                <Select id="selCanal"
+                                        change="onSelCanalChange"
+                                        selectedKey="{ui>/canalSeleccionado}"
+                                        width="100%">
+                                    <core:Item key="Infraestructura"  text="Infraestructura" />
+                                    <core:Item key="ComprasLocales"   text="Compras Locales" />
+                                    <core:Item key="Handset"          text="Handset" />
+                                </Select>
+                            </VBox>
+
+                            <!-- Línea de Negocio: solo cuando Canal = Infraestructura -->
+                            <VBox class="sapUiSmallMarginBottom"
+                                  visible="{= ${ui>/canalSeleccionado} === 'Infraestructura' }">
+                                <Label text="Línea de Negocio" required="true" labelFor="selLineaNegocio" />
+                                <Select id="selLineaNegocio"
+                                        selectedKey="{ui>/lineaNegocioSeleccionada}"
+                                        width="100%">
+                                    <core:Item key="RedMovil"           text="Red Movil" />
+                                    <core:Item key="RedFija"            text="Red Fija" />
+                                    <core:Item key="OM"                 text="O &amp; M" />
+                                    <core:Item key="MercadoCorporativo" text="Mercado Corporativo" />
+                                </Select>
+                            </VBox>
+
+                            <!-- Botones -->
+                            <HBox justifyContent="Center" class="sapUiSmallMarginTop">
+                                <Button text="Confirmar" type="Emphasized"
+                                        press="onConfirmTipoRequerimiento"
+                                        class="sapUiSmallMarginEnd" />
+                                <Button text="Cancelar"
+                                        press="onCancelTipoRequerimiento" />
+                            </HBox>
+
+                        </VBox>
+                    </content>
+                </Panel>
+
+            </FlexBox>
+
+            <!-- Lista y filtros (visible tras confirmar el tipo) -->
+            <VBox visible="{= !${ui>/mostrarSeleccion} }">
 
             <!-- Barra de filtros -->
-            <VBox class="reqFilterBar">
-                <HBox wrap="Wrap" alignItems="End" class="reqFilterRow">
-                    <VBox class="reqFilterField">
-                        <Label text="Número de Solicitud" labelFor="filterNumSolicitud" />
-                        <Input id="filterNumSolicitud" liveChange="onFilterChange" width="11rem" />
-                    </VBox>
-                    <VBox class="reqFilterField">
-                        <Label text="Título" labelFor="inpFilterTitulo" />
-                        <Input id="inpFilterTitulo" liveChange="onFilterChange" width="14rem" />
-                    </VBox>
-                    <VBox class="reqFilterField">
-                        <Label text="Estado" labelFor="filterEstado" />
-                        <Select id="filterEstado" change="onFilterChange" width="14rem">
-                            <core:Item key="" text="" />
-                            <core:Item key="Borrador" text="Borrador" />
-                            <core:Item key="Pendiente Aprobación" text="Pendiente Aprobación" />
-                            <core:Item key="En Aprobación" text="En Aprobación" />
-                            <core:Item key="Aprobado" text="Aprobado" />
-                            <core:Item key="Presentado al Cliente" text="Presentado al Cliente" />
-                            <core:Item key="Feedback Recibido" text="Feedback Recibido" />
-                            <core:Item key="Confirmado" text="Confirmado" />
-                            <core:Item key="Stock Reservado" text="Stock Reservado" />
-                            <core:Item key="Rechazado" text="Rechazado" />
-                            <core:Item key="Rechazado por Cliente" text="Rechazado por Cliente" />
-                            <core:Item key="Finalizado" text="Finalizado" />
-                            <core:Item key="Enviado a Firma de Acta" text="Enviado a Firma de Acta" />
-                        </Select>
-                    </VBox>
-                    <VBox class="reqFilterField" visible="{ui>/mercadoCorporativo}">
-                        <Label text="Línea de Negocio" labelFor="filterLineaNegocio" />
-                        <Select id="filterLineaNegocio" change="onFilterChange" width="16rem">
-                            <core:Item key="" text="" />
-                            <core:Item key="Operaciones y Soporte" text="Operaciones y Soporte" />
-                            <core:Item key="Servicios Digitales / Cloud" text="Servicios Digitales / Cloud" />
-                            <core:Item key="Consultoría y Diseño" text="Consultoría y Diseño" />
-                            <core:Item key="Factibilidad / Backoffice" text="Factibilidad / Backoffice" />
-                            <core:Item key="Gestión de Proyectos" text="Gestión de Proyectos" />
-                            <core:Item key="Producto" text="Producto" />
-                            <core:Item key="Soluciones Especializadas" text="Soluciones Especializadas" />
-                        </Select>
-                    </VBox>
-                    <VBox class="reqFilterField" visible="{= !${ui>/mercadoCorporativo}}">
-                        <Label text="Período" labelFor="selFilterPeriodo" />
-                        <Select id="selFilterPeriodo" change="onFilterChange" width="12rem">
-                            <core:Item key="" text="" />
-                            <core:Item key="Enero a Marzo 2026" text="Enero a Marzo 2026" />
-                            <core:Item key="Abril a Junio 2026" text="Abril a Junio 2026" />
-                            <core:Item key="Julio a Septiembre 2026" text="Julio a Septiembre 2026" />
-                            <core:Item key="Octubre a Diciembre 2026" text="Octubre a Diciembre 2026" />
-                        </Select>
-                    </VBox>
-                    <VBox class="reqFilterField" visible="{= !${ui>/mercadoCorporativo}}">
-                        <Label text="Marca" labelFor="filterMarca" />
-                        <Select id="filterMarca" change="onFilterChange" width="10rem">
-                            <core:Item key="" text="" />
-                            <core:Item key="Samsung" text="Samsung" />
-                            <core:Item key="Motorola" text="Motorola" />
-                            <core:Item key="Apple" text="Apple" />
-                            <core:Item key="Xiaomi" text="Xiaomi" />
-                        </Select>
-                    </VBox>
-                    <Link text="Limpiar Filtros" press="onClearFilters" class="reqClearFilters" />
-                </HBox>
-            </VBox>
+            <Panel expandable="false" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <content>
+                    <HBox wrap="Wrap" alignItems="End" class="sapUiSmallMargin">
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Número de Solicitud" labelFor="filterNumSolicitud" />
+                            <Input id="filterNumSolicitud" liveChange="onFilterChange" width="11rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Título" labelFor="inpFilterTitulo" />
+                            <Input id="inpFilterTitulo" liveChange="onFilterChange" width="14rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Estado" labelFor="filterEstado" />
+                            <Select id="filterEstado" change="onFilterChange" width="14rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Borrador" text="Borrador" />
+                                <core:Item key="Registrado" text="Registrado" />
+                                <core:Item key="Pendiente Aprobación" text="Pendiente Aprobación" />
+                                <core:Item key="En Aprobación" text="En Aprobación" />
+                                <core:Item key="Aprobado" text="Aprobado" />
+                                <core:Item key="Presentado al Cliente" text="Presentado al Cliente" />
+                                <core:Item key="Feedback Recibido" text="Feedback Recibido" />
+                                <core:Item key="Confirmado" text="Confirmado" />
+                                <core:Item key="Stock Reservado" text="Stock Reservado" />
+                                <core:Item key="Rechazado" text="Rechazado" />
+                                <core:Item key="Rechazado por Cliente" text="Rechazado por Cliente" />
+                                <core:Item key="Finalizado" text="Finalizado" />
+                                <core:Item key="Enviado a Firma de Acta" text="Enviado a Firma de Acta" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd" visible="{ui>/mercadoCorporativo}">
+                            <Label text="Línea de Negocio" labelFor="filterLineaNegocio" />
+                            <Select id="filterLineaNegocio" change="onFilterChange" width="16rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Operaciones y Soporte" text="Operaciones y Soporte" />
+                                <core:Item key="Servicios Digitales / Cloud" text="Servicios Digitales / Cloud" />
+                                <core:Item key="Consultoría y Diseño" text="Consultoría y Diseño" />
+                                <core:Item key="Factibilidad / Backoffice" text="Factibilidad / Backoffice" />
+                                <core:Item key="Gestión de Proyectos" text="Gestión de Proyectos" />
+                                <core:Item key="Producto" text="Producto" />
+                                <core:Item key="Soluciones Especializadas" text="Soluciones Especializadas" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd" visible="{= !${ui>/mercadoCorporativo}}">
+                            <Label text="Período" labelFor="selFilterPeriodo" />
+                            <Select id="selFilterPeriodo" change="onFilterChange" width="12rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="2026 Q1" text="2026 Q1" />
+                                <core:Item key="2026 Q2" text="2026 Q2" />
+                                <core:Item key="2026 Q3" text="2026 Q3" />
+                                <core:Item key="2026 Q4" text="2026 Q4" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd" visible="{= !${ui>/mercadoCorporativo}}">
+                            <Label text="Marca" labelFor="filterMarca" />
+                            <Select id="filterMarca" change="onFilterChange" width="10rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Samsung" text="Samsung" />
+                                <core:Item key="Motorola" text="Motorola" />
+                                <core:Item key="Apple" text="Apple" />
+                                <core:Item key="Xiaomi" text="Xiaomi" />
+                            </Select>
+                        </VBox>
+                        <Link text="Limpiar Filtros" press="onClearFilters" class="sapUiSmallMarginBegin" />
+                    </HBox>
+                </content>
+            </Panel>
 
             <!-- Fila de colapso -->
-            <HBox justifyContent="Center" class="reqCollapseRow">
-                <Button icon="sap-icon://collapse-group" type="Transparent" class="reqCollapseBtn" tooltip="Contraer filtros" press="onToggleFilters" />
-                <Button icon="sap-icon://pushpin-off" type="Transparent" class="reqCollapseBtn" tooltip="Fijar barra" />
+            <HBox justifyContent="Center" class="sapUiTinyMarginTop">
+                <Button icon="sap-icon://collapse-group" type="Transparent" tooltip="Contraer filtros" press="onToggleFilters" />
+                <Button icon="sap-icon://pushpin-off"    type="Transparent" tooltip="Fijar barra" />
             </HBox>
 
             <!-- Tabla de solicitudes -->
@@ -94,29 +164,28 @@
                 growing="true"
                 growingThreshold="20"
                 noDataText="No se encontraron solicitudes"
-                class="reqTable"
                 mode="MultiSelect"
-                selectionChange="onSelectionChange">
+                selectionChange="onSelectionChange"
+                class="sapUiSmallMarginBeginEnd">
 
                 <headerToolbar>
-                    <OverflowToolbar class="reqTableToolbar">
-                        <Title text="Solicitudes" level="H3" class="reqTableTitle" />
+                    <OverflowToolbar>
+                        <Title text="Solicitudes" level="H3" />
                         <ToolbarSpacer />
                         <Button
                             text="+ Crear Solicitud"
                             type="Emphasized"
-                            press="onCrearSolicitud"
-                            class="reqBtnCrear" />
+                            press="onCrearSolicitud" />
                         <Button
                             id="btnEnviarAprobacion"
-                            text="Enviar a AprobaciÃ³n"
+                            text="Enviar a Aprobación"
                             icon="sap-icon://paper-plane"
                             type="Transparent"
                             enabled="{ui>/haySeleccion}"
                             press="onEnviarAprobacion" />
                         <Button
                             id="btnEnviarCarta"
-                            text="Enviar a Aprob. Carta AceptaciÃ³n"
+                            text="Enviar a Aprob. Carta Aceptación"
                             icon="sap-icon://paper-plane"
                             type="Transparent"
                             enabled="{ui>/haySeleccion}"
@@ -139,133 +208,208 @@
                 <columns>
                     <Column width="11rem"><Text text="Número de Solicitud" /></Column>
                     <Column><Text text="Título" /></Column>
-                    <Column width="7rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Marca" /></Column>
+                    <Column width="7rem"  visible="{= !${ui>/mercadoCorporativo}}"><Text text="Marca" /></Column>
                     <Column width="11rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Período" /></Column>
                     <Column width="10rem"><Text text="Tipo de Solicitud" /></Column>
                     <Column visible="{ui>/mercadoCorporativo}"><Text text="Cliente" /></Column>
                     <Column width="12rem" visible="{ui>/mercadoCorporativo}"><Text text="Línea de Negocio" /></Column>
                     <Column width="9rem" hAlign="End" visible="{ui>/mercadoCorporativo}"><Text text="Importe USD" /></Column>
                     <Column width="14rem"><Text text="Estado" /></Column>
-                    <Column width="8rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Número de OC" /></Column>
+                    <Column width="8rem"  visible="{= !${ui>/mercadoCorporativo}}"><Text text="Número de OC" /></Column>
                     <Column width="11rem" visible="{= !${ui>/mercadoCorporativo}}"><Text text="Número de OC Derivada" /></Column>
                 </columns>
 
                 <items>
                     <ColumnListItem type="Navigation" press="onItemPress">
                         <cells>
-                            <Text text="{reqId}" class="reqIdCell" />
+                            <Link text="{reqId}" press="onItemPress" />
                             <Text text="{titulo}" wrapping="false" />
-                            <Text text="{marca}" visible="{= !${ui>/mercadoCorporativo}}" />
-                            <Text text="{periodo}" visible="{= !${ui>/mercadoCorporativo}}" />
+                            <Text text="{marca}"  visible="{= !${ui>/mercadoCorporativo}}" />
+                            <Text text="{periodo}" wrapping="false" visible="{= !${ui>/mercadoCorporativo}}" />
                             <Text text="{tipoSolicitud}" />
-                            <Text text="{cliente}" visible="{ui>/mercadoCorporativo}" wrapping="false" />
+                            <Text text="{cliente}"     visible="{ui>/mercadoCorporativo}" wrapping="false" />
                             <Text text="{lineaNegocio}" visible="{ui>/mercadoCorporativo}" wrapping="false" />
                             <ObjectNumber number="{importeEstimadoUSD}" unit="USD" visible="{ui>/mercadoCorporativo}" textAlign="End" />
                             <ObjectStatus
                                 text="{estado}"
-                                icon="{= ${estado} === 'Rechazado' ? 'sap-icon://status-negative' : ${estado} === 'Finalizado' || ${estado} === 'Aprobado' ? 'sap-icon://status-positive' : 'sap-icon://status-in-process'}"
-                                state="{= ${estado} === 'Rechazado' ? 'Error' : ${estado} === 'Finalizado' || ${estado} === 'Aprobado' ? 'Success' : 'None'}" />
-                            <Text text="{numeroOC}" visible="{= !${ui>/mercadoCorporativo}}" />
+                                icon="{= ${estado} === 'Rechazado'              ? 'sap-icon://sys-cancel-2'  :
+                                          ${estado} === 'Rechazado por Cliente' ? 'sap-icon://sys-cancel-2'  :
+                                          ${estado} === 'Finalizado'            ? 'sap-icon://sys-enter-2'   :
+                                          ${estado} === 'Aprobado'              ? 'sap-icon://sys-help-2'    :
+                                          ${estado} === 'Registrado'            ? 'sap-icon://create-form'   :
+                                          ${estado} === 'Enviado a Firma de Acta' ? 'sap-icon://alert'       :
+                                                                                    'sap-icon://sys-help-2'}"
+                                state="{= ${estado} === 'Rechazado'              ? 'Error'   :
+                                          ${estado} === 'Rechazado por Cliente'  ? 'Error'   :
+                                          ${estado} === 'Finalizado'             ? 'Success' :
+                                          ${estado} === 'Aprobado'               ? 'None'    :
+                                          ${estado} === 'Registrado'             ? 'None'    :
+                                          ${estado} === 'Enviado a Firma de Acta'? 'Warning' :
+                                                                                   'None'}" />
+                            <Text text="{numeroOC}"        visible="{= !${ui>/mercadoCorporativo}}" />
                             <Text text="{numeroOCDerivada}" visible="{= !${ui>/mercadoCorporativo}}" />
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
+
+            </VBox><!-- fin VBox lista/filtros -->
         </content>
     </Page>
 
-    <!-- DiÃ¡logo Crear Solicitud -->
+    <!-- Diálogo Crear Solicitud Handset -->
     <Dialog
         id="dlgCrearSolicitud"
         title="{= ${ui>/mercadoCorporativo} ? 'Registrar Necesidad – Mercado Corporativo' : 'Crear Solicitud'}"
         contentWidth="42rem"
-        contentHeight="auto"
-        resizable="true"
-        class="reqCreateDialog">
+        contentHeight="30rem"
+        verticalScrolling="true"
+        stretch="false"
+        class="sapUiContentPadding">
         <content>
-            <VBox class="reqDialogForm">
-                <Label text="Título:" required="true" labelFor="dlgTitulo" class="reqDlgLabel" />
-                <Input
-                    id="dlgTitulo"
-                    placeholder="Ingrese el título de la solicitud"
-                    class="reqDlgInput" />
 
-                <!-- ── Campos Compras Locales ── -->
-                <Label text="Tipo de Solicitud:" required="true" labelFor="dlgTipoSolicitud" class="reqDlgLabel"
-                       visible="{= !${ui>/mercadoCorporativo}}" />
-                <Select id="dlgTipoSolicitud" class="reqDlgInput" width="100%"
-                        visible="{= !${ui>/mercadoCorporativo}}">
-                    <core:Item key="Handset Original" text="Handset Original" />
-                    <core:Item key="Handset Derivado" text="Handset Derivado" />
-                </Select>
+            <!-- ── Campos Handset ── -->
+            <VBox visible="{= !${ui>/mercadoCorporativo} }"
+                  width="100%">
 
-                <Label text="Marca:" required="true" labelFor="dlgMarca" class="reqDlgLabel"
-                       visible="{= !${ui>/mercadoCorporativo}}" />
-                <Select id="dlgMarca" class="reqDlgInput" width="100%"
-                        visible="{= !${ui>/mercadoCorporativo}}">
-                    <core:Item key="" text="" />
-                    <core:Item key="Samsung" text="Samsung" />
-                    <core:Item key="Motorola" text="Motorola" />
-                    <core:Item key="Apple" text="Apple" />
-                    <core:Item key="Xiaomi" text="Xiaomi" />
-                </Select>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Título:" required="true" labelFor="dlgTitulo" />
+                    <Input id="dlgTitulo" placeholder="Ingrese el título de la solicitud" width="100%" />
+                </VBox>
 
-                <Label text="Período:" required="true" labelFor="dlgPeriodo" class="reqDlgLabel"
-                       visible="{= !${ui>/mercadoCorporativo}}" />
-                <Select id="dlgPeriodo" class="reqDlgInput" width="100%"
-                        visible="{= !${ui>/mercadoCorporativo}}">
-                    <core:Item key="" text="" />
-                    <core:Item key="Enero a Marzo 2026" text="Enero a Marzo 2026" />
-                    <core:Item key="Abril a Junio 2026" text="Abril a Junio 2026" />
-                    <core:Item key="Julio a Septiembre 2026" text="Julio a Septiembre 2026" />
-                    <core:Item key="Octubre a Diciembre 2026" text="Octubre a Diciembre 2026" />
-                </Select>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Marca:" required="true" labelFor="dlgMarca" />
+                    <Select id="dlgMarca" change="onDlgMarcaChange" width="100%">
+                        <core:Item key="" text="" />
+                        <core:Item key="Samsung"             text="Samsung" />
+                        <core:Item key="Samsung Electronics" text="Samsung Electronics" />
+                        <core:Item key="Motorola"            text="Motorola" />
+                        <core:Item key="Apple"               text="Apple" />
+                        <core:Item key="Xiaomi"              text="Xiaomi" />
+                        <core:Item key="Huawei"              text="Huawei" />
+                        <core:Item key="Oppo"                text="Oppo" />
+                    </Select>
+                </VBox>
 
-                <!-- ── Campos Mercado Corporativo ── -->
-                <Label text="Tipo de Requerimiento:" required="true" labelFor="dlgTipoMC" class="reqDlgLabel"
-                       visible="{ui>/mercadoCorporativo}" />
-                <Select id="dlgTipoMC" class="reqDlgInput" width="100%"
-                        visible="{ui>/mercadoCorporativo}">
-                    <core:Item key="Continuidad Tecnológica y de Servicios" text="Continuidad Tecnológica y de Servicios" />
-                    <core:Item key="Proyectos / RFP" text="Proyectos / RFP" />
-                </Select>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Tipo de Solicitud:" required="true" labelFor="dlgTipoSolicitud" />
+                    <Select id="dlgTipoSolicitud" change="onDlgTipoSolicitudChange" width="100%">
+                        <core:Item key="Handset asociado a Pedido Directo"     text="Handset asociado a Pedido Directo" />
+                        <core:Item key="Handset asociado a Pedido Importacion" text="Handset asociado a Pedido Importación" />
+                        <core:Item key="Handset asociado a Pedido Abierto"     text="Handset asociado a Pedido Abierto" />
+                        <core:Item key="Handset asociado a Pedido Derivado"    text="Handset asociado a Pedido Derivado" />
+                    </Select>
+                </VBox>
 
-                <Label text="Cliente:" required="true" labelFor="dlgCliente" class="reqDlgLabel"
-                       visible="{ui>/mercadoCorporativo}" />
-                <Select id="dlgCliente" class="reqDlgInput" width="100%"
-                        visible="{ui>/mercadoCorporativo}"
-                        items="{clientesMC>/clientes}">
-                    <core:Item key="{clientesMC>text}" text="{clientesMC>text}" />
-                </Select>
+                <VBox class="sapUiSmallMarginBottom">
+                    <Label text="Período:" required="true" labelFor="dlgPeriodo" />
+                    <Select id="dlgPeriodo" change="onDlgPeriodoChange" width="100%">
+                        <core:Item key="" text="" />
+                        <core:Item key="2026 Q1" text="2026 Q1" />
+                        <core:Item key="2026 Q2" text="2026 Q2" />
+                        <core:Item key="2026 Q3" text="2026 Q3" />
+                        <core:Item key="2026 Q4" text="2026 Q4" />
+                    </Select>
+                </VBox>
 
-                <Label text="Línea de Negocio:" required="true" labelFor="dlgLineaNegocio" class="reqDlgLabel"
-                       visible="{ui>/mercadoCorporativo}" />
-                <Select id="dlgLineaNegocio" class="reqDlgInput" width="100%"
-                        visible="{ui>/mercadoCorporativo}">
-                    <core:Item key="" text="" />
-                    <core:Item key="Operaciones y Soporte" text="Operaciones y Soporte" />
-                    <core:Item key="Servicios Digitales / Cloud" text="Servicios Digitales / Cloud" />
-                    <core:Item key="Consultoría y Diseño" text="Consultoría y Diseño" />
-                    <core:Item key="Factibilidad / Backoffice" text="Factibilidad / Backoffice" />
-                    <core:Item key="Gestión de Proyectos" text="Gestión de Proyectos" />
-                    <core:Item key="Producto" text="Producto" />
-                    <core:Item key="Soluciones Especializadas" text="Soluciones Especializadas" />
-                </Select>
+                <!-- P1: Planificación Publicada – oculta cuando es Derivado -->
+                <VBox visible="{= !${ui>/mostrarPedidosAbiertos} }">
+                    <Title text="Seleccionar Planificación Publicada" level="H4"
+                           class="sapUiTinyMarginBottom" />
+                    <List id="lstPlanificaciones"
+                          mode="SingleSelectMaster"
+                          selectionChange="onPlanSelectionChange"
+                          items="{planificaciones>/items}"
+                          width="100%"
+                          noDataText="Sin planificaciones publicadas">
+                        <StandardListItem
+                            title="{planificaciones>titulo}"
+                            description="{= 'Publicado el: ' + ${planificaciones>publicadoEl}}"
+                            icon="sap-icon://documents"
+                            type="Active" />
+                    </List>
+                </VBox>
 
-                <Label text="Importe Estimado (USD):" labelFor="dlgImporteUSD" class="reqDlgLabel"
-                       visible="{ui>/mercadoCorporativo}" />
-                <Input id="dlgImporteUSD" placeholder="Ej. 150000" type="Number"
-                       class="reqDlgInput" visible="{ui>/mercadoCorporativo}" />
+                <!-- C2: Pedidos Abiertos – solo tipo Derivado -->
+                <VBox visible="{ui>/mostrarPedidosAbiertos}" class="sapUiSmallMarginTop">
+                    <Title text="Seleccionar Pedido Abierto" level="H4" class="sapUiTinyMarginBottom" />
+                    <Table id="tblPedidosAbiertos"
+                           mode="SingleSelectMaster"
+                           items="{pedidosAbiertos>/items}"
+                           width="100%"
+                           noDataText="Sin pedidos abiertos disponibles"
+                           fixedLayout="true">
+                        <columns>
+                            <Column width="8rem"><Text text="N° Pedido" /></Column>
+                            <Column><Text text="Descripción" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Active">
+                                <cells>
+                                    <Text text="{pedidosAbiertos>pedidoId}" />
+                                    <Text text="{pedidosAbiertos>descripcion}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
 
-                <Label text="ID Oportunidad (Salesforce):" labelFor="dlgOportunidadId" class="reqDlgLabel"
-                       visible="{ui>/mercadoCorporativo}" />
-                <Input id="dlgOportunidadId" placeholder="Ej. SF-2026-00423"
-                       class="reqDlgInput" visible="{ui>/mercadoCorporativo}" />
             </VBox>
+
+            <!-- ── Campos Mercado Corporativo ── -->
+            <VBox visible="{ui>/mercadoCorporativo}"
+                  width="100%">
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Título:" required="true" labelFor="dlgTituloMC" />
+                    <Input id="dlgTituloMC" placeholder="Ingrese el título" width="100%" />
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Tipo de Requerimiento:" required="true" labelFor="dlgTipoMC" />
+                    <Select id="dlgTipoMC" width="100%">
+                        <core:Item key="Continuidad Tecnológica y de Servicios" text="Continuidad Tecnológica y de Servicios" />
+                        <core:Item key="Proyectos / RFP" text="Proyectos / RFP" />
+                    </Select>
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Cliente:" required="true" labelFor="dlgCliente" />
+                    <Select id="dlgCliente" width="100%" items="{clientesMC>/clientes}">
+                        <core:Item key="{clientesMC>text}" text="{clientesMC>text}" />
+                    </Select>
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Línea de Negocio:" required="true" labelFor="dlgLineaNegocio" />
+                    <Select id="dlgLineaNegocio" width="100%">
+                        <core:Item key="" text="" />
+                        <core:Item key="Operaciones y Soporte"       text="Operaciones y Soporte" />
+                        <core:Item key="Servicios Digitales / Cloud" text="Servicios Digitales / Cloud" />
+                        <core:Item key="Consultoría y Diseño"        text="Consultoría y Diseño" />
+                        <core:Item key="Factibilidad / Backoffice"   text="Factibilidad / Backoffice" />
+                        <core:Item key="Gestión de Proyectos"        text="Gestión de Proyectos" />
+                        <core:Item key="Producto"                    text="Producto" />
+                        <core:Item key="Soluciones Especializadas"   text="Soluciones Especializadas" />
+                    </Select>
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Importe Estimado (USD):" labelFor="dlgImporteUSD" />
+                    <Input id="dlgImporteUSD" placeholder="Ej. 150000" type="Number" width="100%" />
+                </VBox>
+
+                <VBox>
+                    <Label text="ID Oportunidad (Salesforce):" labelFor="dlgOportunidadId" />
+                    <Input id="dlgOportunidadId" placeholder="Ej. SF-2026-00423" width="100%" />
+                </VBox>
+
+            </VBox>
+
         </content>
         <buttons>
-            <Button text="Crear" type="Emphasized" press="onConfirmCrear" />
-            <Button text="Cancelar" press="onCancelCrear" />
+            <Button text="Crear"    type="Emphasized" press="onConfirmCrear" />
+            <Button text="Cancelar"                   press="onCancelCrear" />
         </buttons>
     </Dialog>
 

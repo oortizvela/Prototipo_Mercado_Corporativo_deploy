@@ -6,7 +6,7 @@
     displayBlock="true">
 
     <Page
-        title="Clientes – Mercado Corporativo"
+        title="Clientes â€“ Mercado Corporativo"
         showNavButton="true"
         navButtonPress="onNavBack"
         class="appPage">

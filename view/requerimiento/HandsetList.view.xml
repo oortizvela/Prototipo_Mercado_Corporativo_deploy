@@ -1,0 +1,266 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.requerimiento.HandsetList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page showHeader="false" enableScrolling="false">
+        <content>
+
+            <!-- Título principal -->
+            <VBox class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+                <Title text="Gestión de Solicitud de Requerimientos de Compras" level="H2" />
+            </VBox>
+
+            <!-- Barra de filtros -->
+            <Panel expandable="false" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop">
+                <content>
+                    <HBox wrap="Wrap" alignItems="End" class="sapUiSmallMargin">
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Número de Solicitud" labelFor="hsFilterNumSol" />
+                            <Input id="hsFilterNumSol" liveChange="onFilterChange" width="11rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Título" labelFor="hsFilterTitulo" />
+                            <Input id="hsFilterTitulo" liveChange="onFilterChange" width="14rem" />
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Estado" labelFor="hsFilterEstado" />
+                            <Select id="hsFilterEstado" change="onFilterChange" width="14rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Borrador"              text="Borrador" />
+                                <core:Item key="Registrado"            text="Registrado" />
+                                <core:Item key="Pendiente Aprobación"  text="Pendiente Aprobación" />
+                                <core:Item key="En Aprobación"         text="En Aprobación" />
+                                <core:Item key="Aprobado"              text="Aprobado" />
+                                <core:Item key="Confirmado"            text="Confirmado" />
+                                <core:Item key="Stock Reservado"       text="Stock Reservado" />
+                                <core:Item key="Rechazado"             text="Rechazado" />
+                                <core:Item key="Finalizado"            text="Finalizado" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Período" labelFor="hsFilterPeriodo" />
+                            <Select id="hsFilterPeriodo" change="onFilterChange" width="10rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="2026 Q1" text="2026 Q1" />
+                                <core:Item key="2026 Q2" text="2026 Q2" />
+                                <core:Item key="2026 Q3" text="2026 Q3" />
+                                <core:Item key="2026 Q4" text="2026 Q4" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Marca" labelFor="hsFilterMarca" />
+                            <Select id="hsFilterMarca" change="onFilterChange" width="10rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Samsung"  text="Samsung" />
+                                <core:Item key="Motorola" text="Motorola" />
+                                <core:Item key="Apple"    text="Apple" />
+                                <core:Item key="Xiaomi"   text="Xiaomi" />
+                            </Select>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="Tipo de Solicitud" labelFor="hsFilterTipo" />
+                            <Select id="hsFilterTipo" change="onFilterChange" width="18rem">
+                                <core:Item key="" text="" />
+                                <core:Item key="Handset Original"                       text="Handset Original" />
+                                <core:Item key="Handset asociado a Pedido Directo"      text="Handset asociado a Pedido Directo" />
+                                <core:Item key="Handset asociado a Pedido Importacion"  text="Handset asociado a Pedido Importación" />
+                                <core:Item key="Handset asociado a Pedido Abierto"      text="Handset asociado a Pedido Abierto" />
+                                <core:Item key="Handset asociado a Pedido Derivado"     text="Handset asociado a Pedido Derivado" />
+                            </Select>
+                        </VBox>
+                        <Link text="Limpiar Filtros" press="onClearFilters" class="sapUiSmallMarginBegin" />
+                    </HBox>
+                </content>
+            </Panel>
+
+            <!-- Tabla de solicitudes Handset -->
+            <Table
+                id="handsetTable"
+                items="{handset>/items}"
+                growing="true"
+                growingThreshold="20"
+                noDataText="No se encontraron solicitudes"
+                mode="MultiSelect"
+                selectionChange="onSelectionChange"
+                class="sapUiSmallMarginBeginEnd">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Solicitudes Handset" level="H3" />
+                        <ToolbarSpacer />
+                        <Button
+                            text="+ Crear Solicitud"
+                            type="Emphasized"
+                            press="onCrearSolicitud" />
+                        <Button
+                            text="Enviar a Aprobación"
+                            icon="sap-icon://paper-plane"
+                            type="Transparent"
+                            enabled="{ui>/haySeleccion}"
+                            press="onEnviarAprobacion" />
+                        <Button
+                            text="Finalizar Solicitud"
+                            icon="sap-icon://task"
+                            type="Transparent"
+                            enabled="{ui>/haySeleccion}"
+                            press="onFinalizarSolicitud" />
+                        <Button
+                            text="Exportar Excel"
+                            icon="sap-icon://excel-attachment"
+                            type="Transparent"
+                            press="onExportarExcel" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column width="11rem"><Text text="N&#xFA;mero de Solicitud" /></Column>
+                    <Column width="16rem"><Text text="T&#xED;tulo" /></Column>
+                    <Column width="7rem"><Text text="Marca" /></Column>
+                    <Column width="11rem"><Text text="Per&#xED;odo" /></Column>
+                    <Column width="18rem"><Text text="Tipo de Solicitud" /></Column>
+                    <Column width="14rem"><Text text="Estado" /></Column>
+                    <Column width="8rem"><Text text="N&#xFA;mero de OC" /></Column>
+                    <Column width="11rem"><Text text="N&#xFA;mero de OC Derivada" /></Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press="onItemPress">
+                        <cells>
+                            <Link text="{handset>reqId}" press="onItemPress" />
+                            <Text text="{handset>titulo}" wrapping="false" />
+                            <Text text="{handset>marca}" />
+                            <Text text="{handset>periodo}" wrapping="false" />
+                            <Text text="{handset>tipoSolicitud}" />
+                            <ObjectStatus
+                                text="{handset>estado}"
+                                icon="{= ${handset>estado} === 'Rechazado'             ? 'sap-icon://sys-cancel-2' :
+                                          ${handset>estado} === 'Finalizado'           ? 'sap-icon://sys-enter-2'  :
+                                          ${handset>estado} === 'Confirmado'           ? 'sap-icon://sys-enter-2'  :
+                                          ${handset>estado} === 'Stock Reservado'      ? 'sap-icon://sys-enter-2'  :
+                                          ${handset>estado} === 'Aprobado'             ? 'sap-icon://sys-enter-2'  :
+                                          ${handset>estado} === 'En Aprobación'        ? 'sap-icon://sys-help-2'   :
+                                          ${handset>estado} === 'Pendiente Aprobación' ? 'sap-icon://sys-help-2'   :
+                                          ${handset>estado} === 'Registrado'           ? 'sap-icon://create-form'  :
+                                                                                          'sap-icon://sys-help-2'}"
+                                state="{= ${handset>estado} === 'Rechazado'             ? 'Error'   :
+                                          ${handset>estado} === 'Finalizado'            ? 'Success' :
+                                          ${handset>estado} === 'Confirmado'            ? 'Success' :
+                                          ${handset>estado} === 'Stock Reservado'       ? 'Success' :
+                                          ${handset>estado} === 'Aprobado'              ? 'Success' :
+                                          ${handset>estado} === 'En Aprobación'         ? 'Warning' :
+                                          ${handset>estado} === 'Pendiente Aprobación'  ? 'Warning' :
+                                                                                           'None'}" />
+                            <Text text="{handset>numeroOC}" />
+                            <Text text="{handset>numeroOCDerivada}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </content>
+    </Page>
+
+    <!-- Diálogo Crear Solicitud Handset -->
+    <Dialog
+        id="dlgCrearHandset"
+        title="Crear Solicitud Handset"
+        contentWidth="42rem"
+        contentHeight="30rem"
+        verticalScrolling="true"
+        stretch="false"
+        class="sapUiContentPadding">
+        <content>
+            <VBox width="100%">
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Título:" required="true" labelFor="hsDlgTitulo" />
+                    <Input id="hsDlgTitulo" placeholder="Ingrese el título de la solicitud" width="100%" />
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Marca:" required="true" labelFor="hsDlgMarca" />
+                    <Select id="hsDlgMarca" change="onDlgMarcaChange" width="100%">
+                        <core:Item key="" text="" />
+                        <core:Item key="Samsung"             text="Samsung" />
+                        <core:Item key="Samsung Electronics" text="Samsung Electronics" />
+                        <core:Item key="Motorola"            text="Motorola" />
+                        <core:Item key="Apple"               text="Apple" />
+                        <core:Item key="Xiaomi"              text="Xiaomi" />
+                        <core:Item key="Huawei"              text="Huawei" />
+                        <core:Item key="Oppo"                text="Oppo" />
+                    </Select>
+                </VBox>
+
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Tipo de Solicitud:" required="true" labelFor="hsDlgTipo" />
+                    <Select id="hsDlgTipo" change="onDlgTipoChange" width="100%">
+                        <core:Item key="Handset asociado a Pedido Directo"      text="Handset asociado a Pedido Directo" />
+                        <core:Item key="Handset asociado a Pedido Importacion"  text="Handset asociado a Pedido Importación" />
+                        <core:Item key="Handset asociado a Pedido Abierto"      text="Handset asociado a Pedido Abierto" />
+                        <core:Item key="Handset asociado a Pedido Derivado"     text="Handset asociado a Pedido Derivado" />
+                    </Select>
+                </VBox>
+
+                <VBox class="sapUiSmallMarginBottom">
+                    <Label text="Período:" required="true" labelFor="hsDlgPeriodo" />
+                    <Select id="hsDlgPeriodo" change="onDlgPeriodoChange" width="100%">
+                        <core:Item key="" text="" />
+                        <core:Item key="2026 Q1" text="2026 Q1" />
+                        <core:Item key="2026 Q2" text="2026 Q2" />
+                        <core:Item key="2026 Q3" text="2026 Q3" />
+                        <core:Item key="2026 Q4" text="2026 Q4" />
+                    </Select>
+                </VBox>
+
+                <!-- Planificaciones publicadas (oculto para Derivado) -->
+                <VBox visible="{= !${ui>/hsMostrarDerivado} }">
+                    <Title text="Seleccionar Planificación Publicada" level="H4" class="sapUiTinyMarginBottom" />
+                    <List id="hsLstPlanificaciones"
+                          mode="SingleSelectMaster"
+                          items="{hsPlanificaciones>/items}"
+                          width="100%"
+                          noDataText="Sin planificaciones publicadas">
+                        <StandardListItem
+                            title="{hsPlanificaciones>titulo}"
+                            description="{= 'Publicado el: ' + ${hsPlanificaciones>publicadoEl}}"
+                            icon="sap-icon://documents"
+                            type="Active" />
+                    </List>
+                </VBox>
+
+                <!-- Pedidos Abiertos (solo para Derivado) -->
+                <VBox visible="{ui>/hsMostrarDerivado}" class="sapUiSmallMarginTop">
+                    <Title text="Seleccionar Pedido Abierto" level="H4" class="sapUiTinyMarginBottom" />
+                    <Table id="hsTblPedidosAbiertos"
+                           mode="SingleSelectMaster"
+                           items="{hsPedidosAbiertos>/items}"
+                           width="100%"
+                           noDataText="Sin pedidos abiertos"
+                           fixedLayout="true">
+                        <columns>
+                            <Column width="8rem"><Text text="N° Pedido" /></Column>
+                            <Column><Text text="Descripción" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Active">
+                                <cells>
+                                    <Text text="{hsPedidosAbiertos>pedidoId}" />
+                                    <Text text="{hsPedidosAbiertos>descripcion}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Crear"    type="Emphasized" press="onConfirmCrear" />
+            <Button text="Cancelar"                   press="onCancelCrear" />
+        </buttons>
+    </Dialog>
+
+</mvc:View>

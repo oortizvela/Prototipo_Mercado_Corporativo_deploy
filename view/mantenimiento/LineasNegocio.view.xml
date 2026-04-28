@@ -6,13 +6,13 @@
     displayBlock="true">
 
     <Page
-        title="Líneas de Negocio – Mercado Corporativo"
+        title="LÃ­neas de Negocio â€“ Mercado Corporativo"
         showNavButton="true"
         navButtonPress="onNavBack"
         class="appPage">
 
         <headerContent>
-            <Button text="+ Agregar Línea" type="Emphasized" press="onAddLinea"/>
+            <Button text="+ Agregar LÃ­nea" type="Emphasized" press="onAddLinea"/>
             <Button icon="sap-icon://refresh" type="Transparent" press="onRefresh" tooltip="Actualizar"/>
         </headerContent>
 
@@ -20,11 +20,11 @@
             <Panel id="panelLineas" expandable="true" expanded="true" class="mtnListPanel">
                 <headerToolbar>
                     <OverflowToolbar>
-                        <Title text="Líneas de Negocio ({= (${lineasNegocio>/lineasNegocio} || []).length})" level="H5"/>
+                        <Title text="LÃ­neas de Negocio ({= (${lineasNegocio>/lineasNegocio} || []).length})" level="H5"/>
                         <ToolbarSpacer/>
                         <SearchField
                             id="searchLinea"
-                            placeholder="Buscar línea..."
+                            placeholder="Buscar lÃ­nea..."
                             width="16rem"
                             search="onSearchLinea"
                             liveChange="onSearchLinea"/>
@@ -34,13 +34,13 @@
                 <Table
                     id="tableLineas"
                     items="{lineasNegocio>/lineasNegocio}"
-                    noDataText="No se encontraron líneas de negocio"
+                    noDataText="No se encontraron lÃ­neas de negocio"
                     growing="true"
                     growingThreshold="10">
                     <columns>
-                        <Column><Text text="Línea de Negocio"/></Column>
+                        <Column><Text text="LÃ­nea de Negocio"/></Column>
                         <Column width="14rem"><Text text="Tipo de Solicitud"/></Column>
-                        <Column width="8rem" hAlign="Center"><Text text="Nº Áreas"/></Column>
+                        <Column width="8rem" hAlign="Center"><Text text="NÂº Ãreas"/></Column>
                         <Column width="7rem" hAlign="Center"><Text text="Estado"/></Column>
                         <Column width="10rem" hAlign="Center"><Text text="Acciones"/></Column>
                     </columns>
@@ -49,12 +49,12 @@
                             <cells>
                                 <Link text="{lineasNegocio>text}" press="onLineaRowPress" class="mtnCodeLink"/>
                                 <Text text="{= ${lineasNegocio>tipoSolicitud} === 'both' ? 'Continuidad y Proyectos/RFP' : ${lineasNegocio>tipoSolicitud}}"/>
-                                <ObjectNumber number="{= (${lineasNegocio>areasFunc} || []).length}" unit="áreas"/>
+                                <ObjectNumber number="{= (${lineasNegocio>areasFunc} || []).length}" unit="Ã¡reas"/>
                                 <ObjectStatus
                                     text="{= ${lineasNegocio>estado} !== false ? 'Activa' : 'Inactiva'}"
                                     state="{= ${lineasNegocio>estado} !== false ? 'Success' : 'Error'}"/>
                                 <HBox justifyContent="Center">
-                                    <Button icon="sap-icon://detail-view" type="Transparent" tooltip="Ver áreas" press="onVerAreas"/>
+                                    <Button icon="sap-icon://detail-view" type="Transparent" tooltip="Ver Ã¡reas" press="onVerAreas"/>
                                     <Button icon="sap-icon://edit" type="Transparent" tooltip="Editar" press="onEditLinea"/>
                                     <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteLinea"/>
                                 </HBox>
@@ -65,17 +65,17 @@
             </Panel>
         </content>
 
-        <!-- Dialog Ver Áreas Funcionales -->
-        <Dialog id="dlgAreas" title="Áreas Funcionales" contentWidth="680px" resizable="true">
+        <!-- Dialog Ver Ãreas Funcionales -->
+        <Dialog id="dlgAreas" title="Ãreas Funcionales" contentWidth="680px" resizable="true">
             <content>
                 <VBox class="mtnDlgContent">
                     <Title id="dlgAreasTitle" text="" level="H4" class="sapUiSmallMarginBottom"/>
                     <Table
                         id="tableAreas"
-                        noDataText="Sin áreas configuradas"
+                        noDataText="Sin Ã¡reas configuradas"
                         class="sapUiSmallMarginTop">
                         <columns>
-                            <Column><Text text="Área Funcional"/></Column>
+                            <Column><Text text="Ãrea Funcional"/></Column>
                             <Column width="16rem"><Text text="Segmento"/></Column>
                             <Column width="12rem"><Text text="Responsable"/></Column>
                         </columns>

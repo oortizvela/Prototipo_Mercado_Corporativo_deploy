@@ -14,7 +14,7 @@
 
         <headerContent>
             <Button text="Guardar Borrador" icon="sap-icon://save" press="onSaveDraft" />
-            <Button text="Enviar a Aprobación" type="Emphasized" icon="sap-icon://paper-plane" press="onSubmit" />
+            <Button text="Enviar a AprobaciÃ³n" type="Emphasized" icon="sap-icon://paper-plane" press="onSubmit" />
         </headerContent>
 
         <content>
@@ -28,30 +28,30 @@
                         labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12"
                         columnsXL="2" columnsL="2" columnsM="1">
                         <f:content>
-                            <Label text="Título / Descripción" required="true" />
+                            <Label text="TÃ­tulo / DescripciÃ³n" required="true" />
                             <Input id="inputDescripcion" placeholder="Ej. Compra de laptops para TI Q2 2025" maxLength="100" valueLiveUpdate="true" />
 
                             <Label text="Solicitante" required="true" />
-                            <Input id="inputSolicitante" value="Omar Ortiz" editable="false" />
+                            <Input id="inputSolicitante" value="Oscar Ortiz" editable="false" />
 
                             <Label text="Centro de Costo" required="true" />
                             <Select id="selectCentroCosto">
-                                <core:Item key="CC-1001" text="CC-1001 – Gerencia General" />
-                                <core:Item key="CC-1002" text="CC-1002 – Tecnología de Información" />
-                                <core:Item key="CC-1003" text="CC-1003 – Recursos Humanos" />
-                                <core:Item key="CC-1004" text="CC-1004 – Finanzas y Contabilidad" />
-                                <core:Item key="CC-1005" text="CC-1005 – Comercial y Ventas" />
-                                <core:Item key="CC-1006" text="CC-1006 – Operaciones" />
-                                <core:Item key="CC-1007" text="CC-1007 – Marketing" />
+                                <core:Item key="CC-1001" text="CC-1001 â€“ Gerencia General" />
+                                <core:Item key="CC-1002" text="CC-1002 â€“ TecnologÃ­a de InformaciÃ³n" />
+                                <core:Item key="CC-1003" text="CC-1003 â€“ Recursos Humanos" />
+                                <core:Item key="CC-1004" text="CC-1004 â€“ Finanzas y Contabilidad" />
+                                <core:Item key="CC-1005" text="CC-1005 â€“ Comercial y Ventas" />
+                                <core:Item key="CC-1006" text="CC-1006 â€“ Operaciones" />
+                                <core:Item key="CC-1007" text="CC-1007 â€“ Marketing" />
                             </Select>
 
                             <Label text="Cuenta Mayor (GL)" />
                             <Select id="selectCuentaGL">
-                                <core:Item key="GL-6010" text="GL-6010 – Gastos TI" />
-                                <core:Item key="GL-6020" text="GL-6020 – Materiales y Suministros" />
-                                <core:Item key="GL-6030" text="GL-6030 – Servicios Externos" />
-                                <core:Item key="GL-6040" text="GL-6040 – Activos Fijos" />
-                                <core:Item key="GL-6050" text="GL-6050 – Mobiliario y Equipos" />
+                                <core:Item key="GL-6010" text="GL-6010 â€“ Gastos TI" />
+                                <core:Item key="GL-6020" text="GL-6020 â€“ Materiales y Suministros" />
+                                <core:Item key="GL-6030" text="GL-6030 â€“ Servicios Externos" />
+                                <core:Item key="GL-6040" text="GL-6040 â€“ Activos Fijos" />
+                                <core:Item key="GL-6050" text="GL-6050 â€“ Mobiliario y Equipos" />
                             </Select>
 
                             <Label text="Fecha Requerida" required="true" />
@@ -65,27 +65,27 @@
                             </Select>
 
                             <Label text="Observaciones" />
-                            <TextArea id="textAreaObs" rows="3" growing="true" maxLength="500" placeholder="Justificación o comentarios adicionales..." />
+                            <TextArea id="textAreaObs" rows="3" growing="true" maxLength="500" placeholder="JustificaciÃ³n o comentarios adicionales..." />
                         </f:content>
                     </f:SimpleForm>
                 </Panel>
 
-                <!-- Posiciones / Ítems -->
+                <!-- Posiciones / Ãtems -->
                 <Panel headerText="Posiciones del Requerimiento" expandable="false" class="formPanel">
                     <headerToolbar>
                         <Toolbar>
                             <Title text="Posiciones del Requerimiento" level="H3" />
                             <ToolbarSpacer />
-                            <Button text="Agregar Ítem" icon="sap-icon://add" press="onAddItem" />
+                            <Button text="Agregar Ãtem" icon="sap-icon://add" press="onAddItem" />
                         </Toolbar>
                     </headerToolbar>
 
                     <Table id="itemsTable"
                         items="{path: '/items'}"
-                        noDataText="Agregue al menos una posición">
+                        noDataText="Agregue al menos una posiciÃ³n">
                         <columns>
                             <Column width="3rem"><Text text="Pos." /></Column>
-                            <Column><Text text="Material / Descripción" /></Column>
+                            <Column><Text text="Material / DescripciÃ³n" /></Column>
                             <Column width="12rem"><Text text="Proveedor Sugerido" /></Column>
                             <Column width="6rem" hAlign="Center"><Text text="Cantidad" /></Column>
                             <Column width="5rem" hAlign="Center"><Text text="Unidad" /></Column>
@@ -99,7 +99,7 @@
                                     <Text text="{pos}" />
                                     <VBox>
                                         <Input value="{material}" placeholder="Nombre del material/servicio" />
-                                        <Input value="{descripcion}" placeholder="Descripción adicional" />
+                                        <Input value="{descripcion}" placeholder="DescripciÃ³n adicional" />
                                     </VBox>
                                     <Input value="{proveedor}" placeholder="Proveedor sugerido" />
                                     <Input value="{cantidad}" type="Number" textAlign="End" liveChange="onAmountChange" />
