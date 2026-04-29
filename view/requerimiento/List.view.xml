@@ -45,7 +45,6 @@
                                         selectedKey="{ui>/canalSeleccionado}"
                                         width="100%">
                                     <core:Item key="Infraestructura"  text="Infraestructura" />
-                                    <core:Item key="ComprasLocales"   text="Compras Locales" />
                                     <core:Item key="Handset"          text="Handset" />
                                 </Select>
                             </VBox>
@@ -60,6 +59,7 @@
                                     <core:Item key="RedMovil"           text="Red Movil" />
                                     <core:Item key="RedFija"            text="Red Fija" />
                                     <core:Item key="OM"                 text="O &amp; M" />
+                                    <core:Item key="ComprasLocales"     text="Compras Locales" />
                                     <core:Item key="MercadoCorporativo" text="Mercado Corporativo" />
                                 </Select>
                             </VBox>

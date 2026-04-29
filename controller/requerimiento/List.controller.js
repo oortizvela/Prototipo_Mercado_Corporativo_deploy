@@ -189,8 +189,8 @@ sap.ui.define([
                 return;
             }
 
-            // Compras Locales → vista dedicada
-            if (sCanal === "ComprasLocales") {
+            // Infra + Compras Locales → vista dedicada
+            if (sCanal === "Infraestructura" && sLinea === "ComprasLocales") {
                 this.getRouter().navTo("comprasLocalesList");
                 return;
             }
