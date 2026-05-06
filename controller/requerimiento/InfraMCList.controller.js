@@ -19,40 +19,52 @@ sap.ui.define([
             this.getView().setModel(new JSONModel({
                 items: [
                     {
-                        reqId: "REQ-INFRA-2026-000001",
+                        reqId: "REQ-MC-2026-000001",
                         titulo: "Despliegue de Infraestructura para BBVA - Sede Miraflores",
                         canal: "Infraestructura",
                         lineaNegocio: "Mercado Corporativo",
-                        marca: "-",
-                        periodo: "2026 Q1",
-                        tipoSolicitud: "Solución a Medida > 60 Dias",
-                        estado: "En Aprobación",
-                        numeroSolped: "SOLPED-001",
-                        numeroPedido: "-"
-                    },
-                    {
-                        reqId: "REQ-INFRA-2026-000002",
-                        titulo: "Renovación Red Corporativa Interbank",
-                        canal: "Infraestructura",
-                        lineaNegocio: "Mercado Corporativo",
-                        marca: "-",
-                        periodo: "2026 Q1",
-                        tipoSolicitud: "Solución a Medida < 60 Dias",
+                        tipoInversion: "CAPEX Variable",
+                        origenArea: "Mercado Corporativo",
+                        tipoSolicitud: "Proyectos - Soluciones Medida",
                         estado: "Registrado",
                         numeroSolped: "-",
                         numeroPedido: "-"
                     },
                     {
-                        reqId: "REQ-INFRA-2026-000003",
-                        titulo: "Nota de Producto Fibra Óptica Scotiabank",
+                        reqId: "REQ-MC-2026-000002",
+                        titulo: "Implementación Red Urgente Wong",
                         canal: "Infraestructura",
                         lineaNegocio: "Mercado Corporativo",
-                        marca: "-",
-                        periodo: "2026 Q2",
-                        tipoSolicitud: "Nota de Producto",
+                        tipoInversion: "CAPEX Variable",
+                        origenArea: "Mercado Corporativo",
+                        tipoSolicitud: "Proyectos - Soluciones Medida",
+                        estado: "En Aprobación",
+                        numeroSolped: "-",
+                        numeroPedido: "-"
+                    },
+                    {
+                        reqId: "REQ-MC-2026-000003",
+                        titulo: "Servicio de internet dedicado 100Mbps - Interbank Sede Central",
+                        canal: "Infraestructura",
+                        lineaNegocio: "Mercado Corporativo",
+                        tipoInversion: "CAPEX Variable",
+                        origenArea: "Mercado Corporativo",
+                        tipoSolicitud: "Proyectos - Compras Recurrentes",
                         estado: "Aprobado",
-                        numeroSolped: "SOLPED-003",
-                        numeroPedido: "PO-INFRA-001"
+                        numeroSolped: "-",
+                        numeroPedido: "-"
+                    },
+                    {
+                        reqId: "REQ-MC-2026-000004",
+                        titulo: "Servicio de enlace MPLS - Cliente Copoúsco",
+                        canal: "Infraestructura",
+                        lineaNegocio: "Mercado Corporativo",
+                        tipoInversion: "CAPEX Variable",
+                        origenArea: "Mercado Corporativo",
+                        tipoSolicitud: "Proyectos - Compras Recurrentes",
+                        estado: "Finalizado",
+                        numeroSolped: "2000000001",
+                        numeroPedido: "4500000001"
                     }
                 ]
             }), "infraMC");
@@ -124,7 +136,8 @@ sap.ui.define([
         /* ──────── CREAR SOLICITUD (2.2.2) ──────── */
         onCrearSolicitud: function () {
             this.byId("dlgInfraTitulo").setValue("");
-            this.byId("dlgInfraTipo").setSelectedKey("Solución a Medida < 60 Dias");
+            this.byId("dlgInfraTitulo").setValueState("None");
+            this.byId("dlgInfraTipo").setSelectedKey("Proyectos - Soluciones Medida");
             this.byId("dlgCrearInfra").open();
         },
 
@@ -138,7 +151,7 @@ sap.ui.define([
             this.byId("dlgInfraTitulo").setValueState("None");
 
             var sTipo = this.byId("dlgInfraTipo").getSelectedKey();
-            var sNewId = "REQ-INFRA-" + new Date().getFullYear() + "-" + String(Math.floor(Math.random() * 900000) + 100000);
+            var sNewId = "REQ-MC-" + new Date().getFullYear() + "-" + String(Math.floor(Math.random() * 900000) + 100000);
 
             var oModel = this.getView().getModel("infraMC");
             var aItems = oModel.getProperty("/items") || [];
@@ -147,8 +160,8 @@ sap.ui.define([
                 titulo: sTitulo,
                 canal: "Infraestructura",
                 lineaNegocio: "Mercado Corporativo",
-                marca: "-",
-                periodo: "-",
+                tipoInversion: "CAPEX Variable",
+                origenArea: "Mercado Corporativo",
                 tipoSolicitud: sTipo,
                 estado: "Registrado",
                 numeroSolped: "-",

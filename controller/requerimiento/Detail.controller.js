@@ -28,7 +28,7 @@
         },
 
         onInit: function () {
-            var oUiModel = new JSONModel({ mercadoCorporativo: false, esDerivado: false, factibilidadCompleta: false, esFact: false, esComercial: false, esRedMovil: false, esRedFija: false, esOM: false, esComprasLocales: false });
+            var oUiModel = new JSONModel({ mercadoCorporativo: false, esDerivado: false, factibilidadCompleta: false, esFact: false, esComercial: false, esRedMovil: false, esRedFija: false, esOM: false, esComprasLocales: false, esCompras: false });
             this.getView().setModel(oUiModel, "ui");
             this.getRouter().getRoute("requerimientoDetail")
                 .attachPatternMatched(this._onRouteMatched.bind(this, false, false, false, false, false, false, false), this);
@@ -49,13 +49,18 @@
         },
 
         _onRouteMatched: function (bMC, bFact, bComercial, bRedMovil, bRedFija, bOM, bCL, oEvent) {
-            this.getView().getModel("ui").setProperty("/mercadoCorporativo", !!bMC);
-            this.getView().getModel("ui").setProperty("/esFact", !!bFact);
-            this.getView().getModel("ui").setProperty("/esComercial", !!bComercial);
-            this.getView().getModel("ui").setProperty("/esRedMovil", !!bRedMovil);
-            this.getView().getModel("ui").setProperty("/esRedFija", !!bRedFija);
-            this.getView().getModel("ui").setProperty("/esOM", !!bOM);
-            this.getView().getModel("ui").setProperty("/esComprasLocales", !!bCL);
+            var oUi = this.getView().getModel("ui");
+            oUi.setProperty("/mercadoCorporativo", !!bMC);
+            oUi.setProperty("/esFact", !!bFact);
+            oUi.setProperty("/esComercial", !!bComercial);
+            oUi.setProperty("/esRedMovil", !!bRedMovil);
+            oUi.setProperty("/esRedFija", !!bRedFija);
+            oUi.setProperty("/esOM", !!bOM);
+            oUi.setProperty("/esComprasLocales", !!bCL);
+            // Detectar rol Compras desde el session model
+            var oSession = this.getOwnerComponent().getModel("session");
+            var sRol = oSession ? (oSession.getProperty("/rol") || "") : "";
+            oUi.setProperty("/esCompras", sRol === "Compras");
             var sReqId = decodeURIComponent(oEvent.getParameter("arguments").reqId);
             this._bindView(sReqId);
         },
@@ -70,6 +75,7 @@
             // Initialize optional arrays if not present
             var oR = oModel.getProperty("/requerimientos/" + iIndex);
             if (!oR.adjuntos)              { oModel.setProperty("/requerimientos/" + iIndex + "/adjuntos", []); }
+            if (!oR.adjuntosHS)            { oModel.setProperty("/requerimientos/" + iIndex + "/adjuntosHS", { acuerdos: [], otrosArchivos: [] }); }
             if (!oR.stock)                 { oModel.setProperty("/requerimientos/" + iIndex + "/stock", []); }
             if (!oR.materialesSolicitados) { oModel.setProperty("/requerimientos/" + iIndex + "/materialesSolicitados", []); }
             if (!oR.historialFeedback)     { oModel.setProperty("/requerimientos/" + iIndex + "/historialFeedback", []); }
@@ -257,53 +263,67 @@
                 return;
             }
 
-            aFlujo.forEach(function (oStep, idx) {
-                var sEst   = oStep.estado || "Pendiente";
-                var sIcon  = sEst === "Rechazado" ? "sap-icon://sys-cancel-2"
-                           : sEst === "Aprobado"  ? "sap-icon://sys-enter-2"
-                           : "sap-icon://status-in-process";
-                var sClass = sEst === "Rechazado" ? "reqFlowCircleRejected"
-                           : sEst === "Aprobado"  ? "reqFlowCircleApproved"
-                           : "reqFlowCirclePending";
+            // Mapa rol → nombre de persona
+            var mNombres = {
+                "Jefe de Planificaci\u00f3n Comercial":  "Gladys Vivar",
+                "Gerente Planificaci\u00f3n Comercial":   "Judith L\u00f3pez",
+                "Compras":                              "Compras",
+                "Director Mercado Masivo":              "Hugo Gonzalez",
+                "Jefe de Factibilidad":                 "Ana Mendoza",
+                "Gerente T\u00e9cnico":                  "Carlos R\u00edos",
+                "Director de Finanzas":                 "Luis Campos",
+                "Jefe de Planificaci\u00f3n":             "Marco Salas",
+                "Gerente de Compras":                   "Patricia Ramos"
+            };
 
+            aFlujo.forEach(function (oStep, idx) {
+                var sEst    = oStep.estado || "Pendiente";
+                var sDiagClass = sEst === "Rechazado" ? "reqFlowCircleRejected"
+                              : sEst === "Aprobado"   ? "reqFlowCircleApproved"
+                              : "reqFlowCirclePending";
+
+                // Abreviar rol para la etiqueta del diagrama
+                var sRolCorto = (oStep.rol || "")
+                    .replace("Planificaci\u00f3n Comercial", "Plan. Comercial")
+                    .replace("Planificaci\u00f3n", "Plan.")
+                    .replace("Gerente", "Gte.")
+                    .replace("Director", "Dir.")
+                    .replace("Jefe de ", "");
+
+                // ── Paso del diagrama superior ───────────────────────────────────
                 var oStepBox = new VBox({ alignItems: "Center" }).addStyleClass("reqFlowStep");
-                oStepBox.addItem(new Text({ text: oStep.rol, wrapping: false }).addStyleClass("reqFlowRolLabel"));
-                oStepBox.addItem(new Avatar({ icon: sIcon, displaySize: "L" }).addStyleClass("reqFlowCircle " + sClass));
-                oStepBox.addItem(new Text({ text: oStep.nivel }).addStyleClass("reqFlowNivelLabel"));
+                oStepBox.addItem(new Text({ text: sRolCorto, wrapping: true, textAlign: "Center" }).addStyleClass("reqFlowRolLabel"));
+                oStepBox.addItem(new Avatar({ initials: oStep.iniciales || "?", displaySize: "M" }).addStyleClass("reqFlowCircle " + sDiagClass));
                 oDiagram.addItem(oStepBox);
 
                 if (idx < aFlujo.length - 1) {
                     var oArrow = new VBox({ justifyContent: "Center", alignItems: "Center" }).addStyleClass("reqFlowArrow");
-                    oArrow.addItem(new Icon({ src: "sap-icon://arrow-right", size: "1.2rem", color: "#8396a8" }));
+                    oArrow.addItem(new Text({ text: ">>" }).addStyleClass("reqFlowArrowText"));
                     oDiagram.addItem(oArrow);
                 }
 
-                var sAvtClass = sEst === "Rechazado" ? "reqCardAvatarRejected"
-                              : sEst === "Aprobado"  ? "reqCardAvatarApproved"
-                              : "reqCardAvatarPending";
-                var sEstColor = sEst === "Rechazado" ? "#d93025" : sEst === "Aprobado" ? "#107e3e" : "#e76500";
-                var sEstIcon  = sEst === "Rechazado" ? "sap-icon://sys-cancel-2"
-                              : sEst === "Aprobado"  ? "sap-icon://sys-enter-2"
-                              : "sap-icon://pending";
+                // ── Tarjeta de persona inferior ──────────────────────────────────
+                var sNombre    = oStep.nombre || mNombres[oStep.rol] || oStep.rol || "\u2014";
+                var sInitials  = sNombre.split(" ").map(function (w) { return w[0] || ""; }).join("").toUpperCase().substring(0, 2);
+                var sAvtClass  = sEst === "Rechazado" ? "reqCardAvatarRejected"
+                               : sEst === "Aprobado"  ? "reqCardAvatarApproved"
+                               : "reqCardAvatarPending";
+                var sEstColor  = sEst === "Rechazado" ? "#d93025" : sEst === "Aprobado" ? "#107e3e" : "#e76500";
+                var sEstIcon   = sEst === "Rechazado" ? "sap-icon://sys-cancel-2"
+                               : sEst === "Aprobado"  ? "sap-icon://sys-enter-2"
+                               : "sap-icon://pending";
 
-                var oCardDetail = new VBox({ alignItems: "Center" }).addStyleClass("reqCardDetail");
-                oCardDetail.addItem(new Avatar({ initials: oStep.iniciales, displaySize: "M" }).addStyleClass("reqCardAvatar " + sAvtClass));
-                oCardDetail.addItem(new Text({ text: oStep.rol }).addStyleClass("reqCardTitle"));
-                var oEstRow = new HBox({ alignItems: "Center" });
-                oEstRow.addItem(new Icon({ src: sEstIcon, size: "0.75rem", color: sEstColor }));
+                var oPersonCard = new VBox({ alignItems: "Center" }).addStyleClass("reqPersonCard");
+                oPersonCard.addItem(new Avatar({ initials: sInitials, displaySize: "XL" }).addStyleClass("reqPersonAvatar " + sAvtClass));
+                oPersonCard.addItem(new Text({ text: sNombre, textAlign: "Center", wrapping: true }).addStyleClass("reqPersonName"));
+                var oEstRow = new HBox({ alignItems: "Center", justifyContent: "Center" });
+                oEstRow.addItem(new Icon({ src: sEstIcon, size: "0.7rem", color: sEstColor }));
                 oEstRow.addItem(new Text({ text: " " + sEst }).addStyleClass(
                     sEst === "Rechazado" ? "reqCardStatusError" : sEst === "Aprobado" ? "reqCardStatusSuccess" : "reqCardStatusPending"));
-                oCardDetail.addItem(oEstRow);
-
-                var oCardBody = new VBox().addStyleClass("reqCardBody");
-                oCardBody.addItem(new Text({ text: oStep.rol }).addStyleClass("reqCardFullRole"));
-                if (oStep.fecha)      { oCardBody.addItem(new Text({ text: oStep.fecha }).addStyleClass("reqCardDate")); }
-                if (oStep.comentario) { oCardBody.addItem(new Text({ text: oStep.comentario }).addStyleClass("reqCardComment")); }
-
-                var oCard = new HBox().addStyleClass("reqApprovalCard");
-                oCard.addItem(oCardDetail);
-                oCard.addItem(oCardBody);
-                oCards.addItem(oCard);
+                oPersonCard.addItem(oEstRow);
+                if (oStep.fecha) { oPersonCard.addItem(new Text({ text: oStep.fecha }).addStyleClass("reqPersonDate")); }
+                if (oStep.comentario) { oPersonCard.addItem(new Text({ text: oStep.comentario, wrapping: true }).addStyleClass("reqPersonComment")); }
+                oCards.addItem(oPersonCard);
             });
         },
 
@@ -486,6 +506,18 @@
                         that._renderApprovalFlow(that._iIndex);
                         var oTabs = that.byId("detailTabs");
                         if (oTabs) { oTabs.setSelectedKey("mcFlujo"); }
+                    } else {
+                        // Handset / Local: flujo estándar de 4 niveles
+                        var aFlujoHS = [
+                            { nivel: "NIVEL 1", rol: "Jefe de Planificaci\u00f3n Comercial",  iniciales: "GV", nombre: "Gladys Vivar",    estado: "En Proceso", fecha: "", comentario: "" },
+                            { nivel: "NIVEL 2", rol: "Gerente Planificaci\u00f3n Comercial",  iniciales: "JL", nombre: "Judith L\u00f3pez", estado: "Pendiente",  fecha: "", comentario: "" },
+                            { nivel: "NIVEL 3", rol: "Compras",                               iniciales: "CP", nombre: "Compras",          estado: "Pendiente",  fecha: "", comentario: "" },
+                            { nivel: "NIVEL 4", rol: "Director Mercado Masivo",               iniciales: "HG", nombre: "Hugo Gonzalez",    estado: "Pendiente",  fecha: "", comentario: "" }
+                        ];
+                        oModel.setProperty(sBasePath + "/flujoAprobacion", aFlujoHS);
+                        that._renderApprovalFlow(that._iIndex);
+                        var oTabsHS = that.byId("detailTabs");
+                        if (oTabsHS) { oTabsHS.setSelectedKey("flujo"); }
                     }
                     MessageToast.show("Solicitud enviada a aprobaci\u00f3n");
                 }
@@ -1131,7 +1163,347 @@
 
             oInput.click();
         },
-        onDescargarNecesidad: function () { MessageToast.show("Generando PDF \u2013 Forms Service by Adobe (C1)..."); },
+        onDescargarNecesidad: function () {
+            var oModel   = this.getOwnerComponent().getModel();
+            var oReq     = oModel.getProperty("/requerimientos/" + this._iIndex);
+            if (!oReq) { return; }
+
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                MessageToast.show("La librer\xeda PDF no est\xe1 disponible a\xfan, intente de nuevo en un momento.");
+                return;
+            }
+
+            var bDerivado = (oReq.tipoSolicitud || "").indexOf("Derivado") !== -1;
+            var sMarca    = oReq.marca   || "";
+            var sPeriodo  = oReq.periodo || "";
+            var sFecha    = oReq.fechaCreacion ? oReq.fechaCreacion.split(" ")[0] : new Date().toLocaleDateString("es-PE");
+            var aItems    = oReq.items          || [];
+            var oContrib  = oReq.contributions  || {};
+            var aVIR      = oReq.aportesVIR     || [];
+            var aFlujo    = oReq.flujoAprobacion || [];
+
+            var fmt = function (n) {
+                if (!n) { return "-"; }
+                return "$ " + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            };
+
+            var doc    = new window.jspdf.jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+            var nPageW = doc.internal.pageSize.getWidth();
+            var nTotFact = 0, nTotVIR = 0, nTotNeto = 0, nTotCant = 0;
+            var aBodyRows, nStartY;
+
+            if (bDerivado) {
+                // ── Título centrado ──────────────────────────────────────────────
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(12);
+                doc.text("CONFORMIDAD DE COMPRA", nPageW / 2, 12, { align: "center" });
+
+                // ── Marca / Periodo (esquina superior izquierda) ─────────────────
+                doc.setFontSize(8);
+                doc.setFont("helvetica", "normal");
+                doc.text("Marca",   14, 20);
+                doc.text("Periodo", 14, 25);
+                doc.setFont("helvetica", "bold");
+                doc.text(sMarca.toUpperCase(), 35, 20);
+                doc.text(sPeriodo.replace(/^.*\s/, ""), 35, 25);   // solo "Q1", "Q2", etc.
+
+                // ── Filas de la tabla derivado ───────────────────────────────────
+                aBodyRows = aItems.map(function (it, iIdx) {
+                    nTotFact += (it.totalFacturacion || 0);
+                    nTotVIR  += (it.totalVir         || 0);
+                    nTotNeto += (it.totalNeto         || 0);
+                    nTotCant += (it.cantidad          || 0);
+                    var precioNeto = (it.precioFacturacion || 0) - (it.virUnitario || 0);
+                    // Familia: inventada como "MARCA CODIGOMATERIAL 128GB"
+                    var sFamilia = sMarca.toUpperCase() + " " + (it.codigoMaterial || (it.modelo || "")).toUpperCase() + " 128GB";
+                    return [
+                        it.modelo         || "",
+                        sFamilia,
+                        it.codigo         || "",
+                        it.codigoMaterial || "",
+                        it.color          || "",
+                        it.cantidad       || 0,
+                        fmt(it.precioFacturacion),
+                        fmt(it.virUnitario),
+                        fmt(precioNeto),
+                        fmt(it.totalFacturacion),
+                        fmt(it.totalVir),
+                        fmt(it.totalNeto),
+                        { content: it.pedidoAbierto || "-",      styles: { fillColor: [255, 255, 153], halign: "center" } },
+                        { content: String((iIdx + 1) * 10),      styles: { fillColor: [255, 255, 153], halign: "right"  } }
+                    ];
+                });
+                // Fila total
+                aBodyRows.push([
+                    { content: "Total", colSpan: 5, styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: nTotCant, styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotFact), styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotVIR),  styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotNeto), styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } }
+                ]);
+
+                nStartY = 30;
+                doc.autoTable({
+                    startY: nStartY,
+                    head: [["Modelo", "Familia", "C\xf3digo", "C\xf3digo\nMaterial", "Color\n(Atributo 1)",
+                            "Cantidad", "Precio\nFacturaci\xf3n\nUS$", "VIR\nUnitario\nUS$", "Precio\nNeto\nUS$",
+                            "Total\nFacturaci\xf3n\nUS$", "Total\nVIR\nUS$", "Total\nNeto\nUS$", "PA", "Posici\xf3n"]],
+                    body: aBodyRows,
+                    theme: "grid",
+                    styles:    { fontSize: 6.5, cellPadding: 1.5, halign: "center", valign: "middle" },
+                    headStyles: { fillColor: [0, 176, 240], textColor: [0, 0, 0], fontStyle: "bold" },
+                    didParseCell: function (data) {
+                        // Columnas PA (12) y Posición (13) con cabecera amarilla
+                        if (data.section === "head" && (data.column.index === 12 || data.column.index === 13)) {
+                            data.cell.styles.fillColor = [255, 215, 0];
+                        }
+                    },
+                    columnStyles: {
+                        0:  { halign: "left",   cellWidth: 24 },
+                        1:  { halign: "left",   cellWidth: 30 },
+                        2:  { halign: "center", cellWidth: 22 },
+                        3:  { halign: "center", cellWidth: 18 },
+                        4:  { halign: "left",   cellWidth: 20 },
+                        5:  { halign: "right",  cellWidth: 13 },
+                        6:  { halign: "right",  cellWidth: 20 },
+                        7:  { halign: "right",  cellWidth: 18 },
+                        8:  { halign: "right",  cellWidth: 18 },
+                        9:  { halign: "right",  cellWidth: 22 },
+                        10: { halign: "right",  cellWidth: 17 },
+                        11: { halign: "right",  cellWidth: 17 },
+                        12: { halign: "center", cellWidth: 20 },
+                        13: { halign: "right",  cellWidth: 14 }
+                    }
+                });
+
+            } else {
+                // ── COMPRA NORMAL ────────────────────────────────────────────────
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(13);
+                doc.text("COMPRA " + sMarca.toUpperCase(), 14, 15);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(10);
+                doc.text("Compra " + sPeriodo, 14, 22);
+                doc.text(sFecha, 14, 28);
+
+                aBodyRows = aItems.map(function (it) {
+                    nTotFact += (it.totalFacturacion || 0);
+                    nTotVIR  += (it.totalVir         || 0);
+                    nTotNeto += (it.totalNeto         || 0);
+                    nTotCant += (it.cantidad          || 0);
+                    var precioNeto = (it.precioFacturacion || 0) - (it.virUnitario || 0);
+                    return [
+                        it.modelo || "", it.codigo || "", it.codigoMaterial || "", it.color || "",
+                        it.cantidad || 0,
+                        fmt(it.precioFacturacion), fmt(it.virUnitario), fmt(precioNeto),
+                        fmt(it.totalFacturacion), fmt(it.totalVir), fmt(it.totalNeto)
+                    ];
+                });
+                aBodyRows.push([
+                    { content: "Total", colSpan: 4, styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: nTotCant, styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: "", styles: { fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotFact), styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotVIR),  styles: { fontStyle: "bold", fillColor: [240, 240, 240] } },
+                    { content: fmt(nTotNeto), styles: { fontStyle: "bold", fillColor: [240, 240, 240] } }
+                ]);
+
+                nStartY = 33;
+                doc.autoTable({
+                    startY: nStartY,
+                    head: [["Modelo", "C\xf3digo", "C\xf3digo\nMaterial", "Color",
+                            "Cantidad", "Precio\nFacturaci\xf3n US$", "VIR\nUnitario US$", "Precio\nNeto US$",
+                            "Total\nFacturaci\xf3n US$", "Total\nVIR US$", "Total\nNeto US$"]],
+                    body: aBodyRows,
+                    theme: "grid",
+                    styles:     { fontSize: 7.5, cellPadding: 2, halign: "center", valign: "middle" },
+                    headStyles: { fillColor: [255, 215, 0], textColor: [0, 0, 0], fontStyle: "bold", halign: "center" },
+                    columnStyles: {
+                        0: { halign: "left",  cellWidth: 32 }, 1: { halign: "left",   cellWidth: 26 },
+                        2: { halign: "center",cellWidth: 22 }, 3: { halign: "left",   cellWidth: 24 },
+                        4: { halign: "right", cellWidth: 16 }, 5: { halign: "right",  cellWidth: 24 },
+                        6: { halign: "right", cellWidth: 22 }, 7: { halign: "right",  cellWidth: 22 },
+                        8: { halign: "right", cellWidth: 26 }, 9: { halign: "right",  cellWidth: 22 },
+                        10:{ halign: "right", cellWidth: 24 }
+                    }
+                });
+            }
+
+            var nY = doc.lastAutoTable.finalY + 8;
+
+            // ── Aportes US$ ──────────────────────────────────────────────────────
+            var nTotalVIR = aVIR.reduce(function (acc, v) { return acc + (v.monto || 0); }, 0);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.text("APORTES US$", 14, nY);
+            nY += 5;
+            doc.autoTable({
+                startY: nY,
+                body: [["VIR", fmt(nTotalVIR)]],
+                theme: "plain",
+                styles: { fontSize: 8, cellPadding: 1 },
+                columnStyles: { 0: { cellWidth: 60 }, 1: { halign: "right", cellWidth: 40 } }
+            });
+            nY = doc.lastAutoTable.finalY + 5;
+
+            // ── Otros aportes ────────────────────────────────────────────────────
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(9);
+            doc.text("Otros aportes US$:", 14, nY);
+            nY += 4;
+            var aOtros = [
+                ["Data Sharing",         oContrib.dataSharing           || 0],
+                ["Aporte Log\xedstico",  oContrib.contribucionLogistica  || 0],
+                ["Pre order",            oContrib.preOrder              || 0],
+                ["Fondo Sell out",       oContrib.fondoSellOut          || 0],
+                ["Nuevos Canales y B2B", oContrib.nuevosCanalesB2B      || 0],
+                ["Rebate de Incentivo",  oContrib.rebateIncentivo       || 0]
+            ];
+            var nTotalOtros = aOtros.reduce(function (acc, r) { return acc + r[1]; }, 0);
+            var aOtrosBody  = aOtros.map(function (r) { return [r[0], fmt(r[1])]; });
+            aOtrosBody.push([{ content: "Total", styles: { fontStyle: "bold" } }, { content: fmt(nTotalOtros), styles: { fontStyle: "bold" } }]);
+            doc.autoTable({
+                startY: nY,
+                body: aOtrosBody,
+                theme: "plain",
+                styles: { fontSize: 8, cellPadding: 1 },
+                columnStyles: { 0: { cellWidth: 60 }, 1: { halign: "right", cellWidth: 40 } }
+            });
+            nY = doc.lastAutoTable.finalY + 14;
+
+            // ── Firmantes ────────────────────────────────────────────────────────
+            if (aFlujo.length > 0) {
+                var aFirmantes = aFlujo.slice(0, 3);
+                var nColW      = (nPageW - 28) / aFirmantes.length;
+                aFirmantes.forEach(function (f, i) {
+                    var nX     = 14 + i * nColW + nColW * 0.1;
+                    var nLineW = nColW * 0.8;
+                    doc.setDrawColor(0);
+                    doc.line(nX, nY, nX + nLineW, nY);
+                    doc.setFont("helvetica", "normal");
+                    doc.setFontSize(8);
+                    doc.text(f.rol || "", nX + nLineW / 2, nY + 5, { align: "center", maxWidth: nLineW });
+                });
+            }
+
+            // ── Guardar ──────────────────────────────────────────────────────────
+            var sPrefix = bDerivado ? "ConformidadCompra_" : "Compra_";
+            doc.save(sPrefix + sMarca + "_" + sPeriodo.replace(/\s/g, "_") + ".pdf");
+        },
+
+        // ── Aprobación Compras (Nivel 3) ──────────────────────────────────────
+        onConformeCompras: function () {
+            var that   = this;
+            var oModel = this.getOwnerComponent().getModel();
+            var oReq   = oModel.getProperty("/requerimientos/" + this._iIndex);
+            if (!oReq) { return; }
+
+            MessageBox.confirm(
+                "\u00bfConfirmar la aprobaci\u00f3n de Compras para la solicitud " + oReq.reqId + "?\n\n" +
+                "Al confirmar, la solicitud avanzar\u00e1 al nivel 4 (Director Mercado Masivo) para su aprobaci\u00f3n final.", {
+                title: "Conforme \u2013 Aprobaci\u00f3n Compras",
+                onClose: function (sAction) {
+                    if (sAction !== MessageBox.Action.OK) { return; }
+                    var sNow = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })
+                             + " " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+                    var sPath  = "/requerimientos/" + that._iIndex + "/flujoAprobacion";
+                    var aFlujo = oModel.getProperty(sPath) || [];
+                    var iNiv3  = aFlujo.findIndex(function (n) { return n.rol === "Compras"; });
+                    if (iNiv3 !== -1) {
+                        aFlujo[iNiv3].estado     = "Aprobado";
+                        aFlujo[iNiv3].fecha      = sNow;
+                        aFlujo[iNiv3].comentario = "Conforme";
+                    }
+                    var iNiv4 = aFlujo.findIndex(function (n) { return n.rol === "Director Mercado Masivo"; });
+                    if (iNiv4 !== -1) { aFlujo[iNiv4].estado = "En Proceso"; }
+                    oModel.setProperty(sPath, aFlujo);
+                    // Mantener estado "En Aprobaci\u00f3n" hasta que Director apruebe
+                    oModel.setProperty("/requerimientos/" + that._iIndex + "/estado", "En Aprobaci\u00f3n");
+                    that._renderApprovalFlow(that._iIndex);
+                    // Sincronizar en aprobaciones model
+                    that._sincronizarFlujoEnAprobacion(oReq.reqId, aFlujo);
+                    MessageToast.show("Aprobado por Compras. Pendiente aprobaci\u00f3n Director Mercado Masivo.");
+                    var oTabs = that.byId("detailTabs");
+                    if (oTabs) { oTabs.setSelectedKey("flujo"); }
+                }
+            });
+        },
+
+        onRechazarCompras: function () {
+            var that   = this;
+            var oModel = this.getOwnerComponent().getModel();
+            var oReq   = oModel.getProperty("/requerimientos/" + this._iIndex);
+            if (!oReq) { return; }
+
+            var oTextArea = new TextArea({ rows: 3, width: "100%", placeholder: "Motivo del rechazo..." });
+            var oDlg = new Dialog({
+                title: "Rechazar Solicitud \u2013 Compras",
+                contentWidth: "420px",
+                content: [
+                    new VBox({ items: [
+                        new Label({ text: "Motivo del rechazo", required: true }),
+                        oTextArea
+                    ]}).addStyleClass("mtnDlgContent")
+                ],
+                buttons: [
+                    new Button({
+                        text: "Rechazar", type: "Reject",
+                        press: function () {
+                            if (!oTextArea.getValue().trim()) {
+                                MessageToast.show("Ingrese el motivo del rechazo");
+                                return;
+                            }
+                            var sNow = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })
+                                     + " " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+                            var sPath  = "/requerimientos/" + that._iIndex + "/flujoAprobacion";
+                            var aFlujo = oModel.getProperty(sPath) || [];
+                            var iNiv3  = aFlujo.findIndex(function (n) { return n.rol === "Compras"; });
+                            if (iNiv3 !== -1) {
+                                aFlujo[iNiv3].estado     = "Rechazado";
+                                aFlujo[iNiv3].fecha      = sNow;
+                                aFlujo[iNiv3].comentario = oTextArea.getValue().trim();
+                            }
+                            oModel.setProperty(sPath, aFlujo);
+                            oModel.setProperty("/requerimientos/" + that._iIndex + "/estado", "Rechazado");
+                            that._renderApprovalFlow(that._iIndex);
+                            that._sincronizarFlujoEnAprobacion(oReq.reqId, aFlujo);
+                            MessageToast.show("Solicitud rechazada por Compras.");
+                            oDlg.close();
+                        }
+                    }),
+                    new Button({ text: "Cancelar", press: function () { oDlg.close(); } })
+                ],
+                afterClose: function () { oDlg.destroy(); }
+            });
+            oDlg.open();
+        },
+
+        _sincronizarFlujoEnAprobacion: function (sReqId, aFlujo) {
+            var oAprModel = this.getOwnerComponent().getModel("aprobaciones");
+            if (!oAprModel || !sReqId) { return; }
+            var aAprs = oAprModel.getProperty("/aprobaciones") || [];
+            var iIdx  = aAprs.findIndex(function (a) { return a.reqId === sReqId; });
+            if (iIdx === -1) { return; }
+            // Sincronizar aprobadores en la bandeja
+            var aAprobadores = aFlujo.map(function (n, i) {
+                return { nivel: i + 1, rol: n.rol, nombre: n.nombre || n.rol, estado: n.estado, fecha: n.fecha || "", comentario: n.comentario || "" };
+            });
+            oAprModel.setProperty("/aprobaciones/" + iIdx + "/aprobadores", aAprobadores);
+            // Actualizar nivelActual al primer nivel pendiente/en proceso
+            var iNivelActual = aAprobadores.findIndex(function (a) { return a.estado !== "Aprobado" && a.estado !== "Rechazado"; });
+            oAprModel.setProperty("/aprobaciones/" + iIdx + "/nivelActual", iNivelActual === -1 ? aAprobadores.length + 1 : iNivelActual + 1);
+            var sRolActual = iNivelActual !== -1 ? (aAprobadores[iNivelActual].rol || "") : "";
+            oAprModel.setProperty("/aprobaciones/" + iIdx + "/rolNivelActual", sRolActual);
+            // Si Compras aprob\u00f3, el max nivel para el bandeja ahora es 4 (Director lo cierra all\u00ed)
+            oAprModel.setProperty("/aprobaciones/" + iIdx + "/nivelMaxAprobacion", 4);
+        },
 
         // ── Paso 5.1 – Enviar a Firma de Acta (DocuSign) ─────────────────────────
         onEnviarFirmaActa: function () {
@@ -1162,7 +1534,15 @@
                             var iAprIdx = aApr.findIndex(function (a) { return a.reqId === oReq.reqId; });
                             if (iAprIdx !== -1) {
                                 oAprModel.setProperty("/aprobaciones/" + iAprIdx + "/estado",        "Enviado a Firma de Acta");
-                                oAprModel.setProperty("/aprobaciones/" + iAprIdx + "/rolNivelActual", "Director Finanzas");
+                                oAprModel.setProperty("/aprobaciones/" + iAprIdx + "/rolNivelActual", "Director de Finanzas");
+                                // Marcar aprobador Director de Finanzas como En Proceso
+                                var aAprsActa = oAprModel.getProperty("/aprobaciones/" + iAprIdx + "/aprobadores") || [];
+                                var iDirFin = aAprsActa.findIndex(function (a) { return (a.rol || "").indexOf("Director") !== -1; });
+                                if (iDirFin !== -1) {
+                                    oAprModel.setProperty("/aprobaciones/" + iAprIdx + "/aprobadores/" + iDirFin + "/estado", "En Proceso");
+                                } else {
+                                    oAprModel.setProperty("/aprobaciones/" + iAprIdx + "/aprobadores", [{ nivel: 1, rol: "Director de Finanzas", nombre: "Carlos Solano Morales", estado: "En Proceso", fecha: "", comentario: "" }]);
+                                }
                                 // Sincronizar campos del acta desde el requerimiento
                                 var oActaReq = oModel.getProperty(sBase + "/actaAceptacion") || {};
                                 var sAprBase = "/aprobaciones/" + iAprIdx + "/actaAceptacion";
@@ -1361,7 +1741,7 @@
                        new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
             var nImp      = oReq.importeEstimadoUSD || 0;
             var nNivelMax = sLN === "Handset" ? 3 :
-                            sLN === "Mercado Corporativo" ? (nImp >= 100000 ? 5 : 2) : 3;
+                            sLN === "Mercado Corporativo" ? 4 : 3;
             var sEstado   = sLN === "Mercado Corporativo" ? "Pendiente Aprobaci\u00f3n" : "En Aprobaci\u00f3n";
             var sAprId    = "APR-" + new Date().getFullYear() + "-" +
                             String(Math.floor(Math.random() * 900000) + 100000);
@@ -1449,7 +1829,56 @@
                     })
                 },
                 // Ítems de infra / MC para otros canales
-                items: aReqItems
+                items: aReqItems,
+                // Campos específicos Mercado Corporativo
+                tipoInversion:  oReq.tipoInversion  || "",
+                origenArea:     oReq.origenArea      || "",
+                costos: (function () {
+                    var oEF = oReq.evaluacionFinanciera || {};
+                    if (oEF.costos || oEF.ingresos) {
+                        return [
+                            { tipo: "Total Costos",  descripcion: "Costos del proyecto",  monto: oEF.costos   || 0 },
+                            { tipo: "Ingresos",      descripcion: "Ingresos esperados",   monto: oEF.ingresos || 0 }
+                        ];
+                    }
+                    // Construir desde ítems si hay, o usar placeholders
+                    var aIt = oReq.items || [];
+                    if (aIt.length) {
+                        return aIt.map(function (it, i) {
+                            return { tipo: "Ítem " + (i + 1), descripcion: it.descripcion || it.materialServicio || "", monto: (it.cantidad || 0) };
+                        });
+                    }
+                    return [
+                        { tipo: "Costos",   descripcion: "Pendiente de evaluación financiera", monto: 0 },
+                        { tipo: "Ingresos", descripcion: "Pendiente de evaluación financiera", monto: 0 }
+                    ];
+                }()),
+                kpis: (function () {
+                    var oEF = oReq.evaluacionFinanciera || {};
+                    if (oEF.costos || oEF.ingresos) {
+                        return [
+                            { kpi: "Costos",   valor: oEF.costos   || 0 },
+                            { kpi: "Ingresos", valor: oEF.ingresos || 0 },
+                            { kpi: "Margen %", valor: (oEF.margen  || 0) + "%" },
+                            { kpi: "ROI",      valor: (oEF.roi     || 0) + "%" }
+                        ];
+                    }
+                    return [
+                        { kpi: "Ítems planificados", valor: (oReq.items || []).length },
+                        { kpi: "Importe estimado",   valor: "US$ " + (oReq.importeEstimadoUSD || 0) },
+                        { kpi: "Estado financiero",  valor: "Pendiente evaluación" }
+                    ];
+                }()),
+                presentacion: oReq.presentacion || (
+                    "<p><strong>Solicitud:</strong> " + (oReq.reqId || "") + "</p>" +
+                    "<p><strong>Título:</strong> " + (oReq.titulo || "-") + "</p>" +
+                    "<p><strong>Tipo de Solicitud:</strong> " + (oReq.tipoSolicitud || "-") + "</p>" +
+                    "<p><strong>Tipo Inversión:</strong> " + (oReq.tipoInversion || "-") + "</p>" +
+                    "<p><strong>Cliente:</strong> " + (oReq.cliente || "-") + "</p>" +
+                    "<p><strong>Área Funcional:</strong> " + (oReq.areaFuncional || "-") + "</p>" +
+                    "<p><strong>Importe Estimado:</strong> US$ " + (oReq.importeEstimadoUSD || 0) + "</p>" +
+                    ((oReq.items || []).length ? "<p><strong>Ítems:</strong> " + (oReq.items || []).length + " ítem(s) cargado(s)</p>" : "")
+                )
             });
             oAprModel.setProperty("/aprobaciones", aApr);
             var nPend = oAprModel.getProperty("/summary/totalPendientes") || 0;
@@ -1464,11 +1893,10 @@
                     { nivel: 3, rol: "Director Mercado Masivo",              iniciales: "DM" }
                 ],
                 "Mercado Corporativo": [
-                    { nivel: 1, rol: "Jefe \u00c1rea Usuaria",              iniciales: "J1" },
-                    { nivel: 2, rol: "Gerencia \u00c1rea Usuaria",          iniciales: "G2" },
-                    { nivel: 3, rol: "Sub Direcci\u00f3n \u00c1rea Usuaria", iniciales: "S3" },
-                    { nivel: 4, rol: "Direcci\u00f3n \u00c1rea Usuaria",     iniciales: "D4" },
-                    { nivel: 5, rol: "Analista Compras",                     iniciales: "AC" }
+                    { nivel: 1, rol: "Jefe Mercado Masivo (Comercial)",        iniciales: "JM" },
+                    { nivel: 2, rol: "Gerente Mercado Masivo (Comercial)",      iniciales: "GM" },
+                    { nivel: 3, rol: "Sub Director Mercado Masivo (Comercial)", iniciales: "SM" },
+                    { nivel: 4, rol: "Director Mercado Masivo",                 iniciales: "DM" }
                 ],
                 "Red Movil": [
                     { nivel: 1, rol: "Jefe Ingenier\u00eda Red M\u00f3vil", iniciales: "JR" },
@@ -1868,25 +2296,21 @@
         },
 
         // â”€â”€ Adjuntos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-        onUpload: function () {
+        // ── Adjuntos ──────────────────────────────────────────────────────────
+        _openAdjuntoDlg: function (sSeccion, aTipos, sPath) {
             var oModel = this.getOwnerComponent().getModel();
-            var sPath  = "/requerimientos/" + this._iIndex + "/adjuntos";
-            var aAdj   = oModel.getProperty(sPath) || [];
             var that   = this;
-
-            var oNombreInput = new Input({ width: "100%", placeholder: "Ej. Cotizaci\u00f3n_HP_2026.pdf", required: true });
+            var oNombreInput = new Input({ width: "100%", placeholder: "Ej. Acuerdo_Samsung_Q1.eml" });
             var oTipoSel     = new Select({ width: "100%" });
-            [["PDF","PDF"],["Excel","Excel"],["Word","Word"],["Imagen","Imagen"],["Otro","Otro"]].forEach(function (a) {
-                oTipoSel.addItem(new Item({ key: a[0], text: a[1] }));
-            });
+            aTipos.forEach(function (t) { oTipoSel.addItem(new Item({ key: t, text: t })); });
             var oDlg = new Dialog({
-                title: "Adjuntar Documento",
+                title: "Adjuntar \u2013 " + sSeccion,
                 contentWidth: "420px",
                 content: [
                     new VBox({
                         items: [
                             new Label({ text: "Nombre del archivo", required: true }), oNombreInput,
-                            new Label({ text: "Tipo de documento" }), oTipoSel
+                            new Label({ text: "Tipo" }), oTipoSel
                         ]
                     }).addStyleClass("mtnDlgContent")
                 ],
@@ -1897,11 +2321,11 @@
                             if (!oNombreInput.getValue().trim()) { MessageToast.show("Ingrese el nombre del archivo"); return; }
                             var sNow = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })
                                      + " " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-                            aAdj.push({ nombre: oNombreInput.getValue().trim(), tipo: oTipoSel.getSelectedKey(),
-                                        fecha: sNow, cargadoPor: "oscar.fabian.ortiz.velayarce@emeal.nttdata.com" });
-                            oModel.setProperty(sPath, aAdj);
-                            that._checkFactibilidadCompleta();
-                            MessageToast.show("Archivo adjuntado correctamente");
+                            var aList = oModel.getProperty(sPath) || [];
+                            aList.push({ nombre: oNombreInput.getValue().trim(), tipo: oTipoSel.getSelectedKey(),
+                                         fecha: sNow, cargadoPor: "oscar.fabian.ortiz.velayarce@emeal.nttdata.com" });
+                            oModel.setProperty(sPath, aList);
+                            MessageToast.show("Archivo adjuntado");
                             oDlg.close();
                         }
                     }),
@@ -1912,28 +2336,55 @@
             oDlg.open();
         },
 
-        onDescargarAdjunto: function () {
-            MessageToast.show("Descargando archivo...");
+        onUploadAcuerdo: function () {
+            this._openAdjuntoDlg("Acuerdos con Proveedor", ["EML", "MSG"],
+                "/requerimientos/" + this._iIndex + "/adjuntosHS/acuerdos");
         },
 
-        onDeleteAdjunto: function (oEvent) {
+        onUploadOtroArchivo: function () {
+            this._openAdjuntoDlg("Otros Archivos", ["DOC", "DOCX"],
+                "/requerimientos/" + this._iIndex + "/adjuntosHS/otrosArchivos");
+        },
+
+        onDeleteAcuerdo: function (oEvent) {
             var oCtx = oEvent.getSource().getBindingContext();
             var that = this;
-            MessageBox.confirm("\u00bfEliminar este adjunto?", {
+            MessageBox.confirm("\u00bfEliminar este acuerdo adjunto?", {
                 title: "Confirmar",
                 onClose: function (sAction) {
                     if (sAction !== MessageBox.Action.OK) { return; }
                     var oModel = that.getOwnerComponent().getModel();
-                    var sPath  = "/requerimientos/" + that._iIndex + "/adjuntos";
-                    var aAdj   = oModel.getProperty(sPath) || [];
+                    var sPath  = "/requerimientos/" + that._iIndex + "/adjuntosHS/acuerdos";
+                    var aList  = oModel.getProperty(sPath) || [];
                     var iIdx   = parseInt(oCtx.getPath().split("/").pop(), 10);
-                    aAdj.splice(iIdx, 1);
-                    oModel.setProperty(sPath, aAdj);
-                    that._checkFactibilidadCompleta();
-                    MessageToast.show("Adjunto eliminado");
+                    aList.splice(iIdx, 1);
+                    oModel.setProperty(sPath, aList);
+                    MessageToast.show("Acuerdo eliminado");
                 }
             });
         },
+
+        onDeleteOtroArchivo: function (oEvent) {
+            var oCtx = oEvent.getSource().getBindingContext();
+            var that = this;
+            MessageBox.confirm("\u00bfEliminar este archivo adjunto?", {
+                title: "Confirmar",
+                onClose: function (sAction) {
+                    if (sAction !== MessageBox.Action.OK) { return; }
+                    var oModel = that.getOwnerComponent().getModel();
+                    var sPath  = "/requerimientos/" + that._iIndex + "/adjuntosHS/otrosArchivos";
+                    var aList  = oModel.getProperty(sPath) || [];
+                    var iIdx   = parseInt(oCtx.getPath().split("/").pop(), 10);
+                    aList.splice(iIdx, 1);
+                    oModel.setProperty(sPath, aList);
+                    MessageToast.show("Archivo eliminado");
+                }
+            });
+        },
+
+        onUpload: function () { this.onUploadAcuerdo(); },
+        onDescargarAdjunto: function () { MessageToast.show("Descargando archivo..."); },
+        onDeleteAdjunto: function (oEvent) { this.onDeleteAcuerdo(oEvent); },
 
         // â”€â”€ Stock â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         onConsultarStock: function () {
@@ -3086,6 +3537,41 @@
             this.getView().addDependent(oDlg);
             oDlg.open();
         },
+
+        onConfirmacionClienteMC: function () {
+            var that   = this;
+            var oModel = this.getOwnerComponent().getModel();
+            MessageBox.confirm("\u00bfConfirmar la aceptaci\u00f3n del cliente para esta solicitud?", {
+                title: "Confirmaci\u00f3n Cliente",
+                onClose: function (sAction) {
+                    if (sAction !== MessageBox.Action.OK) { return; }
+                    var sNow = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })
+                             + " " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+                    oModel.setProperty("/requerimientos/" + that._iIndex + "/estado", "Confirmado por Cliente");
+                    oModel.setProperty("/requerimientos/" + that._iIndex + "/ultimaModificacion", sNow);
+                    MessageToast.show("Confirmaci\u00f3n registrada. Se habilit\u00f3 el bot\u00f3n Finalizar Solicitud.");
+                }
+            });
+        },
+
+        onFinalizarSolicitudMC: function () {
+            var that   = this;
+            var oModel = this.getOwnerComponent().getModel();
+            MessageBox.confirm("\u00bfEst\u00e1 seguro que desea finalizar esta solicitud? Esta acci\u00f3n no podr\u00e1 deshacerse.", {
+                title: "Finalizar Solicitud",
+                icon: MessageBox.Icon.WARNING,
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                onClose: function (sAction) {
+                    if (sAction !== MessageBox.Action.OK) { return; }
+                    var sNow = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" })
+                             + " " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+                    oModel.setProperty("/requerimientos/" + that._iIndex + "/estado", "Finalizado");
+                    oModel.setProperty("/requerimientos/" + that._iIndex + "/ultimaModificacion", sNow);
+                    MessageToast.show("Solicitud finalizada correctamente.");
+                }
+            });
+        },
+
         onComercialDescargarTemplate: function () {
             var oModel = this.getOwnerComponent().getModel();
             var oReq   = oModel.getProperty("/requerimientos/" + this._iIndex);

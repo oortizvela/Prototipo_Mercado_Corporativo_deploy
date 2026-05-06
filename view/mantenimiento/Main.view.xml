@@ -58,6 +58,19 @@
                         <Link text="{= ${mantenimientoKpi>/cntMarcas} + ' registros'}" press="onTileMarcaProveedor" class="mtnCardCount"/>
                     </VBox>
 
+                    <!-- Card: Costos México (solo Compras Locales) -->
+                    <VBox class="mtnCard" visible="{= !${mantenimientoKpi>/mercadoCorporativo}}">
+                        <HBox alignItems="Start" class="mtnCardHeader">
+                            <core:Icon src="sap-icon://money-bills" class="mtnCardIcon mtnCardIconGreen"/>
+                            <VBox class="mtnCardTitleBlock">
+                                <Text text="Costos" class="mtnCardTitle"/>
+                                <Link text="Costos México" press="onTileCostosMC" class="mtnCardSubLink"/>
+                            </VBox>
+                        </HBox>
+                        <Text text="Gestione los costos de equipos por marca y modelo en Mexico" class="mtnCardDesc" wrapping="true"/>
+                        <Link text="{= ${mantenimientoKpi>/cntCostosMC} + ' registros'}" press="onTileCostosMC" class="mtnCardCount"/>
+                    </VBox>
+
                     <!-- Card: Líneas de Negocio (solo Mercado Corporativo) -->
                     <VBox class="mtnCard" visible="{mantenimientoKpi>/mercadoCorporativo}">
                         <HBox alignItems="Start" class="mtnCardHeader">

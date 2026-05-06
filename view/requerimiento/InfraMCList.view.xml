@@ -47,11 +47,10 @@
                         </VBox>
                         <VBox class="sapUiSmallMarginEnd">
                             <Label text="Tipo Solicitud" labelFor="sFilterTipo" />
-                            <Select id="sFilterTipo" change="onFilterChange" width="16rem">
+                            <Select id="sFilterTipo" change="onFilterChange" width="20rem">
                                 <core:Item key="" text="" />
-                                <core:Item key="Solución a Medida &lt; 60 Dias" text="Solución a Medida &lt; 60 Días" />
-                                <core:Item key="Solución a Medida &gt; 60 Dias" text="Solución a Medida &gt; 60 Días" />
-                                <core:Item key="Nota de Producto"               text="Nota de Producto" />
+                                <core:Item key="Proyectos - Soluciones Medida"     text="Proyectos - Soluciones Medida" />
+                                <core:Item key="Proyectos - Compras Recurrentes"   text="Proyectos - Compras Recurrentes" />
                             </Select>
                         </VBox>
                         <Link text="Limpiar Filtros" press="onClearFilters" class="sapUiSmallMarginBegin" />
@@ -166,9 +165,8 @@
                 <VBox>
                     <Label text="Tipo de Solicitud:" required="true" labelFor="dlgInfraTipo" />
                     <Select id="dlgInfraTipo" width="100%">
-                        <core:Item key="Solución a Medida &lt; 60 Dias" text="Solución a Medida &lt; 60 Días" />
-                        <core:Item key="Solución a Medida &gt; 60 Dias" text="Solución a Medida &gt; 60 Días" />
-                        <core:Item key="Nota de Producto"               text="Nota de Producto" />
+                        <core:Item key="Proyectos - Soluciones Medida"   text="Proyectos - Soluciones Medida" />
+                        <core:Item key="Proyectos - Compras Recurrentes" text="Proyectos - Compras Recurrentes" />
                     </Select>
                 </VBox>
             </VBox>

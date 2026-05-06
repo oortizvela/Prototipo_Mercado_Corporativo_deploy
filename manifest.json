@@ -179,6 +179,11 @@
                     "target": "mantenimientoMarcaProveedor"
                 },
                 {
+                    "pattern": "mantenimiento/costosMC",
+                    "name": "mantenimientoCostosMC",
+                    "target": "mantenimientoCostosMC"
+                },
+                {
                     "pattern": "mc/requerimiento",
                     "name": "mcRequerimientoList",
                     "target": "mcRequerimientoList"
@@ -338,6 +343,11 @@
                 "mantenimientoMarcaProveedor": {
                     "viewId": "mantenimientoMarcaProveedor",
                     "viewName": "mantenimiento.MarcaProveedor",
+                    "viewLevel": 3
+                },
+                "mantenimientoCostosMC": {
+                    "viewId": "mantenimientoCostosMC",
+                    "viewName": "mantenimiento.CostosMC",
                     "viewLevel": 3
                 },
                 "mcRequerimientoList": {

@@ -60,15 +60,13 @@ sap.ui.define([
                 contentWidth: "460px",
                 content: [
                     new VBox({
+                        styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                         items: [
-                            new Label({ text: "Nombre", required: true }),
-                            oTextInput,
-                            new Label({ text: "DescripciÃ³n" }),
-                            oDescArea,
-                            new Label({ text: "Umbral de aprobaciÃ³n (USD)" }),
-                            oUmbralInput
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Nombre", required: true }), oTextInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "DescripciÃ³n" }), oDescArea ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Umbral de aprobaciÃ³n (USD)" }), oUmbralInput ] })
                         ]
-                    }).addStyleClass("mtnDlgContent")
+                    })
                 ],
                 buttons: [
                     new Button({
@@ -154,16 +152,16 @@ sap.ui.define([
                 contentWidth: "400px",
                 content: [
                     new VBox({
+                        styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                         items: [
-                            new HBox({ items: [
+                            new HBox({ styleClass: "sapUiSmallMarginBottom", items: [
                                 new VBox({ width: "50%", items: [ new Label({ text: "Nivel", required: true }), oNivelInput ] }),
                                 new VBox({ width: "50%", items: [ new Label({ text: "CÃ³digo" }), oCodigoInput ] }).addStyleClass("sapUiSmallMarginBegin")
                             ]}),
-                            new Label({ text: "Cargo / Rol", required: true }),
-                            oCargoInput,
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Cargo / Rol", required: true }), oCargoInput ] }),
                             oObligCheck
                         ]
-                    }).addStyleClass("mtnDlgContent")
+                    })
                 ],
                 buttons: [
                     new Button({

@@ -651,105 +651,111 @@ html, body.sapUiBody {
 
 /* ── Flujo de Aprobación ──────────────────────── */
 .reqApprovalFlow.sapMHBox {
-    gap: 0.5rem;
-    align-items: flex-start;
-    padding: 1rem 0;
+    gap: 0.25rem;
+    align-items: center;
+    padding: 1.2rem 0.5rem;
     overflow-x: auto;
+    flex-wrap: nowrap;
 }
 .reqFlowStep.sapMVBox {
     align-items: center;
-    gap: 0.4rem;
-    min-width: 7rem;
+    gap: 0.5rem;
+    min-width: 6rem;
+    max-width: 8rem;
 }
 .reqFlowRolLabel.sapMText {
-    font-size: 0.75rem !important;
-    color: #6a7480 !important;
-    text-align: center;
-    max-width: 8rem;
-    min-height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 0.72rem !important;
+    color: #3a4a5a !important;
+    text-align: center !important;
+    max-width: 7.5rem;
+    min-height: 2.2rem;
+    line-height: 1.3 !important;
 }
 /* Círculos de estado */
 .reqFlowCircle.sapFAvatar {
-    border: 2px solid #c8d3e0 !important;
-    background: #ffffff !important;
+    background: #1ba6c4 !important;
+    border: none !important;
+}
+.reqFlowCircle.sapFAvatar .sapFAvatarInitials {
+    color: #ffffff !important;
+    font-weight: 700 !important;
 }
 .reqFlowCircle.reqFlowCircleRejected.sapFAvatar {
-    border-color: #d93025 !important;
-    color: #d93025 !important;
-}
-.reqFlowCircle.reqFlowCircleRejected.sapFAvatar .sapFAvatarIcon {
-    color: #d93025 !important;
+    background: #d93025 !important;
 }
 .reqFlowCircle.reqFlowCircleApproved.sapFAvatar {
-    border-color: #107e3e !important;
-}
-.reqFlowCircle.reqFlowCircleApproved.sapFAvatar .sapFAvatarIcon {
-    color: #107e3e !important;
+    background: #107e3e !important;
 }
 .reqFlowCircle.reqFlowCirclePending.sapFAvatar {
-    border-color: #c8d3e0 !important;
-}
-.reqFlowNivelLabel.sapMText {
-    font-size: 0.65rem !important;
-    color: #8396a8 !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.05em;
+    background: #1ba6c4 !important;
 }
 .reqFlowArrow.sapMVBox {
     justify-content: center;
     align-items: center;
-    padding-top: 3rem;
     flex-shrink: 0;
+    padding: 0 0.1rem;
+}
+.reqFlowArrowText.sapMText {
+    font-size: 1.1rem !important;
+    color: #1ba6c4 !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
 }
 
-/* Tarjetas de aprobadores */
+/* Tarjetas de personas (fila inferior) */
 .reqApprovalCards.sapMHBox {
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
     flex-wrap: wrap;
+    padding: 0.5rem;
 }
-.reqApprovalCard.sapMHBox {
-    border: 1px solid #e4e7eb;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: #ffffff;
-    gap: 0.75rem;
-    min-width: 13rem;
-    flex: 0 0 auto;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-.reqCardDetail.sapMVBox {
+.reqPersonCard.sapMVBox {
     align-items: center;
-    gap: 0.3rem;
-    min-width: 4rem;
+    gap: 0.4rem;
+    min-width: 8rem;
+    max-width: 10rem;
+    background: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 0.75rem;
+    padding: 1rem 0.75rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    flex: 0 0 auto;
 }
-.reqCardAvatar.sapFAvatar {
-    background: #e8eef4 !important;
-    color: #5a7fa0 !important;
+.reqPersonAvatar.sapFAvatar {
+    background: #1ba6c4 !important;
+}
+.reqPersonAvatar.sapFAvatar .sapFAvatarInitials {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+.reqCardAvatarPending.sapFAvatar {
+    background: #1ba6c4 !important;
 }
 .reqCardAvatarRejected.sapFAvatar {
-    background: #fde8e8 !important;
-    color: #d93025 !important;
+    background: #d93025 !important;
 }
 .reqCardAvatarApproved.sapFAvatar {
-    background: #e5f5ec !important;
-    color: #107e3e !important;
+    background: #107e3e !important;
 }
-.reqCardTitle.sapMText {
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    text-align: center;
+.reqCardAvatarPending.sapFAvatar .sapFAvatarInitials,
+.reqCardAvatarRejected.sapFAvatar .sapFAvatarInitials,
+.reqCardAvatarApproved.sapFAvatar .sapFAvatarInitials {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+.reqPersonName.sapMText {
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
     color: #1c2229 !important;
+    text-align: center !important;
+    max-width: 9rem;
 }
-.reqCardStatusError.sapMText { color: #d93025 !important; font-size: 0.75rem !important; }
-.reqCardStatusSuccess.sapMText { color: #107e3e !important; font-size: 0.75rem !important; }
-.reqCardBody.sapMVBox { gap: 0.2rem; justify-content: center; }
-.reqCardFullRole.sapMText { font-size: 0.8rem !important; font-weight: 600 !important; color: #1c2229 !important; }
-.reqCardDate.sapMText { font-size: 0.75rem !important; color: #6a7480 !important; }
-.reqCardComment.sapMText { font-size: 0.75rem !important; color: #6a7480 !important; }
+.reqCardStatusError.sapMText  { color: #d93025 !important; font-size: 0.7rem !important; }
+.reqCardStatusSuccess.sapMText { color: #107e3e !important; font-size: 0.7rem !important; }
+.reqCardStatusPending.sapMText { color: #e76500 !important; font-size: 0.7rem !important; }
+.reqPersonDate.sapMText    { font-size: 0.7rem !important; color: #6a7480 !important; text-align: center !important; }
+.reqPersonComment.sapMText { font-size: 0.7rem !important; color: #6a7480 !important; text-align: center !important; max-width: 9rem; }
 
 /* ── Adjuntos vacío ──────────────────────────── */
 .reqAdjuntosEmpty.sapMVBox {

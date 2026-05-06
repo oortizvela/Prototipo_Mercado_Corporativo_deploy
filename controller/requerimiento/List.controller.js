@@ -14,12 +14,15 @@ sap.ui.define([
         onInit: function () {
             // Modelo UI para estado de botones y contexto de mercado
             var oUiModel = new JSONModel({
-                haySeleccion:            false,
-                mercadoCorporativo:      false,
-                mostrarSeleccion:        false,
-                canalSeleccionado:       "Infraestructura",
-                lineaNegocioSeleccionada: "RedMovil",
-                mostrarPedidosAbiertos:  false
+                haySeleccion:              false,
+                mercadoCorporativo:        false,
+                mostrarSeleccion:          false,
+                tipoInversionSeleccionado: "InventarioMovil",
+                origenAreaSeleccionado:    "PlanificacionComercial",
+                origenAreaItems: [
+                    { key: "PlanificacionComercial", text: "Planificación Comercial" }
+                ],
+                mostrarPedidosAbiertos:    false
             });
             this.getView().setModel(oUiModel, "ui");
 
@@ -65,8 +68,11 @@ sap.ui.define([
 
             if (!bFromDetail) {
                 oUi.setProperty("/mostrarSeleccion", !bMC);
-                oUi.setProperty("/canalSeleccionado", "Infraestructura");
-                oUi.setProperty("/lineaNegocioSeleccionada", "RedMovil");
+                oUi.setProperty("/tipoInversionSeleccionado", "InventarioMovil");
+                oUi.setProperty("/origenAreaSeleccionado", "PlanificacionComercial");
+                oUi.setProperty("/origenAreaItems", [
+                    { key: "PlanificacionComercial", text: "Planificación Comercial" }
+                ]);
             }
 
             // Reset filtros al navegar
@@ -121,9 +127,9 @@ sap.ui.define([
             // Filtro por mercado (local vs corporativo)
             aFilters.push(new Filter("mercado", FilterOperator.EQ, bMC ? "corporativo" : "local"));
 
-            // (2.1.1) Filtro por canal cuando es Handset: solo tipoSolicitud que contengan "Handset"
-            var sCanal = this.getView().getModel("ui").getProperty("/canalSeleccionado");
-            if (!bMC && sCanal === "Handset") {
+            // Filtro por tipo: cuando es Inventario Móvil (Handset) filtrar por tipoSolicitud
+            var sTipoInv = this.getView().getModel("ui").getProperty("/tipoInversionSeleccionado");
+            if (!bMC && sTipoInv === "InventarioMovil") {
                 aFilters.push(new Filter("tipoSolicitud", FilterOperator.Contains, "Handset"));
             }
 
@@ -145,59 +151,82 @@ sap.ui.define([
             this.getView().getModel("ui").setProperty("/haySeleccion", bHay);
         },
 
-        /* ──────── PASO 1: Seleccionar Canal / Línea de Negocio (tarjeta inline) ──────── */
-        onSelCanalChange: function (oEvent) {
-            var sCanal = oEvent.getSource().getSelectedKey();
-            this.getView().getModel("ui").setProperty("/canalSeleccionado", sCanal);
-            // Resetear línea de negocio si el canal no tiene ninguna (C2)
-            if (sCanal !== "Infraestructura") {
-                this.getView().getModel("ui").setProperty("/lineaNegocioSeleccionada", "");
-            }
+        /* ──────── PASO 1: Seleccionar Tipo Inversión / Origen Área (tarjeta inline) ──────── */
+        onSelTipoInversionChange: function (oEvent) {
+            var sTipo = oEvent.getSource().getSelectedKey();
+            var oUi   = this.getView().getModel("ui");
+            oUi.setProperty("/tipoInversionSeleccionado", sTipo);
+            var aItems = this._getOrigenAreaItems(sTipo);
+            oUi.setProperty("/origenAreaItems", aItems);
+            oUi.setProperty("/origenAreaSeleccionado", aItems.length > 0 ? aItems[0].key : "");
+        },
+
+        _getOrigenAreaItems: function (sTipoInversion) {
+            var mMap = {
+                "InventarioMovil": [
+                    { key: "PlanificacionComercial", text: "Planificación Comercial" }
+                ],
+                "CapexVariable": [
+                    { key: "MercadoCorporativo", text: "Mercado Corporativo" },
+                    { key: "MercadoMasivo",      text: "Mercado Masivo" }
+                ],
+                "CapexFijo": [
+                    { key: "ConstruccionImplementacion", text: "Construcción e Implementación Plataforma Telecom" },
+                    { key: "OperacionMantenimiento",     text: "Operación y Mantenimiento de Red" },
+                    { key: "InfraestructuraRed",         text: "Infraestructura de Red" },
+                    { key: "InfraestructuraRedFija",     text: "Infraestructura de Red FIJA" }
+                ]
+            };
+            return mMap[sTipoInversion] || [];
         },
 
         onConfirmTipoRequerimiento: function () {
-            var oUi    = this.getView().getModel("ui");
-            var sCanal = this.byId("selCanal").getSelectedKey();
-            var sLinea = (sCanal === "Infraestructura")
-                ? this.byId("selLineaNegocio").getSelectedKey()
-                : "";
+            var oUi     = this.getView().getModel("ui");
+            var sTipo   = this.byId("selTipoInversion").getSelectedKey();
+            var sOrigen = this.byId("selOrigenArea").getSelectedKey();
 
-            oUi.setProperty("/canalSeleccionado", sCanal);
-            oUi.setProperty("/lineaNegocioSeleccionada", sLinea);
+            oUi.setProperty("/tipoInversionSeleccionado", sTipo);
+            oUi.setProperty("/origenAreaSeleccionado", sOrigen);
 
-            // Infra + Mercado Corporativo → vista dedicada
-            if (sCanal === "Infraestructura" && sLinea === "MercadoCorporativo") {
+            // Inventario Móvil + Planificación Comercial → Handset
+            if (sTipo === "InventarioMovil" && sOrigen === "PlanificacionComercial") {
+                this.getRouter().navTo("handsetList");
+                return;
+            }
+
+            // CAPEX Variable + Mercado Corporativo → MC
+            if (sTipo === "CapexVariable" && sOrigen === "MercadoCorporativo") {
                 this.getRouter().navTo("infraMCList");
                 return;
             }
 
-            // Infra + Red Movil → vista dedicada
-            if (sCanal === "Infraestructura" && sLinea === "RedMovil") {
-                this.getRouter().navTo("infraRedMovilList");
-                return;
-            }
-
-            // Infra + Red Fija → vista dedicada
-            if (sCanal === "Infraestructura" && sLinea === "RedFija") {
-                this.getRouter().navTo("infraRedFijaList");
-                return;
-            }
-
-            // Infra + O&M → vista dedicada
-            if (sCanal === "Infraestructura" && sLinea === "OM") {
-                this.getRouter().navTo("infraOMList");
-                return;
-            }
-
-            // Infra + Compras Locales → vista dedicada
-            if (sCanal === "Infraestructura" && sLinea === "ComprasLocales") {
+            // CAPEX Variable + Mercado Masivo → Compras Locales
+            if (sTipo === "CapexVariable" && sOrigen === "MercadoMasivo") {
                 this.getRouter().navTo("comprasLocalesList");
                 return;
             }
 
-            // Handset → vista dedicada
-            if (sCanal === "Handset") {
-                this.getRouter().navTo("handsetList");
+            // CAPEX Fijo + Construcción e Implementación → infraOMList
+            if (sTipo === "CapexFijo" && sOrigen === "ConstruccionImplementacion") {
+                this.getRouter().navTo("infraOMList");
+                return;
+            }
+
+            // CAPEX Fijo + O&M → infraOMList
+            if (sTipo === "CapexFijo" && sOrigen === "OperacionMantenimiento") {
+                this.getRouter().navTo("infraOMList");
+                return;
+            }
+
+            // CAPEX Fijo + Infraestructura de Red → Red Móvil
+            if (sTipo === "CapexFijo" && sOrigen === "InfraestructuraRed") {
+                this.getRouter().navTo("infraRedMovilList");
+                return;
+            }
+
+            // CAPEX Fijo + Infraestructura de Red FIJA → Red Fija
+            if (sTipo === "CapexFijo" && sOrigen === "InfraestructuraRedFija") {
+                this.getRouter().navTo("infraRedFijaList");
                 return;
             }
 

@@ -7,7 +7,7 @@ sap.ui.define([
     return BaseController.extend("com.claro.compras.portal.controller.mantenimiento.Main", {
 
         onInit: function () {
-            var oKpiModel = new JSONModel({ cntConstantes: 0, cntNiveles: 0, cntMarcas: 0, mercadoCorporativo: false });
+            var oKpiModel = new JSONModel({ cntConstantes: 0, cntNiveles: 0, cntMarcas: 0, cntCostosMC: 0, mercadoCorporativo: false });
             this.getView().setModel(oKpiModel, "mantenimientoKpi");
 
             this.getRouter()
@@ -27,6 +27,7 @@ sap.ui.define([
                 oKpi.setProperty("/cntConstantes",  (oModel.getProperty("/constantes")        || []).length);
                 oKpi.setProperty("/cntNiveles",     (oModel.getProperty("/nivelesAprobacion") || []).length);
                 oKpi.setProperty("/cntMarcas",      (oModel.getProperty("/marcaProveedor")    || []).length);
+                oKpi.setProperty("/cntCostosMC",    (oModel.getProperty("/costosMC")          || []).length);
             }.bind(this);
 
             if (oModel.getData && Object.keys(oModel.getData()).length > 0) {
@@ -46,6 +47,10 @@ sap.ui.define([
 
         onTileMarcaProveedor: function () {
             this.getRouter().navTo("mantenimientoMarcaProveedor");
+        },
+
+        onTileCostosMC: function () {
+            this.getRouter().navTo("mantenimientoCostosMC");
         },
 
         onTileLineasNegocio: function () {

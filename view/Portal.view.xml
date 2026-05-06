@@ -71,6 +71,27 @@
                             visible="{= ${session>/categoria} === 'Administrador' }">
                         </GenericTile>
 
+                        <!-- Tile 4: Compras Handsets – solo rol Compras -->
+                        <GenericTile
+                            id="tileComprasHandsets"
+                            header="Compras Handsets"
+                            subheader="Solicitudes pendientes aprobaci&#243;n"
+                            press="onTileComprasHandsets"
+                            class="portalTile"
+                            frameType="OneByOne"
+                            visible="{= ${session>/rol} === 'Compras' }">
+                            <tileContent>
+                                <TileContent footer="pendientes">
+                                    <content>
+                                        <NumericContent
+                                            value="{portal>/pendientesCompras}"
+                                            withMargin="false"
+                                            valueColor="Critical" />
+                                    </content>
+                                </TileContent>
+                            </tileContent>
+                        </GenericTile>
+
                     </HBox>
                 </VBox>
 

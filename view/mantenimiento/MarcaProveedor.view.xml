@@ -33,8 +33,10 @@
                     <columns>
                         <Column width="10rem"><Text text="Tipo Solicitud"/></Column>
                         <Column width="10rem"><Text text="Marca"/></Column>
+                        <Column width="6rem"><Text text="Prefijo"/></Column>
+                        <Column width="9rem"><Text text="Acreedor"/></Column>
                         <Column width="12rem"><Text text="RUC"/></Column>
-                        <Column><Text text="RazÃ³n Social"/></Column>
+                        <Column><Text text="Raz&#xF3;n Social"/></Column>
                         <Column width="7rem"><Text text="Estado"/></Column>
                         <Column width="9rem" hAlign="Center"><Text text="Acciones"/></Column>
                     </columns>
@@ -43,6 +45,8 @@
                             <cells>
                                 <Text text="{mantenimiento>tipoSolicitud}"/>
                                 <Text text="{mantenimiento>marca}"/>
+                                <Text text="{mantenimiento>prefijo}"/>
+                                <Text text="{mantenimiento>acreedor}"/>
                                 <Text text="{mantenimiento>ruc}"/>
                                 <Text text="{mantenimiento>razonSocial}"/>
                                 <ObjectStatus

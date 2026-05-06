@@ -138,10 +138,10 @@ sap.ui.define([
             });
 
             // Conditional VBox shown/hidden based on tipoAprobador
-            var oConstanteBox = new VBox({ visible: oData.tipoAprobador === "Constante",
+            var oConstanteBox = new VBox({ visible: oData.tipoAprobador === "Constante", styleClass: "sapUiSmallMarginBottom",
                 items: [ new Label({ text: "Constante Aprobadora", required: true }), oConstanteSelect ]
             });
-            var oGrupoIASBox = new VBox({ visible: oData.tipoAprobador === "Grupo IAS",
+            var oGrupoIASBox = new VBox({ visible: oData.tipoAprobador === "Grupo IAS", styleClass: "sapUiSmallMarginBottom",
                 items: [ new Label({ text: "Nombre Grupo IAS", required: true }), oGrupoIASInput ]
             });
 
@@ -156,32 +156,33 @@ sap.ui.define([
             var oDerivadoCheck  = new CheckBox({ selected: bDerivado,        text: "Derivado" });
             var oEstadoSwitch   = new Switch({ state: oData.estado });
 
+            var fnField = function (oLbl, oCtrl) {
+                return new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ oLbl, oCtrl ] });
+            };
             var oContent = new VBox({
                 width: "100%",
-                styleClass: "mtnDlgContent",
+                styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                 items: [
                     new HBox({
+                        styleClass: "sapUiSmallMarginBottom",
                         width: "100%",
                         items: [
                             new VBox({ width: "50%", items: [ new Label({ text: "Nivel", required: true }), oNivelInput ] }),
                             new VBox({ width: "50%", items: [ new Label({ text: "Orden EjecuciÃ³n" }), oOrdenInput ] })
                         ]
                     }),
-                    new Label({ text: "DescripciÃ³n", required: true }),
-                    oDescInput,
-                    new Label({ text: "Flujo de AprobaciÃ³n", required: true }),
-                    oFlujoSelect,
-                    new Label({ text: "Tipo de Aprobador", required: true }),
-                    oTipoAprobSelect,
+                    fnField(new Label({ text: "DescripciÃ³n", required: true }), oDescInput),
+                    fnField(new Label({ text: "Flujo de AprobaciÃ³n", required: true }), oFlujoSelect),
+                    fnField(new Label({ text: "Tipo de Aprobador", required: true }), oTipoAprobSelect),
                     oConstanteBox,
                     oGrupoIASBox,
-                    new Label({ text: "ConfiguraciÃ³n" }),
-                    oNotificaCheck,
-                    new Label({ text: "Tipos de Solicitud Aplicables" }),
-                    new HBox({ items: [ oOriginalCheck, oDerivadoCheck ] }),
-                    new Label({ text: "Sin selecciÃ³n = aplica para todos", design: "Standard" }),
-                    new Label({ text: "Estado" }),
-                    oEstadoSwitch
+                    fnField(new Label({ text: "ConfiguraciÃ³n" }), oNotificaCheck),
+                    new VBox({ styleClass: "sapUiSmallMarginBottom", items: [
+                        new Label({ text: "Tipos de Solicitud Aplicables" }),
+                        new HBox({ items: [ oOriginalCheck, oDerivadoCheck ] }),
+                        new Label({ text: "Sin selecciÃ³n = aplica para todos", design: "Standard" })
+                    ]}),
+                    fnField(new Label({ text: "Estado" }), oEstadoSwitch)
                 ]
             });
 

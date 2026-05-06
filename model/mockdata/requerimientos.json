@@ -1,6 +1,99 @@
 {
     "requerimientos":  [
                            {
+                               "reqId":  "REQ-2026-000008",
+                               "titulo":  "Equipos Huawei P70 \u2013 Q1 2026",
+                               "proceso": "Proceso 2 \u2013 Requerimiento de Equipos \u2013 Firma de Acta de Aceptaci\u00f3n",
+                               "marca":  "Huawei",
+                               "periodo":  "2026 Q1",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Enviado a Firma de Acta",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "requester@claro.com",
+                               "fechaCreacion":  "28.01.2026 19:00",
+                               "ultimaModificacion":  "06.02.2026 19:00",
+                               "validoHasta":  "03.03.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 2961, "contribucionLogistica": 0, "preOrder": 2538, "fondoSellOut": 3596, "nuevosCanalesB2B": 317, "rebateIncentivo": 423 },
+                               "items": [
+                                   { "no": 1, "modelo": "SAMSUNG GALAXY S25 128GB", "codigo": "SM-S931BZ3LLTP", "codigoMaterial": "70063499", "color": "SILVER SHADOW", "cantidad": 300, "precioFacturacion": 705.00, "virUnitario": 0.00, "precioNeto": 705.00, "totalFacturacion": 211500.00, "totalVir": 0.00, "totalNeto": 211500.00, "stockCDVES": 180, "stockDistribuido": 120, "stockCDYES": 85, "ventasDDMM": 210, "ventasProyectadas": 260, "ventasM1": 195, "ventasM2": 180, "ventasM3": 170 }
+                               ],
+                               "aportesVIR": [],
+                               "flujoAprobacion": [
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificaci\u00f3n Comercial",  "iniciales": "GV", "nombre": "Gladys Vivar",    "estado": "Aprobado", "fecha": "02.02.2026 09:00", "comentario": "Conforme." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificaci\u00f3n Comercial", "iniciales": "JL", "nombre": "Judith L\u00f3pez", "estado": "Aprobado", "fecha": "03.02.2026 10:00", "comentario": "Aprobado." },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                              "iniciales": "CP", "nombre": "Compras",          "estado": "Aprobado", "fecha": "04.02.2026 15:00", "comentario": "OK." },
+                                   { "nivel": "NIVEL 4", "rol": "Director Mercado Masivo",              "iniciales": "HG", "nombre": "Hugo Gonzalez",    "estado": "Aprobado", "fecha": "05.02.2026 11:00", "comentario": "Aprobado. Listo para firma." }
+                               ],
+                               "actaAceptacion": {
+                                   "numeroActa": "H676-2025",
+                                   "fechaDocumento": "Lima, 13 de enero del 2026",
+                                   "proveedor": "SAMSUNG ELECTRONICS PERU S.A.C.",
+                                   "contacto": "Sr. Sebasti\u00e1n Le\u00f3n",
+                                   "asunto": "Confirmaci\u00f3n de compra de equipos Samsung",
+                                   "estadoDocuSign": "Enviado a DocuSign",
+                                   "firmaDirectorFinanzas": "Carlos Solano Morales",
+                                   "rolDirectorFinanzas": "Director de Finanzas",
+                                   "empresaDirector": "Am\u00e9rica M\u00f3vil Per\u00fa S.A.C.",
+                                   "firmaProveedor": "DohHyun Yun",
+                                   "rolProveedor": "CFO",
+                                   "empresaProveedor": "Samsung Electronics Peru",
+                                   "docuSignUrl": "https://docusign.net/signing/REQ-2026-000008"
+                               },
+                               "adjuntos": [],
+                               "adjuntosHS": { "acuerdos": [], "otrosArchivos": [] },
+                               "historialVentas": []
+                           },
+                           {
+                               "reqId":  "REQ-2026-000005",
+                               "titulo":  "Equipos Honor X5C / X7D \u2013 Q2 2026",
+                               "proceso": "Proceso 1 \u2013 Requerimiento de Equipos \u2013 Planificaci\u00f3n de Compras",
+                               "marca":  "Honor",
+                               "periodo":  "2026 Q2",
+                               "tipoSolicitud":  "Handset Original",
+                               "estado":  "Pendiente Aprobaci\u00f3n",
+                               "numeroOC":  "-",
+                               "numeroOCDerivada":  "-",
+                               "creadoPor":  "omar.ortiz@claro.com.pe",
+                               "fechaCreacion":  "04.02.2025 19:00",
+                               "ultimaModificacion":  "06.02.2025 19:00",
+                               "validoHasta":  "03.03.2026",
+                               "mercado":  "local",
+                               "contributions": { "dataSharing": 4200, "contribucionLogistica": 0, "preOrder": 3100, "fondoSellOut": 5800, "nuevosCanalesB2B": 650, "rebateIncentivo": 820 },
+                               "items": [
+                                   { "no": 1,  "modelo": "HONOR X5C 128GB",            "codigo": "5109BYJS",  "codigoMaterial": "70067336", "color": "Negro Medianoche", "cantidad": 20000, "precioFacturacion": 79.00, "virUnitario": 2.00, "precioNeto": 77.00, "totalFacturacion": 1580000.00, "totalVir": 40000.00, "totalNeto": 1540000.00, "stockCDVES": 24000, "stockDistribuido": 30000, "stockCDYES": 8500,  "ventasDDMM": 18500, "ventasProyectadas": 21000, "ventasM1": 17200, "ventasM2": 15800, "ventasM3": 14500 },
+                                   { "no": 2,  "modelo": "HONOR X5C 128GB",            "codigo": "5109BYJS",  "codigoMaterial": "70067336", "color": "Negro Medianoche", "cantidad": 20000, "precioFacturacion": 79.00, "virUnitario": 2.00, "precioNeto": 77.00, "totalFacturacion": 1580000.00, "totalVir": 40000.00, "totalNeto": 1540000.00, "stockCDVES": 24000, "stockDistribuido": 30000, "stockCDYES": 8500,  "ventasDDMM": 18500, "ventasProyectadas": 21000, "ventasM1": 17200, "ventasM2": 15800, "ventasM3": 14500 },
+                                   { "no": 3,  "modelo": "HONOR X5C 128GB",            "codigo": "5109BYJS",  "codigoMaterial": "70067336", "color": "Negro Medianoche", "cantidad": 10000, "precioFacturacion": 79.00, "virUnitario": 2.00, "precioNeto": 77.00, "totalFacturacion": 790000.00,  "totalVir": 20000.00, "totalNeto": 770000.00,  "stockCDVES": 24000, "stockDistribuido": 30000, "stockCDYES": 8500,  "ventasDDMM": 18500, "ventasProyectadas": 21000, "ventasM1": 17200, "ventasM2": 15800, "ventasM3": 14500 },
+                                   { "no": 4,  "modelo": "HONOR X5C PLUS 256GB",       "codigo": "5109BJNG",  "codigoMaterial": "70067337", "color": "Negro Medianoche", "cantidad": 8000,  "precioFacturacion": 94.00, "virUnitario": 3.00, "precioNeto": 91.00, "totalFacturacion": 752000.00,  "totalVir": 24000.00, "totalNeto": 728000.00,  "stockCDVES": 30000, "stockDistribuido": 30000, "stockCDYES": 9200,  "ventasDDMM": 16000, "ventasProyectadas": 18500, "ventasM1": 15000, "ventasM2": 13800, "ventasM3": 12500 },
+                                   { "no": 5,  "modelo": "HONOR X5C PLUS 256GB",       "codigo": "5109BJNG",  "codigoMaterial": "70067337", "color": "Plata Meteoro",    "cantidad": 2000,  "precioFacturacion": 94.00, "virUnitario": 3.00, "precioNeto": 91.00, "totalFacturacion": 188000.00,  "totalVir": 6000.00,  "totalNeto": 182000.00,  "stockCDVES": 30000, "stockDistribuido": 30000, "stockCDYES": 9200,  "ventasDDMM": 16000, "ventasProyectadas": 18500, "ventasM1": 15000, "ventasM2": 13800, "ventasM3": 12500 },
+                                   { "no": 6,  "modelo": "HONOR X7D 256GB 5G + BUNDLE", "codigo": "5109BWGP", "codigoMaterial": "70067338", "color": "Azul Cian",        "cantidad": 2000,  "precioFacturacion": 153.00, "virUnitario": 2.00, "precioNeto": 151.00, "totalFacturacion": 306000.00, "totalVir": 4000.00,  "totalNeto": 302000.00, "stockCDVES": 4000,  "stockDistribuido": 4000,  "stockCDYES": 1800,  "ventasDDMM": 3200,  "ventasProyectadas": 3800,  "ventasM1": 2900,  "ventasM2": 2700,  "ventasM3": 2500  },
+                                   { "no": 7,  "modelo": "HONOR X7D 256GB 5G",          "codigo": "5109BWGN", "codigoMaterial": "70065410", "color": "Negro Nocturno",   "cantidad": 7000,  "precioFacturacion": 153.00, "virUnitario": 2.00, "precioNeto": 151.00, "totalFacturacion": 1071000.00,"totalVir": 14000.00, "totalNeto": 1057000.00, "stockCDVES": 14000, "stockDistribuido": 1000,  "stockCDYES": 4200,  "ventasDDMM": 6800,  "ventasProyectadas": 7500,  "ventasM1": 6200,  "ventasM2": 5800,  "ventasM3": 5400  },
+                                   { "no": 8,  "modelo": "HONOR X7D 256GB 5G",          "codigo": "5109BWGP", "codigoMaterial": "70065411", "color": "Azul Cian",        "cantidad": 1000,  "precioFacturacion": 153.00, "virUnitario": 2.00, "precioNeto": 151.00, "totalFacturacion": 153000.00, "totalVir": 2000.00,  "totalNeto": 151000.00, "stockCDVES": 2000,  "stockDistribuido": 0,     "stockCDYES": 600,   "ventasDDMM": 950,   "ventasProyectadas": 1100,  "ventasM1": 880,   "ventasM2": 820,   "ventasM3": 780   }
+                               ],
+                               "aportesVIR": [
+                                   { "nombre": "Pre Order",      "monto": 3100.00 },
+                                   { "nombre": "Fondo Sell Out", "monto": 5800.00 },
+                                   { "nombre": "Data Sharing",   "monto": 4200.00 }
+                               ],
+                               "flujoAprobacion": [
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificaci\u00f3n Comercial",  "iniciales": "GV", "nombre": "Gladys Vivar",   "estado": "Aprobado",   "fecha": "05.02.2026 09:00", "comentario": "Conforme con el plan." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificaci\u00f3n Comercial", "iniciales": "JL", "nombre": "Judith L\u00f3pez", "estado": "Aprobado",   "fecha": "06.02.2026 10:00", "comentario": "Aprobado." },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                              "iniciales": "CP", "nombre": "Compras",          "estado": "En Proceso", "fecha": "",               "comentario": "" },
+                                   { "nivel": "NIVEL 4", "rol": "Director Mercado Masivo",              "iniciales": "HG", "nombre": "Hugo Gonzalez",    "estado": "Pendiente",  "fecha": "",               "comentario": "" }
+                               ],
+                               "adjuntos": [],
+                               "adjuntosHS": { "acuerdos": [], "otrosArchivos": [] },
+                               "historialVentas": [
+                                   { "marca": "Honor", "modelo": "X5C",  "periodo": "Enero 2026",   "cantidad": 18000 },
+                                   { "marca": "Honor", "modelo": "X5C",  "periodo": "Febrero 2026", "cantidad": 19500 },
+                                   { "marca": "Honor", "modelo": "X5C",  "periodo": "Marzo 2026",   "cantidad": 17800 },
+                                   { "marca": "Honor", "modelo": "X7D",  "periodo": "Enero 2026",   "cantidad": 6500  },
+                                   { "marca": "Honor", "modelo": "X7D",  "periodo": "Febrero 2026", "cantidad": 7200  },
+                                   { "marca": "Honor", "modelo": "X7D",  "periodo": "Marzo 2026",   "cantidad": 6900  }
+                               ]
+                           },
+                           {
                                "reqId":  "REQ-2026-000001",
                                "titulo":  "Día de la Madre - Samsung Galaxy S26",
                                "proceso": "Proceso 1 – Requerimiento de Equipos – Planificación de Compras",
@@ -17,9 +110,9 @@
                                "mercado":  "local",
                                "contributions": { "dataSharing": 0, "contribucionLogistica": 0, "preOrder": 0, "fondoSellOut": 0, "nuevosCanalesB2B": 0, "rebateIncentivo": 0 },
                                "items": [
-                                   { "no": 1, "modelo": "Galaxy S26 Ultra", "codigo": "SM-S926UZKDX", "codigoMaterial": "MAT-SAM-001", "color": "Phantom Black", "cantidad": 600, "precioFacturacion": 1299.00, "virUnitario": 150.00, "totalFacturacion": 779400.00, "totalVir": 90000.00, "totalNeto": 689400.00, "stockCDVES": 300, "stockDistribuido": 200 },
-                                   { "no": 2, "modelo": "Galaxy S26+", "codigo": "SM-S926UZWD", "codigoMaterial": "MAT-SAM-002", "color": "Cream White", "cantidad": 400, "precioFacturacion": 999.00, "virUnitario": 100.00, "totalFacturacion": 399600.00, "totalVir": 40000.00, "totalNeto": 359600.00, "stockCDVES": 200, "stockDistribuido": 210 },
-                                   { "no": 3, "modelo": "Galaxy S26", "codigo": "SM-S926UZGDX", "codigoMaterial": "MAT-SAM-007", "color": "Green", "cantidad": 300, "precioFacturacion": 799.00, "virUnitario": 80.00, "totalFacturacion": 239700.00, "totalVir": 24000.00, "totalNeto": 215700.00, "stockCDVES": 150, "stockDistribuido": 200 }
+                                   { "no": 1, "modelo": "Galaxy S26 Ultra", "codigo": "SM-S926UZKDX", "codigoMaterial": "MAT-SAM-001", "color": "Phantom Black", "cantidad": 600, "precioFacturacion": 1299.00, "virUnitario": 150.00, "precioNeto": 1149.00, "totalFacturacion": 779400.00, "totalVir": 90000.00, "totalNeto": 689400.00, "stockCDVES": 320, "stockDistribuido": 180, "stockCDYES": 95, "ventasDDMM": 420, "ventasProyectadas": 550, "ventasM1": 390, "ventasM2": 360, "ventasM3": 330 },
+                                   { "no": 2, "modelo": "Galaxy S26+", "codigo": "SM-S926UZWD", "codigoMaterial": "MAT-SAM-002", "color": "Cream White", "cantidad": 400, "precioFacturacion": 999.00, "virUnitario": 100.00, "precioNeto": 899.00, "totalFacturacion": 399600.00, "totalVir": 40000.00, "totalNeto": 359600.00, "stockCDVES": 210, "stockDistribuido": 150, "stockCDYES": 72, "ventasDDMM": 310, "ventasProyectadas": 380, "ventasM1": 285, "ventasM2": 260, "ventasM3": 240 },
+                                   { "no": 3, "modelo": "Galaxy S26", "codigo": "SM-S926UZGDX", "codigoMaterial": "MAT-SAM-007", "color": "Green", "cantidad": 300, "precioFacturacion": 799.00, "virUnitario": 80.00, "precioNeto": 719.00, "totalFacturacion": 239700.00, "totalVir": 24000.00, "totalNeto": 215700.00, "stockCDVES": 160, "stockDistribuido": 110, "stockCDYES": 55, "ventasDDMM": 240, "ventasProyectadas": 290, "ventasM1": 220, "ventasM2": 200, "ventasM3": 185 }
                                ],
                                "aportesVIR":  [], "flujoAprobacion":  [], "historialVentas":  []
                            },
@@ -40,24 +133,33 @@
                                "mercado":  "local",
                                "contributions": { "dataSharing": 5200, "contribucionLogistica": 1800, "preOrder": 1200, "fondoSellOut": 2100, "nuevosCanalesB2B": 450, "rebateIncentivo": 670 },
                                "items": [
-                                   { "no": 1, "modelo": "iPhone 17 Pro Max", "codigo": "AAPL-MYV83LL", "codigoMaterial": "MAT-APL-001", "color": "Desert Titanium", "cantidad": 400, "precioFacturacion": 1199.00, "virUnitario": 120.00, "totalFacturacion": 479600.00, "totalVir": 48000.00, "totalNeto": 431600.00, "stockCDVES": 180, "stockDistribuido": 120 },
-                                   { "no": 2, "modelo": "iPhone 17 Pro",     "codigo": "AAPL-MYV73LL", "codigoMaterial": "MAT-APL-002", "color": "Black Titanium",  "cantidad": 350, "precioFacturacion": 999.00,  "virUnitario": 100.00, "totalFacturacion": 349650.00, "totalVir": 35000.00, "totalNeto": 314650.00, "stockCDVES": 150, "stockDistribuido": 90  },
-                                   { "no": 3, "modelo": "iPhone 17",         "codigo": "AAPL-MYV63LL", "codigoMaterial": "MAT-APL-003", "color": "Ultramarine",      "cantidad": 500, "precioFacturacion": 799.00,  "virUnitario": 80.00,  "totalFacturacion": 399500.00, "totalVir": 40000.00, "totalNeto": 359500.00, "stockCDVES": 220, "stockDistribuido": 160 },
-                                   { "no": 4, "modelo": "iPhone 17 Plus",    "codigo": "AAPL-MYV53LL", "codigoMaterial": "MAT-APL-004", "color": "Teal",             "cantidad": 250, "precioFacturacion": 899.00,  "virUnitario": 90.00,  "totalFacturacion": 224750.00, "totalVir": 22500.00, "totalNeto": 202250.00, "stockCDVES": 100, "stockDistribuido": 70  }
+                                   { "no": 1, "modelo": "iPhone 17 Pro Max", "codigo": "AAPL-MYV83LL", "codigoMaterial": "MAT-APL-001", "color": "Desert Titanium", "cantidad": 400, "precioFacturacion": 1199.00, "virUnitario": 120.00, "precioNeto": 1079.00, "totalFacturacion": 479600.00, "totalVir": 48000.00, "totalNeto": 431600.00, "stockCDVES": 180, "stockDistribuido": 120, "stockCDYES": 95, "ventasDDMM": 310, "ventasProyectadas": 380, "ventasM1": 295, "ventasM2": 270, "ventasM3": 255 },
+                                   { "no": 2, "modelo": "iPhone 17 Pro",     "codigo": "AAPL-MYV73LL", "codigoMaterial": "MAT-APL-002", "color": "Black Titanium",  "cantidad": 350, "precioFacturacion": 999.00,  "virUnitario": 100.00, "precioNeto": 899.00,  "totalFacturacion": 349650.00, "totalVir": 35000.00, "totalNeto": 314650.00, "stockCDVES": 150, "stockDistribuido": 90,  "stockCDYES": 72, "ventasDDMM": 280, "ventasProyectadas": 330, "ventasM1": 265, "ventasM2": 240, "ventasM3": 220 },
+                                   { "no": 3, "modelo": "iPhone 17",         "codigo": "AAPL-MYV63LL", "codigoMaterial": "MAT-APL-003", "color": "Ultramarine",      "cantidad": 500, "precioFacturacion": 799.00,  "virUnitario": 80.00,  "precioNeto": 719.00,  "totalFacturacion": 399500.00, "totalVir": 40000.00, "totalNeto": 359500.00, "stockCDVES": 220, "stockDistribuido": 160, "stockCDYES": 130, "ventasDDMM": 340, "ventasProyectadas": 420, "ventasM1": 315, "ventasM2": 300, "ventasM3": 285 },
+                                   { "no": 4, "modelo": "iPhone 17 Plus",    "codigo": "AAPL-MYV53LL", "codigoMaterial": "MAT-APL-004", "color": "Teal",             "cantidad": 250, "precioFacturacion": 899.00,  "virUnitario": 90.00,  "precioNeto": 809.00,  "totalFacturacion": 224750.00, "totalVir": 22500.00, "totalNeto": 202250.00, "stockCDVES": 100, "stockDistribuido": 70,  "stockCDYES": 58, "ventasDDMM": 195, "ventasProyectadas": 240, "ventasM1": 180, "ventasM2": 165, "ventasM3": 155 }
                                ],
                                "aportesVIR": [
                                    { "nombre": "Pre Order",      "monto": 1200.00 },
                                    { "nombre": "Fondo Sell Out", "monto": 2100.00 }
                                ],
                                "flujoAprobacion": [
-                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificación Comercial",  "iniciales": "JP", "estado": "Aprobado",   "fecha": "08.04.2026 09:15", "comentario": "Aprobado. Volúmenes alineados con forecast Q1." },
-                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificación Comercial", "iniciales": "GP", "estado": "En Proceso", "fecha": "",               "comentario": "" },
-                                   { "nivel": "NIVEL 3", "rol": "Compras",                          "iniciales": "C",  "estado": "Pendiente",  "fecha": "",               "comentario": "" }
+                                   { "nivel": "NIVEL 1", "rol": "Jefe de Planificación Comercial",  "iniciales": "GV", "nombre": "Gladys Vivar",    "estado": "Aprobado",   "fecha": "08.04.2026 09:15", "comentario": "Aprobado. Volúmenes alineados con forecast Q1." },
+                                   { "nivel": "NIVEL 2", "rol": "Gerente Planificación Comercial", "iniciales": "JL", "nombre": "Judith López",    "estado": "Aprobado",   "fecha": "09.04.2026 10:00", "comentario": "Conforme con el plan." },
+                                   { "nivel": "NIVEL 3", "rol": "Compras",                          "iniciales": "CP", "nombre": "Compras",          "estado": "En Proceso", "fecha": "",               "comentario": "" },
+                                   { "nivel": "NIVEL 4", "rol": "Director Mercado Masivo",          "iniciales": "HG", "nombre": "Hugo Gonzalez",    "estado": "Pendiente",  "fecha": "",               "comentario": "" }
                                ],
                                "adjuntos": [
                                    { "nombre": "Cotizacion_Apple_iPhone17_Q1_2026.pdf", "tipo": "PDF",   "fecha": "06.04.2026 10:30", "cargadoPor": "omar.ortiz@claro.com.pe" },
                                    { "nombre": "Forecast_Apple_Q1_2026.xlsx",          "tipo": "Excel", "fecha": "07.04.2026 14:00", "cargadoPor": "omar.ortiz@claro.com.pe" }
                                ],
+                               "adjuntosHS": {
+                                   "acuerdos": [
+                                       { "nombre": "Acuerdo_Apple_Q1_2026.eml", "tipo": "EML", "fecha": "06.04.2026 10:30", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                                   ],
+                                   "otrosArchivos": [
+                                       { "nombre": "Terminos_Condiciones_Apple_Q1.docx", "tipo": "DOCX", "fecha": "07.04.2026 14:00", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                                   ]
+                               },
                                "historialVentas": [
                                    { "marca": "Apple", "modelo": "iPhone 16 Pro Max", "periodo": "Enero 2026",  "cantidad": 310 },
                                    { "marca": "Apple", "modelo": "iPhone 16 Pro Max", "periodo": "Febrero 2026", "cantidad": 295 },
@@ -84,9 +186,9 @@
                                "mercado":  "local",
                                "contributions": { "dataSharing": 3800, "contribucionLogistica": 1200, "preOrder": 950, "fondoSellOut": 1600, "nuevosCanalesB2B": 320, "rebateIncentivo": 480 },
                                "items": [
-                                   { "no": 1, "modelo": "Galaxy A56 5G",  "codigo": "SM-A566BZKDLTP", "codigoMaterial": "MAT-SAM-010", "color": "Awesome Navy",  "cantidad": 800, "precioFacturacion": 449.00, "virUnitario": 45.00, "totalFacturacion": 359200.00, "totalVir": 36000.00, "totalNeto": 323200.00, "stockCDVES": 350, "stockDistribuido": 280 },
-                                   { "no": 2, "modelo": "Galaxy A36 5G",  "codigo": "SM-A366BZGDLTP", "codigoMaterial": "MAT-SAM-011", "color": "Awesome Lime",  "cantidad": 600, "precioFacturacion": 349.00, "virUnitario": 35.00, "totalFacturacion": 209400.00, "totalVir": 21000.00, "totalNeto": 188400.00, "stockCDVES": 260, "stockDistribuido": 190 },
-                                   { "no": 3, "modelo": "Galaxy A16 5G",  "codigo": "SM-A166BZKDLTP", "codigoMaterial": "MAT-SAM-012", "color": "Light Blue",    "cantidad": 700, "precioFacturacion": 249.00, "virUnitario": 25.00, "totalFacturacion": 174300.00, "totalVir": 17500.00, "totalNeto": 156800.00, "stockCDVES": 300, "stockDistribuido": 220 }
+                                   { "no": 1, "modelo": "Galaxy A56 5G",  "codigo": "SM-A566BZKDLTP", "codigoMaterial": "MAT-SAM-010", "color": "Awesome Navy",  "cantidad": 800, "precioFacturacion": 449.00, "virUnitario": 45.00, "precioNeto": 404.00, "totalFacturacion": 359200.00, "totalVir": 36000.00, "totalNeto": 323200.00, "stockCDVES": 350, "stockDistribuido": 280, "stockCDYES": 145, "ventasDDMM": 620, "ventasProyectadas": 750, "ventasM1": 590, "ventasM2": 545, "ventasM3": 510 },
+                                   { "no": 2, "modelo": "Galaxy A36 5G",  "codigo": "SM-A366BZGDLTP", "codigoMaterial": "MAT-SAM-011", "color": "Awesome Lime",  "cantidad": 600, "precioFacturacion": 349.00, "virUnitario": 35.00, "precioNeto": 314.00, "totalFacturacion": 209400.00, "totalVir": 21000.00, "totalNeto": 188400.00, "stockCDVES": 260, "stockDistribuido": 190, "stockCDYES": 108, "ventasDDMM": 480, "ventasProyectadas": 560, "ventasM1": 455, "ventasM2": 430, "ventasM3": 400 },
+                                   { "no": 3, "modelo": "Galaxy A16 5G",  "codigo": "SM-A166BZKDLTP", "codigoMaterial": "MAT-SAM-012", "color": "Light Blue",    "cantidad": 700, "precioFacturacion": 249.00, "virUnitario": 25.00, "precioNeto": 224.00, "totalFacturacion": 174300.00, "totalVir": 17500.00, "totalNeto": 156800.00, "stockCDVES": 300, "stockDistribuido": 220, "stockCDYES": 130, "ventasDDMM": 560, "ventasProyectadas": 650, "ventasM1": 530, "ventasM2": 500, "ventasM3": 470 }
                                ],
                                "aportesVIR": [
                                    { "nombre": "Pre Order",      "monto": 950.00  },
@@ -1065,7 +1167,9 @@
                                "reqId":  "REQ-MC-2026-001",
                                "mercado":  "corporativo",
                                "titulo":  "Despliegue de Infraestructura para BBVA - Sede Miraflores",
-                               "tipoSolicitud":  "Solución a Medida > 60 Días",
+                               "tipoSolicitud":  "Proyectos - Soluciones Medida",
+                               "tipoInversion":  "CAPEX Variable",
+                               "origenArea":     "Mercado Corporativo",
                                "canal":  "Infraestructura",
                                "lineaNegocio":  "Mercado Corporativo",
                                "cliente":  "BBVA Perú",

@@ -14,10 +14,10 @@
     {"id": 5, "nivel": 5, "flujo": "Aprob. Carta Acept.", "descripcion": "Director de Finanzas",               "tipoAprobador": "Constante", "constanteAprobadora": "APPROVER_NV1_CARTA", "nombreGrupoIAS": "", "notifica": true, "tiposSolicitud": "Original",          "orden": 1, "estado": true}
   ],
   "marcaProveedor": [
-    {"id": 1, "tipoSolicitud": "",         "marca": "Samsung",  "ruc": "20300263578", "razonSocial": "Samsung Electronics Perú S.A.C",    "estado": true},
-    {"id": 2, "tipoSolicitud": "Original", "marca": "Apple",    "ruc": "20613243535", "razonSocial": "Apple Services Latam LLC",           "estado": true},
-    {"id": 3, "tipoSolicitud": "Original", "marca": "Xiaomi",   "ruc": "20608895630", "razonSocial": "Xiaomi Technologies Perú S.A.C",     "estado": true},
-    {"id": 4, "tipoSolicitud": "Original", "marca": "Motorola", "ruc": "20536231235", "razonSocial": "MOTOROLA MOBILITY PERU S.R.L",       "estado": true}
+    {"id": 1, "tipoSolicitud": "",         "marca": "Samsung",  "prefijo": "SAM", "acreedor": "ACC-0001", "ruc": "20300263578", "razonSocial": "Samsung Electronics Per\u00fa S.A.C",    "estado": true},
+    {"id": 2, "tipoSolicitud": "Original", "marca": "Apple",    "prefijo": "APL", "acreedor": "ACC-0002", "ruc": "20613243535", "razonSocial": "Apple Services Latam LLC",           "estado": true},
+    {"id": 3, "tipoSolicitud": "Original", "marca": "Xiaomi",   "prefijo": "XMI", "acreedor": "ACC-0003", "ruc": "20608895630", "razonSocial": "Xiaomi Technologies Per\u00fa S.A.C",     "estado": true},
+    {"id": 4, "tipoSolicitud": "Original", "marca": "Motorola", "prefijo": "MOT", "acreedor": "ACC-0004", "ruc": "20536231235", "razonSocial": "MOTOROLA MOBILITY PERU S.R.L",       "estado": true}
   ],
   "proveedores": [
     {
@@ -380,5 +380,20 @@
     { "cuenta": "GL-6100", "descripcion": "Mantenimiento y Reparaciones", "tipo": "Gasto Operativo", "grupo": "Operaciones", "estado": "Activo" },
     { "cuenta": "GL-9010", "descripcion": "Licencias de Software", "tipo": "Inversión CAPEX", "grupo": "TI y Sistemas", "estado": "Activo" },
     { "cuenta": "GL-9020", "descripcion": "Infraestructura de Red y Telecomunicaciones", "tipo": "Inversión CAPEX", "grupo": "Telecomunicaciones", "estado": "Activo" }
+  ],
+  "costosMC": [
+    { "id": 1,  "marca": "Samsung",  "modeloEquipo": "Galaxy S24 Ultra",   "costo": 899.99,  "moneda": "USD" },
+    { "id": 2,  "marca": "Samsung",  "modeloEquipo": "Galaxy S24+",        "costo": 749.99,  "moneda": "USD" },
+    { "id": 3,  "marca": "Samsung",  "modeloEquipo": "Galaxy S24",         "costo": 599.99,  "moneda": "USD" },
+    { "id": 4,  "marca": "Samsung",  "modeloEquipo": "Galaxy A54",         "costo": 449.99,  "moneda": "USD" },
+    { "id": 5,  "marca": "Samsung",  "modeloEquipo": "Galaxy Tab S9 Ultra","costo": 849.99,  "moneda": "USD" },
+    { "id": 6,  "marca": "Apple",    "modeloEquipo": "iPhone 15 Pro Max",  "costo": 1199.99, "moneda": "USD" },
+    { "id": 7,  "marca": "Apple",    "modeloEquipo": "iPhone 15 Pro",      "costo": 999.99,  "moneda": "USD" },
+    { "id": 8,  "marca": "Apple",    "modeloEquipo": "iPhone 15",          "costo": 799.99,  "moneda": "USD" },
+    { "id": 9,  "marca": "Apple",    "modeloEquipo": "iPad Pro 12.9",      "costo": 1099.99, "moneda": "USD" },
+    { "id": 10, "marca": "Xiaomi",   "modeloEquipo": "14 Ultra",           "costo": 649.99,  "moneda": "USD" },
+    { "id": 11, "marca": "Xiaomi",   "modeloEquipo": "Redmi Note 13 Pro",  "costo": 399.99,  "moneda": "USD" },
+    { "id": 12, "marca": "Motorola", "modeloEquipo": "Edge 50 Pro",        "costo": 499.99,  "moneda": "USD" },
+    { "id": 13, "marca": "Motorola", "modeloEquipo": "Razr 50 Ultra",      "costo": 699.99,  "moneda": "USD" }
   ]
 }

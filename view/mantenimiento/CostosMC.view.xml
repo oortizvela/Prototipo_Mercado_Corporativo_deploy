@@ -1,0 +1,123 @@
+<mvc:View
+    controllerName="com.claro.compras.portal.controller.mantenimiento.CostosMC"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        title="Costos México"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        class="appPage">
+
+        <content>
+            <Panel id="panelCostos" expandable="true" expanded="true" class="mtnListPanel">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Costos México ({= (${mantenimiento>/costosMC} || []).length})" level="H5"/>
+                        <ToolbarSpacer />
+                        <Button
+                            text="Importar Excel"
+                            icon="sap-icon://upload"
+                            type="Transparent"
+                            press="onImportarExcel" />
+                        <Button
+                            text="+ Agregar"
+                            type="Transparent"
+                            press="onAgregar" />
+                        <Button
+                            text="Borrar"
+                            icon="sap-icon://delete"
+                            type="Reject"
+                            enabled="{costosMCUi>/haySeleccion}"
+                            press="onBorrar" />
+                        <Button
+                            text="Guardar"
+                            icon="sap-icon://save"
+                            type="Emphasized"
+                            press="onGuardar" />
+                        <Button
+                            text="Descargar Plantilla"
+                            icon="sap-icon://download"
+                            type="Transparent"
+                            press="onDescargarPlantilla" />
+                        <Button
+                            text="Exportar"
+                            icon="sap-icon://excel-attachment"
+                            type="Transparent"
+                            press="onExportar" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <Table
+                    id="tableCostos"
+                    items="{mantenimiento>/costosMC}"
+                    mode="MultiSelect"
+                    selectionChange="onSelectionChange"
+                    noDataText="No se encontraron registros"
+                    growing="true"
+                    growingThreshold="20"
+                    fixedLayout="false">
+
+                    <columns>
+                        <Column width="13rem"><Text text="Marca" /></Column>
+                        <Column minScreenWidth="Tablet" demandPopin="false"><Text text="Modelo Equipo" /></Column>
+                        <Column width="10rem" hAlign="End"><Text text="Costo" /></Column>
+                        <Column width="8rem"><Text text="Moneda" /></Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem type="Navigation" press="onEditCosto">
+                            <cells>
+                                <Text text="{mantenimiento>marca}" />
+                                <Text text="{mantenimiento>modeloEquipo}" />
+                                <ObjectNumber number="{mantenimiento>costo}" unit="{mantenimiento>moneda}" />
+                                <Text text="{mantenimiento>moneda}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </content>
+    </Page>
+
+    <!-- Diálogo Agregar / Editar Costo -->
+    <Dialog
+        id="dlgCosto"
+        title="{costosMCDlg>/titulo}"
+        contentWidth="30rem"
+        verticalScrolling="false">
+        <content>
+            <VBox width="100%" class="sapUiContentPadding">
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Marca" required="true" labelFor="dlgCostoMarca" />
+                    <Select id="dlgCostoMarca" width="100%" items="{costosMCConfig>/items}">
+                        <core:Item key="{costosMCConfig>key}" text="{costosMCConfig>text}" />
+                    </Select>
+                </VBox>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Modelo Equipo" required="true" labelFor="dlgCostoModelo" />
+                    <Input id="dlgCostoModelo" placeholder="Ej: Galaxy S24 Ultra" width="100%" />
+                </VBox>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Costo" required="true" labelFor="dlgCostoCosto" />
+                    <Input id="dlgCostoCosto" type="Number" placeholder="Ej: 899.99" width="100%" />
+                </VBox>
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label text="Moneda" required="true" labelFor="dlgCostoMoneda" />
+                    <Select id="dlgCostoMoneda" width="100%">
+                        <core:Item key="USD" text="USD" />
+                        <core:Item key="MXN" text="MXN" />
+                        <core:Item key="EUR" text="EUR" />
+                    </Select>
+                </VBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="Guardar" type="Emphasized" press="onDlgCostoGuardar" />
+            <Button text="Cancelar" press="onDlgCostoCancelar" />
+        </buttons>
+    </Dialog>
+
+</mvc:View>

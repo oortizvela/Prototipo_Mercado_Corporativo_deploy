@@ -7,6 +7,43 @@
                 },
     "aprobaciones":  [
                          {
+                             "aprId":  "APR-MC-2026-001",
+                             "reqId":  "REQ-MC-2026-001",
+                             "titulo":  "Despliegue de Infraestructura para BBVA - Sede Miraflores",
+                             "tipoSolicitud":  "Proyectos - Soluciones Medida",
+                             "tipoInversion":  "CAPEX Variable",
+                             "origenArea":  "Mercado Corporativo",
+                             "estado":  "En Aprobaci\u00f3n",
+                             "fechaSolicitud":  "28.04.2026 09:00",
+                             "mercado":  "corporativo",
+                             "lineaNegocio":  "Mercado Corporativo",
+                             "canal":  "Infraestructura",
+                             "nivelActual":  4,
+                             "nivelMaxAprobacion":  4,
+                             "rolNivelActual":  "Director Mercado Masivo",
+                             "aprobadores":  [
+                                 { "nivel": 1, "rol": "Jefe Mercado Masivo (Comercial)",        "nombre": "Miguel Caballero",     "estado": "Aprobado", "fecha": "29.04.2026 10:00", "comentario": "Conforme con el proyecto." },
+                                 { "nivel": 2, "rol": "Gerente Mercado Masivo (Comercial)",      "nombre": "Joel Morales",         "estado": "Aprobado", "fecha": "30.04.2026 11:00", "comentario": "Aprobado." },
+                                 { "nivel": 3, "rol": "Sub Director Mercado Masivo (Comercial)", "nombre": "Viviana Estremadoyro", "estado": "Aprobado", "fecha": "02.05.2026 09:30", "comentario": "OK." },
+                                 { "nivel": 4, "rol": "Director Mercado Masivo (Comercial)",     "nombre": "Hugo Gonz\u00e1lez",  "estado": "En Proceso", "fecha": "", "comentario": "" }
+                             ],
+                             "costos":  [
+                                 { "tipo": "Equipos",         "descripcion": "Materiales",    "monto": 22500 },
+                                 { "tipo": "Servicios",       "descripcion": "Implementaci\u00f3n", "monto": 11400 },
+                                 { "tipo": "Costos Internos", "descripcion": "Mano de obra",  "monto": 4000  },
+                                 { "tipo": "Total Costos",    "descripcion": "",              "monto": 40000 },
+                                 { "tipo": "Ingresos",        "descripcion": "Precio de venta", "monto": 55000 }
+                             ],
+                             "kpis":  [
+                                 { "kpi": "Margen",       "valor": 15000  },
+                                 { "kpi": "Rentabilidad", "valor": "27%"  },
+                                 { "kpi": "ROI",          "valor": "18%"  },
+                                 { "kpi": "Costos",       "valor": 40000  },
+                                 { "kpi": "Ingresos",     "valor": 55000  }
+                             ],
+                             "presentacion":  "<p>Propuesta de despliegue de infraestructura para <strong>BBVA Per\u00fa</strong> \u2013 Sede Miraflores.</p><p>Incluye servidores HPE ProLiant, switches Cisco Catalyst y almacenamiento NetApp AFF para soportar los servicios de Cloud IaaS y Data Center del cliente.</p>"
+                         },
+                         {
                              "aprId":  "APR-2026-001",
                              "titulo":  "Equipos Huawei P70 \u2013 Q1 2026",
                              "tipoSolicitud":  "Handset Original",
@@ -39,8 +76,9 @@
                              "reqId":  "REQ-2026-000008",
                              "nivelActual":  1,
                              "nivelMaxAprobacion":  1,
+                             "rolNivelActual": "Director de Finanzas",
                              "aprobadores":  [
-                                 { "nivel": 1, "rol": "Director de Finanzas", "nombre": "Carlos Solano Morales", "estado": "Pendiente" }
+                                 { "nivel": 1, "rol": "Director de Finanzas", "nombre": "Carlos Solano Morales", "estado": "En Proceso", "fecha": "", "comentario": "" }
                              ],
                              "actaAceptacion":  {
                                  "numeroActa":  "H676-2025",
@@ -81,6 +119,140 @@
                              }
                          },
                          {
+                             "aprId":  "APR-2026-003",
+                             "reqId":  "REQ-2026-000005",
+                             "titulo":  "Equipos Honor X5C / X7D \u2013 Q2 2026",
+                             "tipoSolicitud":  "Handset Original",
+                             "periodo":  "2026 Q2",
+                             "empleado":  "Planificaci\u00f3n Comercial",
+                             "nroEmpleado":  "",
+                             "cargo":  "Jefe de Planificaci\u00f3n Comercial",
+                             "area":  "Planificaci\u00f3n Comercial",
+                             "sede":  "Lima",
+                             "emailEmpleado":  "planificacion@claro.com.pe",
+                             "dispositivo":  "Smartphone",
+                             "marca":  "Honor",
+                             "modelo":  "X5C / X7D",
+                             "almacenamiento":  "128 GB",
+                             "color":  "Varios",
+                             "cantidad":  70000,
+                             "planSugerido":  "",
+                             "justificacion":  "Requerimiento masivo Honor X5C y X7D para Q2 2026",
+                             "dispositivoAnterior":  null,
+                             "valorEstimado":  4840000.00,
+                             "prioridad":  "Alta",
+                             "estado":  "Pendiente Aprobaci\u00f3n",
+                             "fechaSolicitud":  "04.02.2026 19:00",
+                             "aprobador":  null,
+                             "fechaAprobacion":  null,
+                             "comentarioAprobador":  null,
+                             "mercado":  "local",
+                             "lineaNegocio":  "Handset",
+                             "canal":  "Handset",
+                             "nivelActual":  3,
+                             "nivelMaxAprobacion":  4,
+                             "rolNivelActual":  "Compras",
+                             "aprobadores":  [
+                                 { "nivel": 1, "rol": "Jefe de Planificaci\u00f3n Comercial",  "nombre": "Gladys Vivar",   "estado": "Aprobado",   "fecha": "05.02.2026 09:00", "comentario": "Conforme con el plan." },
+                                 { "nivel": 2, "rol": "Gerente Planificaci\u00f3n Comercial",  "nombre": "Judith L\u00f3pez", "estado": "Aprobado",   "fecha": "06.02.2026 10:00", "comentario": "Aprobado." },
+                                 { "nivel": 3, "rol": "Compras",                               "nombre": "Compras",          "estado": "En Proceso", "fecha": "", "comentario": "" },
+                                 { "nivel": 4, "rol": "Director Mercado Masivo",               "nombre": "Hugo Gonzalez",    "estado": "Pendiente",  "fecha": "", "comentario": "" }
+                             ],
+                             "planCompras":  {
+                                 "lote":  "COMPRA HONOR X5C/X7D Q2 2026",
+                                 "tipo":  "Handset Original",
+                                 "fecha":  "04.02.2026",
+                                 "items":  [
+                                     { "modelo": "HONOR X5C 128GB",             "codigo": "5109BYJS",  "codigoMaterial": "70067336", "color": "Negro Medianoche", "cantidad": 50000, "precioFact": 79.00,  "virFact": 2.00, "precioNeto": 77.00,  "totalFact": 3950000.00, "totalVIR": 100000.00, "totalNeto": 3850000.00 },
+                                     { "modelo": "HONOR X7D 256GB 5G",          "codigo": "5109BWGN",  "codigoMaterial": "70065410", "color": "Negro Nocturno",   "cantidad": 15000, "precioFact": 153.00, "virFact": 2.00, "precioNeto": 151.00, "totalFact": 2295000.00, "totalVIR": 30000.00,  "totalNeto": 2265000.00 },
+                                     { "modelo": "HONOR X7D 256GB 5G + BUNDLE", "codigo": "5109BWGP",  "codigoMaterial": "70067338", "color": "Azul Cian",        "cantidad": 5000,  "precioFact": 153.00, "virFact": 2.00, "precioNeto": 151.00, "totalFact": 765000.00,  "totalVIR": 10000.00,  "totalNeto": 755000.00  }
+                                 ],
+                                 "aportes":  {
+                                     "vir":  140000,
+                                     "otros":  [
+                                         { "concepto": "Data Sharing",          "monto": 4200, "porcentaje": "1.40%" },
+                                         { "concepto": "Aporte Log\u00edstico", "monto": 0,    "porcentaje": "0.00%" },
+                                         { "concepto": "Pre order",             "monto": 3100, "porcentaje": "1.20%" },
+                                         { "concepto": "Fondo Sell out",        "monto": 5800, "porcentaje": "1.70%" },
+                                         { "concepto": "Nuevos Canales y B2B",  "monto": 650,  "porcentaje": "0.15%" },
+                                         { "concepto": "Rebate de Incentivo",   "monto": 820,  "porcentaje": "0.20%" },
+                                         { "concepto": "Total",                 "monto": 14570,"porcentaje": "" }
+                                     ]
+                                 }
+                             },
+                             "adjuntos":  {
+                                 "acuerdos":  [],
+                                 "otrosArchivos":  []
+                             }
+                         },
+                         {
+                             "aprId":  "APR-2026-002",
+                             "reqId":  "REQ-2026-000003",
+                             "titulo":  "Equipos Samsung Galaxy A56 \u2013 Q1 2026",
+                             "tipoSolicitud":  "Handset asociado a Pedido Directo",
+                             "periodo":  "2026 Q1",
+                             "empleado":  "Planificaci\u00f3n Comercial",
+                             "nroEmpleado":  "",
+                             "cargo":  "Jefe de Planificaci\u00f3n Comercial",
+                             "area":  "Planificaci\u00f3n Comercial",
+                             "sede":  "Lima",
+                             "emailEmpleado":  "planificacion@claro.com.pe",
+                             "dispositivo":  "Smartphone",
+                             "marca":  "Samsung",
+                             "modelo":  "Galaxy A56 5G",
+                             "almacenamiento":  "128 GB",
+                             "color":  "Awesome Navy",
+                             "cantidad":  800,
+                             "planSugerido":  "",
+                             "justificacion":  "Requerimiento de compra masiva Samsung Galaxy A56 Q1 2026",
+                             "dispositivoAnterior":  null,
+                             "valorEstimado":  359200.00,
+                             "prioridad":  "Alta",
+                             "estado":  "En Aprobaci\u00f3n",
+                             "fechaSolicitud":  "08.04.2026 08:30",
+                             "aprobador":  null,
+                             "fechaAprobacion":  null,
+                             "comentarioAprobador":  null,
+                             "mercado":  "local",
+                             "lineaNegocio":  "Handset",
+                             "canal":  "Handset",
+                             "nivelActual":  1,
+                             "nivelMaxAprobacion":  4,
+                             "rolNivelActual":  "Jefe de Planificaci\u00f3n Comercial",
+                             "aprobadores":  [
+                                 { "nivel": 1, "rol": "Jefe de Planificaci\u00f3n Comercial",  "nombre": "Gladys Vivar",   "estado": "En Proceso", "fecha": "", "comentario": "" },
+                                 { "nivel": 2, "rol": "Gerente Planificaci\u00f3n Comercial",  "nombre": "Judith L\u00f3pez", "estado": "-",         "fecha": "", "comentario": "" },
+                                 { "nivel": 3, "rol": "Compras",                               "nombre": "Compras",         "estado": "-",          "fecha": "", "comentario": "" },
+                                 { "nivel": 4, "rol": "Director Mercado Masivo",               "nombre": "Hugo Gonzalez",   "estado": "-",          "fecha": "", "comentario": "" }
+                             ],
+                             "planCompras":  {
+                                 "lote":  "COMPRA SAMSUNG GALAXY A56 Q1 2026",
+                                 "tipo":  "Handset asociado a Pedido Directo",
+                                 "fecha":  "08.04.2026",
+                                 "items":  [
+                                     { "modelo": "Galaxy A56 5G",  "codigo": "SM-A566BZKDLTP", "codigoMaterial": "MAT-SAM-010", "color": "Awesome Navy",  "cantidad": 800, "precioFact": 449.00, "virFact": 45.00, "precioNeto": 404.00, "totalFact": 359200.00, "totalVIR": 36000.00, "totalNeto": 323200.00 },
+                                     { "modelo": "Galaxy A36 5G",  "codigo": "SM-A366BZGDLTP", "codigoMaterial": "MAT-SAM-011", "color": "Awesome Lime",  "cantidad": 600, "precioFact": 349.00, "virFact": 35.00, "precioNeto": 314.00, "totalFact": 209400.00, "totalVIR": 21000.00, "totalNeto": 188400.00 },
+                                     { "modelo": "Galaxy A16 5G",  "codigo": "SM-A166BZKDLTP", "codigoMaterial": "MAT-SAM-012", "color": "Light Blue",    "cantidad": 700, "precioFact": 249.00, "virFact": 25.00, "precioNeto": 224.00, "totalFact": 174300.00, "totalVIR": 17500.00, "totalNeto": 156800.00 }
+                                 ],
+                                 "aportes":  {
+                                     "vir":  74500,
+                                     "otros":  [
+                                         { "concepto": "Data Sharing",          "monto": 3800, "porcentaje": "1.40%" },
+                                         { "concepto": "Aporte Log\u00edstico", "monto": 1200, "porcentaje": "0.00%" },
+                                         { "concepto": "Pre order",             "monto": 950,  "porcentaje": "1.20%" },
+                                         { "concepto": "Fondo Sell out",        "monto": 1600, "porcentaje": "1.70%" },
+                                         { "concepto": "Nuevos Canales y B2B",  "monto": 320,  "porcentaje": "0.15%" },
+                                         { "concepto": "Rebate de Incentivo",   "monto": 480,  "porcentaje": "0.20%" },
+                                         { "concepto": "Total",                 "monto": 8350, "porcentaje": "" }
+                                     ]
+                                 }
+                             },
+                             "adjuntos":  {
+                                 "acuerdos":  [],
+                                 "otrosArchivos":  []
+                             }
+                         },
+                         {
                              "aprId":  "APR-2025-015",
                              "titulo":  "Asignaci�n Smartphone - Gerente Comercial",
                              "tipoSolicitud":  "Handset",
@@ -111,11 +283,12 @@
                              "lineaNegocio":  "Handset",
                              "canal":  "Handset",
                              "nivelActual":  3,
-                             "nivelMaxAprobacion":  3,
+                             "nivelMaxAprobacion":  4,
                              "aprobadores":  [
-                                 { "nivel": 1, "rol": "Jefa de Planificaci�n Comercial", "nombre": "Gladys Vivar", "estado": "Aprobado" },
-                                 { "nivel": 2, "rol": "Gerente Planificaci�n Comercial Compras", "nombre": "Judith L�pez Huam�n", "estado": "Aprobado" },
-                                 { "nivel": 3, "rol": "Director Mercado Masivo", "nombre": "Hugo Gonzales", "estado": "Pendiente" }
+                                 { "nivel": 1, "rol": "Jefe de Planificaci\u00f3n Comercial",  "nombre": "Gladys Vivar",    "estado": "Aprobado",   "fecha": "02.05.2026 09:15", "comentario": "Conforme con la planificaci\u00f3n." },
+                                 { "nivel": 2, "rol": "Gerente Planificaci\u00f3n Comercial", "nombre": "Judith L\u00f3pez",  "estado": "Aprobado",   "fecha": "03.05.2026 10:00", "comentario": "Aprobado." },
+                                 { "nivel": 3, "rol": "Compras",                              "nombre": "Compras",           "estado": "En Proceso", "fecha": "",                "comentario": "" },
+                                 { "nivel": 4, "rol": "Director Mercado Masivo",              "nombre": "Hugo Gonzalez",     "estado": "Pendiente",  "fecha": "",                "comentario": "" }
                              ],
                              "planCompras":  {
                                  "lote":  "COMPRA SAMSUNG",
@@ -136,6 +309,14 @@
                                          { "concepto": "Total", "monto": 3278, "porcentaje": "" }
                                      ]
                                  }
+                             },
+                             "adjuntos": {
+                                 "acuerdos": [
+                                     { "nombre": "Acuerdo_Samsung_Q1_2026.eml", "tipo": "EML", "fecha": "02.05.2026 09:00", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                                 ],
+                                 "otrosArchivos": [
+                                     { "nombre": "Terminos_Condiciones_Q1.docx", "tipo": "DOCX", "fecha": "03.05.2026 10:30", "cargadoPor": "omar.ortiz@claro.com.pe" }
+                                 ]
                              }
                          },
                          {
@@ -487,7 +668,7 @@
                              "mercado":  "local"
                          },
                          {
-                             "aprId":  "APR-MC-2026-001",
+                             "aprId":  "APR-MC-2026-010",
                              "mercado":  "corporativo",
                              "titulo":  "Implementacion Data Center Lima Norte - BCP",
                              "tipoSolicitud":  "Proyectos / RFP",

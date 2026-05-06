@@ -152,12 +152,13 @@ sap.ui.define([
                 content: [
                     new VBox({
                         width: "100%",
+                        styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                         items: [
-                            new Label({ text: "Clave", required: true }),        oKeyInput,
-                            new Label({ text: "Nombre", required: true }),       oTextInput,
-                            new Label({ text: "Tipo de Solicitud" }),            oTipoSelect
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Clave", required: true }), oKeyInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Nombre", required: true }), oTextInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Tipo de Solicitud" }), oTipoSelect ] })
                         ]
-                    }).addStyleClass("mtnDlgContent")
+                    })
                 ],
                 buttons: [
                     new Button({

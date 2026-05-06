@@ -149,36 +149,35 @@ sap.ui.define([
             var oEstadoSwitch = new Switch({ state: oData.estado });
 
             // â”€â”€ Form layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+            var fnField = function (oLbl, oCtrl) {
+                return new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ oLbl, oCtrl ] });
+            };
             var oContent = new VBox({
                 width: "100%",
-                styleClass: "mtnDlgContent",
+                styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                 items: [
-                    new Label({ text: "CÃ³digo", required: true }),
-                    oCodigoInput,
-                    new Label({ text: "DescripciÃ³n", required: true }),
-                    oDescTextarea,
-                    new Label({ text: "Valor Principal" }),
-                    oValPrincipalInput,
-                    new Label({ text: "Valor Secundario" }),
-                    oValSecInput,
+                    fnField(new Label({ text: "CÃ³digo", required: true }), oCodigoInput),
+                    fnField(new Label({ text: "DescripciÃ³n", required: true }), oDescTextarea),
+                    fnField(new Label({ text: "Valor Principal" }), oValPrincipalInput),
+                    fnField(new Label({ text: "Valor Secundario" }), oValSecInput),
                     new HBox({
+                        styleClass: "sapUiSmallMarginBottom",
                         width: "100%",
                         items: [
                             new VBox({ width: "50%", items: [ new Label({ text: "Valor Adicional 1" }), oAd1Input ] }),
                             new VBox({ width: "50%", items: [ new Label({ text: "Valor Adicional 2" }), oAd2Input ] })
                         ]
                     }),
-                    new Label({ text: "Operador" }),
-                    oOperadorSelect,
+                    fnField(new Label({ text: "Operador" }), oOperadorSelect),
                     new HBox({
+                        styleClass: "sapUiSmallMarginBottom",
                         width: "100%",
                         items: [
                             new VBox({ width: "50%", items: [ new Label({ text: "Tipo de Valor" }), oTipoValorSelect ] }),
                             new VBox({ width: "50%", items: [ new Label({ text: "CategorÃ­a" }), oCategoriaInput ] })
                         ]
                     }),
-                    new Label({ text: "Estado" }),
-                    oEstadoSwitch
+                    fnField(new Label({ text: "Estado" }), oEstadoSwitch)
                 ]
             });
 

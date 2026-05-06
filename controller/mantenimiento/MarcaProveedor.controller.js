@@ -71,7 +71,7 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel("mantenimiento");
             var bNew   = !oCtx;
             var oData  = oCtx ? Object.assign({}, oCtx.getObject()) : {
-                tipoSolicitud: "", marca: "", ruc: "", razonSocial: "", estado: true
+                tipoSolicitud: "", marca: "", prefijo: "", acreedor: "", ruc: "", razonSocial: "", estado: true
             };
 
             var oTipoSelect = new Select({ width: "100%" });
@@ -85,6 +85,19 @@ sap.ui.define([
                 placeholder: "Ej: Samsung, Apple, Xiaomi",
                 width: "100%",
                 required: true
+            });
+
+            var oPrefijInput = new Input({
+                value: oData.prefijo,
+                placeholder: "Ej: SAM, APL",
+                maxLength: 10,
+                width: "100%"
+            });
+
+            var oAcreedorInput = new Input({
+                value: oData.acreedor,
+                placeholder: "Ej: ACC-0001",
+                width: "100%"
             });
 
             var oRucInput = new Input({
@@ -103,20 +116,21 @@ sap.ui.define([
 
             var oEstadoSwitch = new Switch({ state: oData.estado });
 
+            var fnField = function (oLabel, oControl) {
+                return new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ oLabel, oControl ] });
+            };
+
             var oContent = new VBox({
                 width: "100%",
-                styleClass: "mtnDlgContent",
+                styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                 items: [
-                    new Label({ text: "Tipo Solicitud" }),
-                    oTipoSelect,
-                    new Label({ text: "Marca", required: true }),
-                    oMarcaInput,
-                    new Label({ text: "RUC", required: true }),
-                    oRucInput,
-                    new Label({ text: "RazÃ³n Social", required: true }),
-                    oRazonInput,
-                    new Label({ text: "Estado" }),
-                    oEstadoSwitch
+                    fnField(new Label({ text: "Tipo Solicitud" }), oTipoSelect),
+                    fnField(new Label({ text: "Marca", required: true }), oMarcaInput),
+                    fnField(new Label({ text: "Prefijo" }), oPrefijInput),
+                    fnField(new Label({ text: "Acreedor" }), oAcreedorInput),
+                    fnField(new Label({ text: "RUC", required: true }), oRucInput),
+                    fnField(new Label({ text: "Raz\u00f3n Social", required: true }), oRazonInput),
+                    fnField(new Label({ text: "Estado" }), oEstadoSwitch)
                 ]
             });
 
@@ -147,6 +161,8 @@ sap.ui.define([
                                 id:            Date.now(),
                                 tipoSolicitud: oTipoSelect.getSelectedKey(),
                                 marca:         oMarcaInput.getValue().trim(),
+                                prefijo:       oPrefijInput.getValue().trim(),
+                                acreedor:      oAcreedorInput.getValue().trim(),
                                 ruc:           oRucInput.getValue().trim(),
                                 razonSocial:   oRazonInput.getValue().trim(),
                                 estado:        oEstadoSwitch.getState()
@@ -157,6 +173,8 @@ sap.ui.define([
                             var sPath = oCtx.getPath();
                             oModel.setProperty(sPath + "/tipoSolicitud", oTipoSelect.getSelectedKey());
                             oModel.setProperty(sPath + "/marca",         oMarcaInput.getValue().trim());
+                            oModel.setProperty(sPath + "/prefijo",       oPrefijInput.getValue().trim());
+                            oModel.setProperty(sPath + "/acreedor",      oAcreedorInput.getValue().trim());
                             oModel.setProperty(sPath + "/ruc",           oRucInput.getValue().trim());
                             oModel.setProperty(sPath + "/razonSocial",   oRazonInput.getValue().trim());
                             oModel.setProperty(sPath + "/estado",        oEstadoSwitch.getState());

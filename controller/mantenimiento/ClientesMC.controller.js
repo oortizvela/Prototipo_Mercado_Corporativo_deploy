@@ -106,13 +106,14 @@ sap.ui.define([
                 contentWidth: "480px",
                 content: [
                     new VBox({
+                        styleClass: "sapUiSmallMarginBeginEnd sapUiSmallMarginTop",
                         items: [
-                            new Label({ text: "Empresa / Entidad", required: true }), oNombreInput,
-                            new Label({ text: "RUC" }),                               oRucInput,
-                            new Label({ text: "Sector" }),                            oSectorInput,
-                            new Label({ text: "Estado" }),                            oEstadoSel
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Empresa / Entidad", required: true }), oNombreInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "RUC" }), oRucInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Sector" }), oSectorInput ] }),
+                            new VBox({ styleClass: "sapUiSmallMarginBottom", items: [ new Label({ text: "Estado" }), oEstadoSel ] })
                         ]
-                    }).addStyleClass("mtnDlgContent")
+                    })
                 ],
                 buttons: [
                     new Button({

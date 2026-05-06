@@ -92,6 +92,12 @@
                         <Title text="Solicitudes Handset" level="H3" />
                         <ToolbarSpacer />
                         <Button
+                            id="btnConfiguraciones"
+                            text="Configuraciones"
+                            icon="sap-icon://action-settings"
+                            type="Transparent"
+                            press="onConfiguraciones" />
+                        <Button
                             text="+ Crear Solicitud"
                             type="Emphasized"
                             press="onCrearSolicitud" />
@@ -99,13 +105,13 @@
                             text="Enviar a Aprobación"
                             icon="sap-icon://paper-plane"
                             type="Transparent"
-                            enabled="{ui>/haySeleccion}"
+                            visible="{ui>/haySeleccion}"
                             press="onEnviarAprobacion" />
                         <Button
                             text="Finalizar Solicitud"
                             icon="sap-icon://task"
                             type="Transparent"
-                            enabled="{ui>/haySeleccion}"
+                            visible="{ui>/haySeleccion}"
                             press="onFinalizarSolicitud" />
                         <Button
                             text="Exportar Excel"
@@ -231,24 +237,26 @@
                     </List>
                 </VBox>
 
-                <!-- Pedidos Abiertos (solo para Derivado) -->
+                <!-- Pedido Derivado (solo para Derivado) -->
                 <VBox visible="{ui>/hsMostrarDerivado}" class="sapUiSmallMarginTop">
-                    <Title text="Seleccionar Pedido Abierto" level="H4" class="sapUiTinyMarginBottom" />
-                    <Table id="hsTblPedidosAbiertos"
-                           mode="SingleSelectMaster"
-                           items="{hsPedidosAbiertos>/items}"
+                    <Title text="Pedido Derivado" level="H4" class="sapUiTinyMarginBottom" />
+                    <Table id="hsTblLineasDerivado"
+                           mode="MultiSelect"
+                           items="{hsDerivadoLineas>/items}"
                            width="100%"
-                           noDataText="Sin pedidos abiertos"
-                           fixedLayout="true">
+                           noDataText="Sin l&#xED;neas"
+                           fixedLayout="false">
                         <columns>
-                            <Column width="8rem"><Text text="N° Pedido" /></Column>
-                            <Column><Text text="Descripción" /></Column>
+                            <Column width="9rem"><Text text="Pedido Abierto" /></Column>
+                            <Column><Text text="Material" /></Column>
+                            <Column width="8rem" hAlign="End"><Text text="Cantidad" /></Column>
                         </columns>
                         <items>
-                            <ColumnListItem type="Active">
+                            <ColumnListItem>
                                 <cells>
-                                    <Text text="{hsPedidosAbiertos>pedidoId}" />
-                                    <Text text="{hsPedidosAbiertos>descripcion}" />
+                                    <Text text="{hsDerivadoLineas>pedidoId}" />
+                                    <Text text="{hsDerivadoLineas>material}" />
+                                    <Text text="{path: 'hsDerivadoLineas>cantidad', formatter: '.formatCantidad'}" textAlign="End" />
                                 </cells>
                             </ColumnListItem>
                         </items>
@@ -262,5 +270,27 @@
             <Button text="Cancelar"                   press="onCancelCrear" />
         </buttons>
     </Dialog>
+
+    <!-- Popover Configuraciones -->
+    <Popover
+        id="popConfiguraciones"
+        title="Configuraciones"
+        placement="Bottom"
+        contentWidth="14rem">
+        <content>
+            <List showSeparators="None">
+                <StandardListItem
+                    title="Proveedores"
+                    icon="sap-icon://supplier"
+                    type="Active"
+                    press="onConfigProveedores" />
+                <StandardListItem
+                    title="Costos Mexico"
+                    icon="sap-icon://money-bills"
+                    type="Active"
+                    press="onConfigCostosMexico" />
+            </List>
+        </content>
+    </Popover>
 
 </mvc:View>

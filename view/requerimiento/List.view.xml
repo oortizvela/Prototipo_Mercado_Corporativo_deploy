@@ -37,30 +37,27 @@
                     <content>
                         <VBox class="sapUiMediumMarginBeginEnd sapUiSmallMarginTopBottom">
 
-                            <!-- Canal -->
+                            <!-- Tipo Inversión -->
                             <VBox class="sapUiSmallMarginBottom">
-                                <Label text="Canal" required="true" labelFor="selCanal" />
-                                <Select id="selCanal"
-                                        change="onSelCanalChange"
-                                        selectedKey="{ui>/canalSeleccionado}"
+                                <Label text="Tipo Inversión" required="true" labelFor="selTipoInversion" />
+                                <Select id="selTipoInversion"
+                                        change="onSelTipoInversionChange"
+                                        selectedKey="{ui>/tipoInversionSeleccionado}"
                                         width="100%">
-                                    <core:Item key="Infraestructura"  text="Infraestructura" />
-                                    <core:Item key="Handset"          text="Handset" />
+                                    <core:Item key="InventarioMovil" text="Inventario Móvil" />
+                                    <core:Item key="CapexVariable"   text="CAPEX Variable (Para Cliente)" />
+                                    <core:Item key="CapexFijo"       text="CAPEX Fijo (Infraestructura)" />
                                 </Select>
                             </VBox>
 
-                            <!-- Línea de Negocio: solo cuando Canal = Infraestructura -->
-                            <VBox class="sapUiSmallMarginBottom"
-                                  visible="{= ${ui>/canalSeleccionado} === 'Infraestructura' }">
-                                <Label text="Línea de Negocio" required="true" labelFor="selLineaNegocio" />
-                                <Select id="selLineaNegocio"
-                                        selectedKey="{ui>/lineaNegocioSeleccionada}"
-                                        width="100%">
-                                    <core:Item key="RedMovil"           text="Red Movil" />
-                                    <core:Item key="RedFija"            text="Red Fija" />
-                                    <core:Item key="OM"                 text="O &amp; M" />
-                                    <core:Item key="ComprasLocales"     text="Compras Locales" />
-                                    <core:Item key="MercadoCorporativo" text="Mercado Corporativo" />
+                            <!-- Origen / Área -->
+                            <VBox class="sapUiSmallMarginBottom">
+                                <Label text="Origen / Área" required="true" labelFor="selOrigenArea" />
+                                <Select id="selOrigenArea"
+                                        selectedKey="{ui>/origenAreaSeleccionado}"
+                                        width="100%"
+                                        items="{path: 'ui>/origenAreaItems'}">
+                                    <core:Item key="{ui>key}" text="{ui>text}" />
                                 </Select>
                             </VBox>
 

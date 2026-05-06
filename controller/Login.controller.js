@@ -12,12 +12,13 @@ sap.ui.define([
         // ── Aprobadores Handset ───────────────────────────────────────────────
         { usuario: "jefe.planif",    password: "Claro2025!", rol: "Jefe Planificaci\u00f3n Comercial",    nombre: "Carlos Fernandez",     categoria: "Aprobador"     },
         { usuario: "gte.planif",     password: "Claro2025!", rol: "Gerente Planificaci\u00f3n Comercial", nombre: "Roberto Silva",        categoria: "Aprobador"     },
+        { usuario: "compras",        password: "Claro2025!", rol: "Compras",                              nombre: "Compras Claro",        categoria: "Aprobador"     },
         { usuario: "dir.masivo",     password: "Claro2025!", rol: "Director Mercado Masivo",         nombre: "Patricia Vega",        categoria: "Aprobador"     },
         // ── Aprobadores Infra (RM / RF / OM / CL) ────────────────────────────
         { usuario: "aprobador.infra",password: "Claro2025!", rol: "Aprobador Infraestructura",       nombre: "Luis Paredes",         categoria: "Aprobador"     },
         // ── Aprobadores MC ────────────────────────────────────────────────────
         { usuario: "aprobador.mc",   password: "Claro2025!", rol: "Analista Compras MC",             nombre: "Sandra Quispe",        categoria: "Aprobador"     },
-        { usuario: "dir.finanzas",   password: "Claro2025!", rol: "Director Finanzas",               nombre: "Carlos Solano Morales",categoria: "Aprobador"     },
+        { usuario: "dir.finanzas",   password: "Claro2025!", rol: "Director de Finanzas",          nombre: "Carlos Solano Morales",categoria: "Aprobador"     },
         // ── Administrador ─────────────────────────────────────────────────────
         { usuario: "admin1",         password: "Claro2025!", rol: "Administrador",                   nombre: "Administrador Sistema",categoria: "Administrador" }
     ];

@@ -1,4 +1,4 @@
-<mvc:View
+﻿<mvc:View
     controllerName="com.claro.compras.portal.controller.requerimiento.Detail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
@@ -59,6 +59,21 @@
                     type="Transparent"
                     visible="{= ${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esFact} &amp;&amp; !${ui>/esComercial}}"
                     press="onExportarExcel" />
+                <!-- Confirmaci&#243;n Cliente MC (disponible tras aprobaci&#243;n final) -->
+                <Button
+                    id="btnConfirmClienteMC"
+                    text="Confirmaci&#243;n Cliente"
+                    icon="sap-icon://customer-and-contacts"
+                    type="Emphasized"
+                    visible="{= ${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esFact} &amp;&amp; !${ui>/esComercial} &amp;&amp; ${estado} === 'Aprobado'}"
+                    press="onConfirmacionClienteMC" />
+                <!-- Finalizar Solicitud MC (disponible tras confirmaci&#243;n del cliente) -->
+                <Button
+                    text="Finalizar Solicitud"
+                    icon="sap-icon://complete"
+                    type="Emphasized"
+                    visible="{= ${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esFact} &amp;&amp; !${ui>/esComercial} &amp;&amp; ${estado} === 'Confirmado por Cliente'}"
+                    press="onFinalizarSolicitudMC" />
                 <!-- Botones MC Factibilidad -->
                 <MenuButton
                     text="Descarga/Carga"
@@ -143,7 +158,7 @@
                     buttonMode="Split"
                     defaultAction="onDescargarExcel"
                     type="Transparent"
-                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales}}">
+                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales} &amp;&amp; !${ui>/esCompras}}">
                     <menu>
                         <Menu>
                             <MenuItem text="Descargar Excel" icon="sap-icon://download" press="onExportarExcel" />
@@ -152,10 +167,10 @@
                     </menu>
                 </MenuButton>
                 <Button
-                    text="Enviar a Aprobación"
+                    text="Enviar a Aprobaci&#xF3;n"
                     icon="sap-icon://paper-plane"
                     type="Transparent"
-                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales}}"
+                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales} &amp;&amp; !${ui>/esCompras}}"
                     enabled="{= ${estado} === 'Borrador' || ${estado} === 'Registrado'}"
                     press="onEnviarAprobacion" />
                 <Button
@@ -163,8 +178,7 @@
                     text="Enviar a Firma"
                     icon="sap-icon://e-care"
                     type="Emphasized"
-                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales}}"
-                    enabled="{= ${estado} === 'Aprobado'}"
+                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales} &amp;&amp; ${estado} === 'Aprobado'}"
                     press="onEnviarFirmaActa" />
                 <Button
                     text="Exportar Excel"
@@ -184,8 +198,7 @@
                     text="Finalizar Solicitud"
                     icon="sap-icon://complete"
                     type="Emphasized"
-                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales}}"
-                    enabled="{= ${estado} === 'Enviado a Firma de Acta'}"
+                    visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales} &amp;&amp; ${estado} === 'Aprobado Director Finanzas'}"
                     press="onFinalizarSolicitud" />
                 <!-- Botones Red Movil -->
                 <MenuButton
@@ -379,18 +392,18 @@
                         <Text text="{titulo}" wrapping="true" />
                     </HBox>
                     <HBox width="50%" alignItems="Center">
-                        <Label text="Tipo de Solicitud:" width="12rem" design="Bold" />
-                        <Text text="{tipoSolicitud}" wrapping="true" />
+                        <Label text="Tipo Inversión:" width="12rem" design="Bold" />
+                        <Text text="{tipoInversion}" wrapping="true" />
                     </HBox>
                 </HBox>
                 <HBox width="100%" justifyContent="Start" alignItems="Center">
                     <HBox width="50%" alignItems="Center">
-                        <Label text="Canal:" width="10rem" design="Bold" />
-                        <Text text="{canal}" />
+                        <Label text="Tipo de Solicitud:" width="12rem" design="Bold" />
+                        <Text text="{tipoSolicitud}" wrapping="true" />
                     </HBox>
                     <HBox width="50%" alignItems="Center">
-                        <Label text="Línea de Negocio:" width="12rem" design="Bold" />
-                        <Text text="{lineaNegocio}" />
+                        <Label text="Origen / Área:" width="12rem" design="Bold" />
+                        <Text text="{origenArea}" />
                     </HBox>
                 </HBox>
             </VBox>
@@ -480,42 +493,57 @@
                                 <ScrollContainer horizontal="true" vertical="false" width="100%">
                                 <Table
                                     id="planItems"
+                                    width="auto"
                                     items="{items}"
                                     noDataText="No data"
                                     fixedLayout="false"
                                     class="reqItemsTable">
                                     <columns>
-                                        <Column width="3rem" hAlign="Center"><Text text="No." /></Column>
-                                        <Column width="12rem"><Text text="Modelo" /></Column>
-                                        <Column width="11rem"><Text text="Código" /></Column>
-                                        <Column width="9rem"><Text text="Código de Mater..." /></Column>
-                                        <Column width="9rem"><Text text="Color" /></Column>
-                                        <Column width="6rem" hAlign="End"><Text text="Cantidad" /></Column>
-                                        <Column width="9rem" hAlign="End"><Text text="Precio Facturación" /></Column>
-                                        <Column width="8rem" hAlign="End"><Text text="VIR Unitario" /></Column>
-                                        <Column width="9rem" hAlign="End"><Text text="Total Facturación" /></Column>
-                                        <Column width="7rem" hAlign="End"><Text text="Total VIR" /></Column>
-                                        <Column width="8rem" hAlign="End"><Text text="Total Neto" /></Column>
-                                        <Column width="7rem" hAlign="End"><Text text="Stock CD VES" /></Column>
-                                        <Column width="7rem" hAlign="End"><Text text="Stock Distrib." /></Column>
-                                        <Column width="7rem" hAlign="End" visible="{ui>/esDerivado}"><Text text="PA" /></Column>
+                                        <Column width="3rem" hAlign="Center"><Text text="No." wrapping="false" /></Column>
+                                        <Column width="12rem"><Text text="Modelo" wrapping="false" /></Column>
+                                        <Column width="10rem"><Text text="Código" wrapping="false" /></Column>
+                                        <Column width="9rem"><Text text="Cód. Material" wrapping="false" /></Column>
+                                        <Column width="9rem"><Text text="Color" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Cantidad" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Precio Facturación US$" wrapping="false" /></Column>
+                                        <Column width="8rem" hAlign="End"><Text text="VIR Unitario US$" wrapping="false" /></Column>
+                                        <Column width="8rem" hAlign="End"><Text text="Precio Neto US$" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Total Facturación US$" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End"><Text text="Total VIR US$" wrapping="false" /></Column>
+                                        <Column width="8rem" hAlign="End"><Text text="Total Neto US$" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Stock CD VES DD.MM" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End"><Text text="Stock Distribuido DD.MM" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Stock CD YES DD.MM" wrapping="false" /></Column>
+                                        <Column width="8rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Ventas DD.MM" wrapping="false" /></Column>
+                                        <Column width="9rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Ventas Proyectadas" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Ventas M-1" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Ventas M-2" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End" visible="{ui>/esCompras}"><Text text="Ventas M-3" wrapping="false" /></Column>
+                                        <Column width="7rem" hAlign="End" visible="{ui>/esDerivado}"><Text text="PA" wrapping="false" /></Column>
                                     </columns>
                                     <items>
                                         <ColumnListItem>
                                             <cells>
-                                                <Text text="{no}" textAlign="Center" />
+                                                <Text text="{no}" textAlign="Center" wrapping="false" />
                                                 <Text text="{modelo}" wrapping="false" />
-                                                <Text text="{codigo}" />
-                                                <Text text="{codigoMaterial}" />
-                                                <Text text="{color}" />
+                                                <Text text="{codigo}" wrapping="false" />
+                                                <Text text="{codigoMaterial}" wrapping="false" />
+                                                <Text text="{color}" wrapping="false" />
                                                 <Text text="{cantidad}" textAlign="End" />
                                                 <Text text="{path: 'precioFacturacion', formatter: '.fmtAmt'}" textAlign="End" />
                                                 <Text text="{path: 'virUnitario', formatter: '.fmtAmt'}" textAlign="End" />
+                                                <Text text="{path: 'precioNeto', formatter: '.fmtAmt'}" textAlign="End" />
                                                 <Text text="{path: 'totalFacturacion', formatter: '.fmtAmt'}" textAlign="End" class="reqAmountBold" />
                                                 <Text text="{path: 'totalVir', formatter: '.fmtAmt'}" textAlign="End" class="reqVirAmount" />
                                                 <Text text="{path: 'totalNeto', formatter: '.fmtAmt'}" textAlign="End" class="reqAmountBold" />
                                                 <Text text="{stockCDVES}" textAlign="End" />
                                                 <Text text="{stockDistribuido}" textAlign="End" />
+                                                <Text text="{stockCDYES}" textAlign="End" visible="{ui>/esCompras}" />
+                                                <Text text="{ventasDDMM}" textAlign="End" visible="{ui>/esCompras}" />
+                                                <Text text="{ventasProyectadas}" textAlign="End" visible="{ui>/esCompras}" />
+                                                <Text text="{ventasM1}" textAlign="End" visible="{ui>/esCompras}" />
+                                                <Text text="{ventasM2}" textAlign="End" visible="{ui>/esCompras}" />
+                                                <Text text="{ventasM3}" textAlign="End" visible="{ui>/esCompras}" />
                                                 <Text text="{pedidoAbierto}" textAlign="End" visible="{ui>/esDerivado}" />
                                             </cells>
                                         </ColumnListItem>
@@ -538,6 +566,7 @@
                                         <Text id="totalNeto" text="" class="reqTotalValue" />
                                     </VBox>
                                 </HBox>
+
                             </VBox>
 
                             <!-- Sección Contribuciones Samsung -->
@@ -613,8 +642,6 @@
                             </VBox>
                         </content>
                     </IconTabFilter>
-
-                    <!-- â”€â”€â”€â”€â”€â”€â”€â”€ PESTAÃ‘A 3: ADJUNTOS â”€â”€â”€â”€â”€â”€â”€â”€ -->
                     <IconTabFilter
                         icon="sap-icon://attachment"
                         text="Adjuntos"
@@ -622,46 +649,93 @@
                         visible="{= !${ui>/mercadoCorporativo} &amp;&amp; !${ui>/esRedMovil} &amp;&amp; !${ui>/esRedFija} &amp;&amp; !${ui>/esOM} &amp;&amp; !${ui>/esComprasLocales}}">
                         <content>
                             <VBox class="reqTabSection">
-                                <Table
-                                    id="adjuntosTable"
-                                    items="{adjuntos}"
-                                    noDataText="Sin archivos adjuntos. Use 'Adjuntar Archivo' para cargar cotizaciones, diseños y documentos."
-                                    class="reqItemsTable">
+
+                                <!-- Acuerdos con Proveedor -->
+                                <Panel class="formPanel">
                                     <headerToolbar>
                                         <OverflowToolbar>
-                                            <Title text="Documentos y Cotizaciones" level="H5" />
+                                            <VBox>
+                                                <Title text="Acuerdos con Proveedor" level="H5" />
+                                                <Text text="Formatos aceptados: .eml, .msg" class="sapUiTinyMarginTop" />
+                                            </VBox>
                                             <ToolbarSpacer />
-                                            <Button text="Adjuntar Archivo" type="Transparent" icon="sap-icon://upload" press="onUpload" />
+                                            <Button text="Adjuntar" type="Transparent" icon="sap-icon://upload" press="onUploadAcuerdo" />
                                         </OverflowToolbar>
                                     </headerToolbar>
-                                    <columns>
-                                        <Column><Text text="Nombre del Archivo" /></Column>
-                                        <Column width="7rem"><Text text="Tipo" /></Column>
-                                        <Column width="12rem"><Text text="Fecha de Carga" /></Column>
-                                        <Column><Text text="Cargado Por" /></Column>
-                                        <Column width="8rem" hAlign="Center"><Text text="Acciones" /></Column>
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem>
-                                            <cells>
-                                                <HBox alignItems="Center">
-                                                    <core:Icon
-                                                        src="{= ${tipo} === 'PDF' ? 'sap-icon://pdf-attachment' : ${tipo} === 'Excel' ? 'sap-icon://excel-attachment' : ${tipo} === 'Word' ? 'sap-icon://doc-attachment' : 'sap-icon://document'}"
-                                                        size="1rem"
-                                                        class="sapUiSmallMarginEnd" />
-                                                    <Text text="{nombre}" />
-                                                </HBox>
-                                                <Text text="{tipo}" />
-                                                <Text text="{fecha}" />
-                                                <Text text="{cargadoPor}" wrapping="false" />
-                                                <HBox justifyContent="Center">
-                                                    <Button icon="sap-icon://download" type="Transparent" tooltip="Descargar" press="onDescargarAdjunto" />
-                                                    <Button icon="sap-icon://delete"   type="Transparent" tooltip="Eliminar"  press="onDeleteAdjunto" />
-                                                </HBox>
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
+                                    <Table
+                                        id="adjuntosAcuerdosTable"
+                                        items="{adjuntosHS/acuerdos}"
+                                        noDataText="Sin acuerdos adjuntos."
+                                        class="reqItemsTable">
+                                        <columns>
+                                            <Column><Text text="Nombre" /></Column>
+                                            <Column width="6rem"><Text text="Tipo" /></Column>
+                                            <Column width="14rem"><Text text="Fecha" /></Column>
+                                            <Column><Text text="Cargado por" /></Column>
+                                            <Column width="5rem" hAlign="Center"><Text text="" /></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <HBox alignItems="Center">
+                                                        <core:Icon src="sap-icon://email" size="1rem" class="sapUiSmallMarginEnd" />
+                                                        <Text text="{nombre}" />
+                                                    </HBox>
+                                                    <Text text="{tipo}" />
+                                                    <Text text="{fecha}" />
+                                                    <Text text="{cargadoPor}" wrapping="false" />
+                                                    <HBox justifyContent="Center">
+                                                        <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteAcuerdo" />
+                                                    </HBox>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </Panel>
+
+                                <!-- Otros Archivos -->
+                                <Panel class="formPanel sapUiSmallMarginTop">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <VBox>
+                                                <Title text="Otros Archivos" level="H5" />
+                                                <Text text="Formatos aceptados: .doc, .docx" class="sapUiTinyMarginTop" />
+                                            </VBox>
+                                            <ToolbarSpacer />
+                                            <Button text="Adjuntar" type="Transparent" icon="sap-icon://upload" press="onUploadOtroArchivo" />
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <Table
+                                        id="adjuntosOtrosTable"
+                                        items="{adjuntosHS/otrosArchivos}"
+                                        noDataText="Sin archivos adjuntos."
+                                        class="reqItemsTable">
+                                        <columns>
+                                            <Column><Text text="Nombre" /></Column>
+                                            <Column width="6rem"><Text text="Tipo" /></Column>
+                                            <Column width="14rem"><Text text="Fecha" /></Column>
+                                            <Column><Text text="Cargado por" /></Column>
+                                            <Column width="5rem" hAlign="Center"><Text text="" /></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <HBox alignItems="Center">
+                                                        <core:Icon src="sap-icon://document-text" size="1rem" class="sapUiSmallMarginEnd" />
+                                                        <Text text="{nombre}" />
+                                                    </HBox>
+                                                    <Text text="{tipo}" />
+                                                    <Text text="{fecha}" />
+                                                    <Text text="{cargadoPor}" wrapping="false" />
+                                                    <HBox justifyContent="Center">
+                                                        <Button icon="sap-icon://delete" type="Transparent" tooltip="Eliminar" press="onDeleteOtroArchivo" />
+                                                    </HBox>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </Panel>
+
                             </VBox>
                         </content>
                     </IconTabFilter>
@@ -836,48 +910,6 @@
                                     <Label text="Cantidad Promedio Mensual" class="reqVentasPromedioLabel" />
                                     <Text id="cantidadPromedio" text="0 unidades" class="reqVentasPromedio" />
                                 </VBox>
-                            </VBox>
-                        </content>
-                    </IconTabFilter>
-
-                    <!-- TAB 5: PEDIDOS ABIERTOS (solo Handset Derivado) -->
-                    <IconTabFilter
-                        icon="sap-icon://open-folder"
-                        text="Pedidos Ab..."
-                        key="pedidosAbiertos"
-                        visible="{= !${ui>/mercadoCorporativo} &amp;&amp; ${ui>/esDerivado}}">
-                        <content>
-                            <VBox class="reqTabSection">
-                                <Title text="Pedidos Abiertos Asociados" level="H4" class="reqSectionTitle" />
-                                <Table
-                                    id="pedidosAbiertosTable"
-                                    items="{pedidosAbiertos}"
-                                    noDataText="Sin pedidos abiertos asociados a esta solicitud."
-                                    growing="true"
-                                    growingThreshold="10">
-                                    <columns>
-                                        <Column width="11rem"><Text text="N° Pedido" /></Column>
-                                        <Column><Text text="Descripción" /></Column>
-                                        <Column width="9rem"><Text text="Proveedor" /></Column>
-                                        <Column width="8rem" hAlign="End"><Text text="Cantidad" /></Column>
-                                        <Column width="10rem" hAlign="End"><Text text="Importe USD" /></Column>
-                                        <Column width="10rem"><Text text="Estado" /></Column>
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem type="Active" press="onPedidoAbiertoPress">
-                                            <cells>
-                                                <Link text="{pedidoId}" press="onPedidoAbiertoPress" />
-                                                <Text text="{descripcion}" wrapping="false" />
-                                                <Text text="{proveedor}" wrapping="false" />
-                                                <Text text="{cantidad}" textAlign="End" />
-                                                <Text text="{importeUSD}" textAlign="End" />
-                                                <ObjectStatus
-                                                    text="{estado}"
-                                                    state="{= ${estado} === 'Cerrado' ? 'Error' : ${estado} === 'Liberado' ? 'Success' : 'Warning'}" />
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
                             </VBox>
                         </content>
                     </IconTabFilter>
@@ -2265,5 +2297,23 @@
             </IconTabBar>
 
         </content>
+        <!-- Footer Compras: Conforme / Rechazar -->
+        <footer>
+            <Toolbar
+                visible="{= ${ui>/esCompras} &amp;&amp; (${estado} === 'En Aprobaci&#xF3;n' || ${estado} === 'Pendiente Aprobaci&#xF3;n')}">
+                <ToolbarSpacer />
+                <Button
+                    text="Rechazar"
+                    icon="sap-icon://sys-cancel-2"
+                    type="Reject"
+                    press="onRechazarCompras"
+                    class="sapUiSmallMarginEnd" />
+                <Button
+                    text="Conforme"
+                    icon="sap-icon://sys-enter-2"
+                    type="Accept"
+                    press="onConformeCompras" />
+            </Toolbar>
+        </footer>
     </Page>
 </mvc:View>
